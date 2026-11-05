@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% set pageTitle = listing.metaTitle or metaTitle or seoTitle or title %}
+  {% set pageDescription = listing.metaDescription or metaDescription or description %}
+  {% set canonical = site.url + page.url %}
+  <title>{{ pageTitle }}</title>
+  <meta name="description" content="{{ pageDescription }}">
+  <link rel="canonical" href="{{ canonical }}">
+  <meta name="theme-color" content="#000000">
+
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:type" content="{{ 'article' if featured else 'website' }}">
+  <meta property="og:title" content="{{ pageTitle }}">
+  <meta property="og:description" content="{{ pageDescription }}">
+  <meta property="og:url" content="{{ canonical }}">
+  {% set shareImage = featured or site.index_hero %}
+  {% if shareImage %}
+  <meta property="og:image" content="{{ shareImage.url | unsplash(1200) }}">
+  <meta name="twitter:image" content="{{ shareImage.url | unsplash(1200) }}">
+  {% endif %}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ pageTitle }}">
+  <meta name="twitter:description" content="{{ pageDescription }}">
+
+  <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="/feed.xml">
+  <link rel="icon" href="/assets/favicon.jpg" type="image/jpeg">
+  <link rel="preload" href="/assets/fonts/oswald-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/site.css">
+  {% if slug %}
+  <script type="application/ld+json">{{ { "title": title, "description": description, "date": date, "updated": updated, "featured": featured, "primaryKeyword": primaryKeyword, "secondaryKeywords": secondaryKeywords, "category": category, "faq": faq } | postSchema(site, taxonomy, page.url) | jsonLd | safe }}</script>
+  {% else %}
+  <script type="application/ld+json">{{ listing | listSchema(site) | jsonLd | safe }}</script>
+  {% endif %}
+</head>
+<body>
+  <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+  {% include "partials/header.njk" %}
+  <main id="inhalt">
+    {{ content | safe }}
+  </main>
+  {% include "partials/footer.njk" %}
+</body>
+</html>

@@ -1,0 +1,83 @@
+---
+layout: base.njk
+pagination:
+  data: collections.listPages
+  size: 1
+  alias: listing
+permalink: "{{ listing.url }}"
+eleventyExcludeFromCollections: true
+---
+{% set postAudience = listing.category.audience if listing.category else 'ihr' %}
+{% set postInquiry = listing.category.inquiry if listing.category else 'hochzeit' %}
+<section class="hero hero--index">
+  {% if site.index_hero %}
+  <img class="hero__image"
+       src="{{ site.index_hero.url | unsplash(1600) }}"
+       srcset="{{ site.index_hero.url | unsplash(800) }} 800w, {{ site.index_hero.url | unsplash(1600) }} 1600w, {{ site.index_hero.url | unsplash(2200) }} 2200w"
+       sizes="100vw" width="{{ site.index_hero.width }}" height="{{ site.index_hero.height }}"
+       alt="{{ site.index_hero.alt }}" fetchpriority="high">
+  {% endif %}
+  <div class="hero__inner">
+    {% if listing.category %}
+    <nav class="breadcrumb" aria-label="Brotkrumen"><a href="/">Blog</a> <span aria-hidden="true">/</span> {{ listing.category.name }}</nav>
+    <h1 class="hero__title">{{ listing.category.name }}</h1>
+    <p class="hero__subline">Beiträge aus dem DJ MOSTAR Blog</p>
+    {% else %}
+    <h1 class="hero__title">DJ MOSTAR Blog Hamburg</h1>
+    <p class="hero__subline">Hochzeit · Firmenevents · Private Feiern · Musik</p>
+    {% endif %}
+    <hr class="hero__rule">
+    <p class="hero__lead">Praktische Tipps für Hochzeiten, Firmenevents und private Feiern in Hamburg und Umgebung.</p>
+  </div>
+  {% if site.index_hero %}
+  <p class="hero__credit">Foto: <a href="{{ site.index_hero.photographerUrl | utm }}" target="_blank" rel="noopener">{{ site.index_hero.photographer }}</a> auf <a href="{{ '' | utm }}" target="_blank" rel="noopener">Unsplash</a></p>
+  {% endif %}
+</section>
+
+<section class="section section--cream" aria-labelledby="beitraege-titel">
+  <div class="listing">
+    <h2 class="listing__title" id="beitraege-titel">Neueste <em>Beiträge</em></h2>
+
+    <nav class="filters" aria-label="Kategorien">
+      <a class="pill{{ ' pill--active' if not listing.category else '' }}" href="/"{% if not listing.category %} aria-current="page"{% endif %}>Alle</a>
+      {% for item in taxonomy.categories %}
+      <a class="pill{{ ' pill--active' if listing.category and listing.category.slug == item.slug else '' }}" href="/kategorie/{{ item.slug }}/"{% if listing.category and listing.category.slug == item.slug %} aria-current="page"{% endif %}>{{ item.name }}</a>
+      {% endfor %}
+    </nav>
+
+    {% if listing.posts.length %}
+    <div class="cards">
+      {% for post in listing.posts %}
+        {% set lead = loop.first and listing.number == 1 %}
+        {% include "partials/card.njk" %}
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="listing__empty">Die ersten Beiträge erscheinen in Kürze.</p>
+    {% endif %}
+
+    {% if listing.total > 1 %}
+    <nav class="pagination" aria-label="Seiten">
+      {% if listing.previousUrl %}<a href="{{ listing.previousUrl }}" rel="prev">← Neuere Beiträge</a>{% else %}<span></span>{% endif %}
+      <span>Seite {{ listing.number }} von {{ listing.total }}</span>
+      {% if listing.nextUrl %}<a href="{{ listing.nextUrl }}" rel="next">Ältere Beiträge →</a>{% else %}<span></span>{% endif %}
+    </nav>
+    {% endif %}
+  </div>
+</section>
+
+{% if listing.category %}
+  {% include "partials/cta.njk" %}
+{% else %}
+<section class="section section--black cta" aria-labelledby="cta-titel">
+  <div class="cta__inner">
+    <h2 class="cta__title" id="cta-titel">Feier geplant? <em>Jetzt anfragen</em></h2>
+    <hr class="cta__rule">
+    <div class="cta__actions">
+      <a class="button button--gold" href="{{ site.inquiry.hochzeit }}">Anfrage für die Hochzeit</a>
+      <a class="button button--gold" href="{{ site.inquiry.firmenfeier }}">Anfrage für Firmenevents</a>
+      <a class="button button--whatsapp" href="{{ site.contact.whatsapp }}" target="_blank" rel="noopener">Per WhatsApp schreiben</a>
+    </div>
+  </div>
+</section>
+{% endif %}

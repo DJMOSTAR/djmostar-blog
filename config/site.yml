@@ -1,0 +1,48 @@
+# Everything visitors see in the header and footer is edited here.
+url: https://blog.djmostar.de
+main_site: https://djmostar.de
+name: DJ MOSTAR Blog
+posts_per_page: 10
+
+# Swap the file in src/assets, then update this path and the size.
+logo:
+  src: /assets/logo.jpg
+  alt: DJ MOSTAR
+  width: 600
+  height: 270
+
+# Add section anchors here once they are confirmed, e.g. https://djmostar.de/#galerie
+nav:
+  - { label: Hochzeit, url: "https://djmostar.de/hochzeit" }
+  - { label: Firmenevents, url: "https://djmostar.de/firmenfeier" }
+  - { label: Über mich, url: "https://djmostar.de/" }
+  - { label: Galerie, url: "https://djmostar.de/" }
+  - { label: FAQ, url: "https://djmostar.de/" }
+
+# Add #anfrage or similar here once confirmed.
+inquiry:
+  header: https://djmostar.de/hochzeit
+  hochzeit: https://djmostar.de/hochzeit
+  firmenfeier: https://djmostar.de/firmenfeier
+
+contact:
+  email: info@djmostar.de
+  phone_display: +49 175 4193485
+  phone_e164: "+491754193485"
+  whatsapp: https://wa.me/message/NKVCGG2LGUV2J1
+
+social:
+  - { label: Facebook, icon: facebook, url: "https://www.facebook.com/p/Djmostar-61574678697365/" }
+  - { label: TikTok, icon: tiktok, url: "https://www.tiktok.com/@dj.mostar" }
+  - { label: Instagram, icon: instagram, url: "https://www.instagram.com/dj.mostar/" }
+  - { label: YouTube, icon: youtube, url: "https://www.youtube.com/@DJ-MOSTAR" }
+
+footer_tagline: Dein DJ für unvergessliche Hochzeiten & Firmenevents in Hamburg und Umgebung.
+legal_url: https://djmostar.de/impressum
+
+ai_note:
+  enabled: true
+  text: Dieser Beitrag wurde KI-gestützt erstellt und automatisch geprüft.
+
+# Unsplash photo behind the blog index. Without one, the hero is plain black.
+index_hero: null

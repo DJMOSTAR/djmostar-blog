@@ -1,0 +1,18 @@
+{# Wedding and private articles use "ihr", corporate articles use "Sie". #}
+<section class="section section--black cta" aria-labelledby="cta-titel">
+  <div class="cta__inner">
+    {% if postAudience == 'sie' %}
+    <h2 class="cta__title" id="cta-titel">Angebot <em>für Ihr Firmenevent</em></h2>
+    <hr class="cta__rule">
+    <p class="cta__text">Erzählen Sie mir kurz von Ihrer Veranstaltung. Alles Weitere besprechen wir persönlich.</p>
+    {% else %}
+    <h2 class="cta__title" id="cta-titel">Ist euer Hochzeitsdatum <em>noch frei?</em></h2>
+    <hr class="cta__rule">
+    <p class="cta__text">Erzählt mir kurz von eurer Feier. Alles Weitere besprechen wir persönlich.</p>
+    {% endif %}
+    <div class="cta__actions">
+      <a class="button button--gold" href="{{ site.inquiry[postInquiry] }}">Unverbindliches Angebot anfragen</a>
+      <a class="button button--whatsapp" href="{{ site.contact.whatsapp }}" target="_blank" rel="noopener">Per WhatsApp schreiben</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+<header class="site-header">
+  <div class="site-header__bar">
+    <a class="site-header__logo" href="{{ site.main_site }}" aria-label="Zur Startseite von DJ MOSTAR">
+      <img src="{{ site.logo.src }}" width="{{ site.logo.width }}" height="{{ site.logo.height }}" alt="{{ site.logo.alt }}">
+    </a>
+    <nav class="nav nav--desktop" aria-label="Hauptmenü">
+      {% for item in site.nav %}<a href="{{ item.url }}">{{ item.label }}</a>{% endfor %}
+      <a class="is-active" href="/" aria-current="page">Blog</a>
+    </nav>
+    <div class="social social--header">
+      {% for item in site.social %}{% set iconName = item.icon %}<a href="{{ item.url }}" target="_blank" rel="noopener" aria-label="{{ item.label }}">{% include "partials/icon.njk" %}</a>{% endfor %}
+    </div>
+    <a class="button button--gold button--small" href="{{ site.inquiry.header }}">Anfrage</a>
+    <details class="nav-mobile">
+      <summary aria-label="Menü öffnen oder schließen">
+        <span class="nav-mobile__icon" aria-hidden="true"><i></i><i></i><i></i></span>
+      </summary>
+      <nav class="nav nav--mobile" aria-label="Mobiles Menü">
+        {% for item in site.nav %}<a href="{{ item.url }}">{{ item.label }}</a>{% endfor %}
+        <a class="is-active" href="/" aria-current="page">Blog</a>
+      </nav>
+    </details>
+  </div>
+</header>
