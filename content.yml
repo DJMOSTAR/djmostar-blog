@@ -1,0 +1,23 @@
+# Controlled list of categories and tags. Articles may only use these.
+# audience: ihr or sie. inquiry: the page the call to action links to.
+categories:
+  - { slug: hochzeit, name: Hochzeit, audience: ihr, inquiry: hochzeit }
+  - { slug: firmenfeier, name: Firmenevents, audience: sie, inquiry: firmenfeier }
+  - { slug: private-feiern, name: Private Feiern, audience: ihr, inquiry: hochzeit }
+  - { slug: hamburg-umgebung, name: Hamburg & Umgebung, audience: ihr, inquiry: hochzeit }
+  - { slug: musik, name: Musik, audience: ihr, inquiry: hochzeit }
+
+tags:
+  - Planung
+  - Musik
+  - Eröffnungstanz
+  - Location
+  - Weihnachtsfeier
+  - Sommerfest
+  - Jubiläum
+  - Gala
+  - Geburtstag
+  - Hamburg
+  - Umgebung
+  - Internationale Musik
+  - Gästewünsche

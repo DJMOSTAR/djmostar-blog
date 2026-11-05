@@ -1,0 +1,13 @@
+<section class="section section--cream section--faq" aria-labelledby="faq-titel">
+  <div class="faq">
+    <h2 class="faq__title" id="faq-titel">Häufige <em>Fragen</em></h2>
+    <div class="faq__list">
+      {% for entry in faq %}
+      <div class="faq__item">
+        <h3>{{ entry.question }}</h3>
+        <p>{{ entry.answer }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
