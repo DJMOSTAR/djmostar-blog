@@ -1,0 +1,84 @@
+# Publishes the next approved article. Needs no AI, so a Pro limit can't block it.
+name: Publish article
+
+on:
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: Leave empty
+        type: string
+        default: ""
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.repository == 'DJMOSTAR/djmostar-blog'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    outputs:
+      merged: ${{ steps.run.outputs.merged }}
+      url: ${{ steps.run.outputs.url }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - id: run
+        name: Check and merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DRY_RUN: ${{ vars.DRY_RUN }}
+          AUTO_PUBLISH: ${{ vars.AUTO_PUBLISH }}
+          SLOT: ${{ inputs.slot }}
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+        run: node scripts/run-publish.js
+      - name: Report a crash
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WORKFLOW_NAME: Veröffentlichen
+          SLOT: ${{ inputs.slot }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: node scripts/notify-failure.js
+
+  deploy:
+    needs: publish
+    if: needs.publish.outputs.merged == 'true'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy.yml
+
+  confirm:
+    needs: [publish, deploy]
+    if: always() && needs.publish.outputs.merged == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - name: Check the article is online and send the notice
+        env:
+          GH_TOKEN: ${{ github.token }}
+          POST_URL: ${{ needs.publish.outputs.url }}
+          DEPLOY_RESULT: ${{ needs.deploy.result }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: node scripts/confirm-publish.js

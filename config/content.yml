@@ -21,3 +21,67 @@ tags:
   - Umgebung
   - Internationale Musik
   - Gästewünsche
+
+# ---------------------------------------------------------------------------
+# Automation settings
+# ---------------------------------------------------------------------------
+ai:
+  model: claude-sonnet-5-5   # Change the model in this one place.
+  max_turns: { topics: 6, writer: 14, editor: 12 }
+
+limits:
+  monthly_articles: 10
+  max_waiting_drafts: 2      # Applies when AUTO_PUBLISH=false.
+  min_score: 85
+  max_passes: 3              # First draft plus 2 regenerations or corrections.
+
+calendar:
+  target_upcoming: 8
+  refill_below: 4
+
+article:
+  min_words: 1000
+  max_words: 1600
+  seo_title_max: 60
+  description_min: 140
+  description_max: 160
+  faq_min: 3
+  faq_max: 5
+  secondary_keywords_min: 3
+  secondary_keywords_max: 6
+  inline_images_min: 1
+  inline_images_max: 2
+
+# Local text comparison only. This is not an internet plagiarism check.
+similarity:
+  title_max: 0.7
+  keyword_max: 0.85
+  body_max: 0.55
+
+# Seed terms for Google autocomplete.
+seed_terms:
+  hochzeit: [Hochzeits DJ Hamburg, DJ für Hochzeit Hamburg, Hochzeits DJ buchen, Hochzeit Musik planen, Eröffnungstanz Hochzeit]
+  firmenfeier: [DJ für Firmenfeier Hamburg, DJ Firmenevent Hamburg, Weihnachtsfeier Firma planen, Sommerfest Firma planen, Firmenjubiläum feiern]
+  private-feiern: [DJ Geburtstag Hamburg, DJ für Geburtstag, Geburtstagsfeier planen Hamburg, DJ private Feier Hamburg]
+  hamburg-umgebung: [DJ Norderstedt, DJ Pinneberg, DJ Ahrensburg, DJ Lüneburg, DJ Buxtehude, DJ Elmshorn, DJ Halstenbek]
+  musik: [Musik für Hochzeit, Musikwünsche Gäste Party, Partymusik 90er 2000er, internationale Musik Hochzeit]
+
+# Seasonal topic preference. Months are 1 to 12.
+seasons:
+  - { months: [8, 9, 10, 11], categories: [firmenfeier], terms: [weihnachtsfeier], note: Weihnachtsfeier-Themen }
+  - { months: [12, 1, 2, 3], categories: [hochzeit], terms: [hochzeit], note: Planung der Hochzeitssaison }
+  - { months: [3, 4, 5], categories: [firmenfeier, private-feiern], terms: [sommerfest, sommer, garten], note: Sommerfeste und Sommerpartys }
+
+# Reputable sites articles may link to. Every link is also checked live.
+external_sources:
+  - { domain: hamburg.de, url: "https://www.hamburg.de/", use: Offizielle Infos der Stadt Hamburg }
+  - { domain: hamburg-travel.com, url: "https://www.hamburg-travel.com/", use: Offizielles Tourismusportal Hamburg }
+  - { domain: gema.de, url: "https://www.gema.de/", use: Musiknutzung bei Veranstaltungen }
+  - { domain: ihk.de, url: "https://www.ihk.de/", use: Informationen für Unternehmen }
+  - { domain: norderstedt.de, url: "https://www.norderstedt.de/", use: Stadt Norderstedt }
+  - { domain: pinneberg.de, url: "https://www.pinneberg.de/", use: Stadt Pinneberg }
+  - { domain: ahrensburg.de, url: "https://www.ahrensburg.de/", use: Stadt Ahrensburg }
+  - { domain: halstenbek.de, url: "https://www.halstenbek.de/", use: Gemeinde Halstenbek }
+  - { domain: elmshorn.de, url: "https://www.elmshorn.de/", use: Stadt Elmshorn }
+  - { domain: buxtehude.de, url: "https://www.buxtehude.de/", use: Stadt Buxtehude }
+  - { domain: lueneburg.de, url: "https://www.lueneburg.de/", use: Hansestadt Lüneburg }

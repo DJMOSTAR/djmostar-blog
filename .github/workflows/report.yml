@@ -1,0 +1,28 @@
+# Monthly Search Console report. It does nothing until the secret GSC_SERVICE_ACCOUNT_JSON exists.
+name: Monthly report
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  report:
+    if: github.repository == 'DJMOSTAR/djmostar-blog'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - name: Build the report
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: node scripts/run-report.js

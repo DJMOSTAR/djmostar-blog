@@ -19,6 +19,7 @@ Button names can shift slightly when providers update their sites. If a label di
 | 11 | Unsplash production access | You | 10 min, after the first live post |
 | Appendix A | Search Console API, only if you want it later | You | 15 min |
 | Appendix B | Switch from Pro to an API key, only if you want it later | You | 10 min |
+| Appendix C | Upload a new version of the files | You | 5 min |
 
 **Keep these safe.** Save every key in a password manager while you work. Never put a key in a repository file, a chat, a screenshot or a Pull Request. The repository is public.
 
@@ -400,6 +401,36 @@ To go back to Pro, reverse steps 5 and 6.
 
 ---
 
+## Appendix C: Upload a new version of the files
+
+Use this whenever you get a new `djmostar-blog.zip`.
+
+1. Save the zip to **Downloads**.
+2. Open PowerShell and paste this block:
+
+   ```powershell
+   cd $HOME\repo-fix
+   git pull
+   $zip = Get-ChildItem "$HOME\Downloads\djmostar-blog*.zip" | Sort-Object LastWriteTime | Select-Object -Last 1
+   Remove-Item -Recurse -Force "$HOME\blog-files" -ErrorAction SilentlyContinue
+   Expand-Archive -Path $zip.FullName -DestinationPath "$HOME\blog-files" -Force
+   Test-Path "$HOME\blog-files\djmostar-blog\src\_includes\base.njk"
+   ```
+
+3. The last line must print **True**. If it doesn't, stop.
+4. Paste this block:
+
+   ```powershell
+   Copy-Item -Path "$HOME\blog-files\djmostar-blog\*" -Destination . -Recurse -Force
+   git add -A
+   git commit -m "Update the blog files"
+   git push
+   ```
+
+5. Open the **Actions** tab and check that **Deploy site** goes green.
+
+---
+
 ## Troubleshooting
 
 | Problem | Likely cause | Fix |
@@ -411,7 +442,6 @@ To go back to Pro, reverse steps 5 and 6.
 | Workflow error mentioning a Pull Request or permissions | Part 2 settings are missing | Repeat "Let the workflows create Pull Requests". |
 | Claude step fails with a login or authentication error | The token is wrong, expired or revoked, or the Pro plan ended | Repeat "Create the token" in Part 5, update the secret, and update `CLAUDE_TOKEN_CREATED`. |
 | An Issue says the Pro limit was reached | Your Pro usage ran out | The system retries later that day, up to 3 times. If all fail, that article is skipped. Nothing partial is published. |
-| Claude step rejects a bot actor | `github-actions[bot]` isn't allowed to start the action | Tell me which workflow failed. It should already be allowed in `claude-step`. |
 | Claude step reports the model isn't available | Your plan doesn't include the model set in `config/content.yml` | Change the model in `config/content.yml`. |
 | Unsplash error 401 | The Secret Key was used instead of the Access Key | Update the secret with the Access Key. |
 | Issues appear but no email arrives | Email is off for participating notifications, or it went to spam or another address | Repeat Part 6 and check your spam folder. |

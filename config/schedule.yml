@@ -1,0 +1,23 @@
+# Change publishing days and times here. All times are Berlin time.
+# Days: monday, tuesday, wednesday, thursday, friday, saturday, sunday.
+time_zone: Europe/Berlin
+
+generate:
+  - { day: monday, time: "09:00" }
+  - { day: thursday, time: "09:00" }
+
+publish:
+  - { day: tuesday, time: "10:00" }
+  - { day: friday, time: "10:00" }
+
+# Runs only when Search Console is switched on.
+report: { day_of_month: 1, time: "08:00" }
+
+# A slot still runs if GitHub starts the scheduler this many hours late.
+catch_up_hours: 8
+
+# Hours after the slot to retry when a Claude run fails, for example at a Pro limit.
+limit_retry_hours: [2.5, 5, 7.5]
+
+# Warn this many days before the one-year Claude token expires.
+token_warning_days: 30

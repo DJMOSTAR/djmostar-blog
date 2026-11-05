@@ -1,4 +1,4 @@
-# Tests the site with a test article, then builds and publishes the real site.
+# Tests the code and the templates, then builds and publishes the site.
 # The test article is never published.
 name: Deploy site
 
@@ -21,11 +21,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      # Always the newest main: publish.yml merges just before calling this workflow.
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
       - run: npm install --no-audit --no-fund
+      - name: Test the rules and scheduling
+        run: npm test
       - name: Test the templates with the test article
         run: |
           PREVIEW=1 npx @11ty/eleventy --output=_preview
@@ -34,8 +39,8 @@ jobs:
         run: npx @11ty/eleventy
       - name: Check the real site
         run: node tests/check-site.js _site
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
 
@@ -47,4 +52,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

@@ -1,0 +1,54 @@
+# One pass: write (unless a correction is waiting), run the code checks, then editor review.
+name: Article pass
+description: Writes and checks one version of the article.
+
+inputs:
+  pass: { description: Pass number, required: true }
+  model: { description: Claude model, required: true }
+  turns_writer: { description: Writer turn limit, required: true }
+  turns_editor: { description: Editor turn limit, required: true }
+  claude_code_oauth_token: { description: Claude token, required: false, default: "" }
+  anthropic_api_key: { description: Optional API key, required: false, default: "" }
+  github_token: { description: Workflow token, required: true }
+
+runs:
+  using: composite
+  steps:
+    - id: start
+      shell: bash
+      run: node scripts/article-pass.js start "${{ inputs.pass }}"
+
+    - if: steps.start.outputs.need_write == 'true'
+      uses: ./.github/actions/claude-step
+      with:
+        step_name: writer-${{ inputs.pass }}
+        prompt_file: .work/prompt-writer.md
+        schema_file: .work/schema-article.json
+        output_file: .work/out-writer-${{ inputs.pass }}.json
+        model: ${{ inputs.model }}
+        max_turns: ${{ inputs.turns_writer }}
+        claude_code_oauth_token: ${{ inputs.claude_code_oauth_token }}
+        anthropic_api_key: ${{ inputs.anthropic_api_key }}
+        github_token: ${{ inputs.github_token }}
+
+    - id: check
+      if: steps.start.outputs.run == 'true'
+      shell: bash
+      run: node scripts/article-pass.js check "${{ inputs.pass }}"
+
+    - if: steps.check.outputs.need_review == 'true'
+      uses: ./.github/actions/claude-step
+      with:
+        step_name: editor-${{ inputs.pass }}
+        prompt_file: .work/prompt-editor.md
+        schema_file: .work/schema-editor.json
+        output_file: .work/out-editor-${{ inputs.pass }}.json
+        model: ${{ inputs.model }}
+        max_turns: ${{ inputs.turns_editor }}
+        claude_code_oauth_token: ${{ inputs.claude_code_oauth_token }}
+        anthropic_api_key: ${{ inputs.anthropic_api_key }}
+        github_token: ${{ inputs.github_token }}
+
+    - if: steps.start.outputs.run == 'true'
+      shell: bash
+      run: node scripts/article-pass.js finish "${{ inputs.pass }}"

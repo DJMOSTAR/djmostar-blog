@@ -1,0 +1,178 @@
+// One pass of write, check and review. generate.yml runs up to three passes.
+// Usage: node scripts/article-pass.js start|check|finish <pass number>
+const fs = require("node:fs");
+const { loadConfig, work, readJson, writeJson, setOutputs, fromRoot } = require("./lib/config");
+const { knownPosts, publishedPosts, usedImageIds } = require("./lib/data");
+const { checkArticle, checkOriginality, checkLiveLinks, audienceFor, findCategory } = require("./lib/rules");
+
+const [step, passArg] = process.argv.slice(2);
+const pass = Number(passArg);
+const config = loadConfig();
+const { content, site, rules, facts } = config;
+
+const addressText = (audience) => (audience === "sie" ? 'formell mit "Sie" und "Ihr" (großgeschrieben), nie "ihr" oder "euch"' : 'informell mit "ihr" und "euch", nie "Sie"');
+const fill = (template, values) => template.replace(/\{\{(\w+)\}\}/g, (_, key) => (values[key] === undefined ? "" : String(values[key])));
+const lastAiError = () => { const log = readJson(work("ai-log.json"), []); return log[log.length - 1] || { kind: "other", message: "Unknown failure" }; };
+
+function imageList(images, chosen) {
+  return Object.values(images)
+    .filter((image) => !chosen || chosen.includes(image.id))
+    .map((image) => `- id \`${image.id}\`: Datei \`${image.file}\`, ${image.width}x${image.height}${image.description ? `, Beschreibung der Quelle: ${image.description}` : ""}`)
+    .join("\n");
+}
+
+function buildWriterPrompt(run, images, state) {
+  const topic = run.topic;
+  const category = findCategory(content, topic.category);
+  const audience = topic.audience || category.audience;
+  const inquiryUrl = site.inquiry[topic.inquiry || category.inquiry];
+  const related = publishedPosts();
+  const feedback = state.feedback.length
+    ? `## Rückmeldung zum vorherigen Entwurf\n\nDer vorherige Entwurf wurde abgelehnt. Behebe unbedingt:\n${state.feedback.map((entry) => `- ${entry}`).join("\n")}`
+    : "";
+  return fill(fs.readFileSync(fromRoot("prompts/writer.md"), "utf8"), {
+    title: topic.title,
+    category: category.name,
+    categorySlug: category.slug,
+    addressRule: addressText(audience),
+    today: new Date().toISOString().slice(0, 10),
+    facts,
+    forbidden: rules.forbidden_phrases.map((phrase) => `- ${phrase}`).join("\n"),
+    minWords: content.article.min_words,
+    maxWords: content.article.max_words,
+    targetWords: Math.round((content.article.min_words + content.article.max_words) / 2),
+    faqMin: content.article.faq_min,
+    faqMax: content.article.faq_max,
+    secondaryMin: content.article.secondary_keywords_min,
+    secondaryMax: content.article.secondary_keywords_max,
+    suggestions: (run.suggestions || []).map((entry) => `- ${entry}`).join("\n") || "- keine verfügbar",
+    seeds: (topic.seeds || []).join(", "),
+    seoMax: content.article.seo_title_max,
+    descMin: content.article.description_min,
+    descMax: content.article.description_max,
+    tags: content.tags.join(", "),
+    inquiryUrl,
+    homeUrl: site.main_site.endsWith("/") ? site.main_site : `${site.main_site}/`,
+    relatedRule: related.length ? "1 bis 3 passende Beiträge, nur diese URLs:" : "es gibt noch keine, also keine Blog-Links setzen.",
+    relatedPosts: related.slice(-15).map((post) => `  - ${post.title}: ${site.url}/${post.slug}/`).join("\n"),
+    externalSources: content.external_sources.map((source) => `  - ${source.url} (${source.use})`).join("\n"),
+    imageList: imageList(images),
+    inlineMin: content.article.inline_images_min,
+    inlineMax: content.article.inline_images_max,
+    feedback,
+  });
+}
+
+function buildEditorPrompt(article, images) {
+  return fill(fs.readFileSync(fromRoot("prompts/editor.md"), "utf8"), {
+    articleFile: ".work/candidate.json",
+    imageList: imageList(images, [article.featured && article.featured.id, ...(article.inlineImages || []).map((image) => image.id)]),
+    facts,
+    forbidden: rules.forbidden_phrases.join(", "),
+    addressRule: addressText(audienceFor(article, content)),
+    minScore: content.limits.min_score,
+  });
+}
+
+function start() {
+  const state = readJson(work("pass.json"));
+  if (state.passed || state.aiFailure) return setOutputs({ run: "false", need_write: "false" });
+  const run = readJson(work("run.json"));
+  const images = readJson(work("images.json"));
+  if (state.pending) {
+    writeJson(work("candidate.json"), state.pending);
+    state.pending = null;
+    state.candidateIsCorrection = true;
+    writeJson(work("pass.json"), state);
+    return setOutputs({ run: "true", need_write: "false" });
+  }
+  state.candidateIsCorrection = false;
+  writeJson(work("pass.json"), state);
+  fs.writeFileSync(work("prompt-writer.md"), buildWriterPrompt(run, images, state));
+  return setOutputs({ run: "true", need_write: "true" });
+}
+
+async function check() {
+  const state = readJson(work("pass.json"));
+  const run = readJson(work("run.json"));
+  const images = readJson(work("images.json"));
+  if (!state.candidateIsCorrection) {
+    const written = readJson(work(`out-writer-${pass}.json`), null);
+    if (!written) {
+      state.aiFailure = lastAiError();
+      writeJson(work("pass.json"), state);
+      return setOutputs({ need_review: "false" });
+    }
+    writeJson(work("candidate.json"), written);
+  }
+  const article = readJson(work("candidate.json"));
+  if (run.topic.audience) article.audience = run.topic.audience;
+  if (run.topic.inquiry) article.inquiry = run.topic.inquiry;
+
+  const published = publishedPosts();
+  const context = { content, site, rules, publishedPosts: published, usedImageIds: usedImageIds(), availableImageIds: new Set(Object.keys(images)) };
+  const failures = checkArticle(article, context);
+  const originality = checkOriginality(article, knownPosts(), content.similarity);
+  const live = await checkLiveLinks(article.body);
+  const allFailures = [...failures, ...originality.failures, ...live.failures];
+
+  const record = { pass, corrected: state.candidateIsCorrection, hardRuleFailures: allFailures, warnings: live.warnings, similarity: originality.highest };
+  state.passes.push(record);
+  state.last = article;
+  if (allFailures.length) {
+    state.feedback = allFailures;
+    console.log(`Pass ${pass}: ${allFailures.length} hard rule problem(s).`);
+    writeJson(work("pass.json"), state);
+    return setOutputs({ need_review: "false" });
+  }
+  fs.writeFileSync(work("prompt-editor.md"), buildEditorPrompt(article, images));
+  writeJson(work("pass.json"), state);
+  return setOutputs({ need_review: "true" });
+}
+
+function finish() {
+  const state = readJson(work("pass.json"));
+  if (state.passed || state.aiFailure) return;
+  const record = state.passes[state.passes.length - 1];
+  if (!record || record.hardRuleFailures.length) return;
+
+  const review = readJson(work(`out-editor-${pass}.json`), null);
+  if (!review) {
+    state.aiFailure = lastAiError();
+    writeJson(work("pass.json"), state);
+    return;
+  }
+  // The score can never be higher than factual safety.
+  const score = Math.min(review.overall, review.scores.factualSafety);
+  record.score = score;
+  record.scores = review.scores;
+  record.issues = review.issues;
+
+  if (review.corrected) {
+    // A corrected version never approves itself: it goes through all checks again.
+    state.pending = review.corrected;
+    state.feedback = review.issues;
+    record.result = "corrected";
+  } else if (score >= content.limits.min_score) {
+    state.passed = true;
+    state.finalScore = score;
+    record.result = "passed";
+  } else {
+    state.feedback = review.issues.length ? review.issues : [`Redaktionsnote ${score} liegt unter ${content.limits.min_score}.`];
+    record.result = "rejected";
+  }
+  console.log(`Pass ${pass}: score ${score}, ${record.result}.`);
+  writeJson(work("pass.json"), state);
+}
+
+async function main() {
+  if (step === "start") return start();
+  if (step === "check") return check();
+  if (step === "finish") return finish();
+  throw new Error(`Unknown step: ${step}`);
+}
+
+main().catch((error) => {
+  console.error(error.message);
+  process.exit(1);
+});

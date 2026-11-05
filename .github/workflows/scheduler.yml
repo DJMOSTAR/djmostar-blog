@@ -1,0 +1,37 @@
+# Runs hourly and starts whatever config/schedule.yml says is due, in Berlin time.
+# GitHub cron can't read that file and only knows UTC, which is why this exists.
+# It doesn't call Claude, so these runs don't use your Pro limits.
+name: Scheduler
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+  issues: write
+
+concurrency:
+  group: scheduler
+  cancel-in-progress: false
+
+jobs:
+  check:
+    if: github.repository == 'DJMOSTAR/djmostar-blog'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - name: Start what is due
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DRY_RUN: ${{ vars.DRY_RUN }}
+          CLAUDE_TOKEN_CREATED: ${{ vars.CLAUDE_TOKEN_CREATED }}
+          HAS_GSC: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON != '' }}
+        run: node scripts/scheduler-gate.js

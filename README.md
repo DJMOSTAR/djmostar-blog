@@ -2,11 +2,34 @@
 
 Automatischer deutscher Blog unter https://blog.djmostar.de, gebaut mit Eleventy und GitHub Pages.
 
-- `docs/setup-guide.md`: Einrichtung
-- `config/site.yml`: Menü, Footer, Kontakt, Logo, KI-Hinweis
-- `config/content.yml`: Kategorien und Tags
-- `content/posts/`: veröffentlichte Beiträge
-- `src/`: Vorlagen, Styles, Logo
-- `tests/check-site.js`: prüft jede Veröffentlichung
+## Ablauf
 
-Secrets gehören nur in die GitHub Actions Secrets, nie in dieses Repository.
+Stündlicher Scheduler → Artikel schreiben (Mo/Do) → harte Regeln und Redaktion → Pull Request → Veröffentlichen (Di/Fr) → Deploy → Benachrichtigung.
+
+## Wo was liegt
+
+| Pfad | Inhalt |
+|---|---|
+| `config/schedule.yml` | Tage und Zeiten |
+| `config/content.yml` | Modell, Limits, Kategorien, Tags, Saisons, externe Quellen |
+| `config/rules.yml` | Verbotene Formulierungen und harte Regeln |
+| `config/facts.md` | Die einzigen freigegebenen Fakten über DJ MOSTAR |
+| `config/site.yml` | Menü, Footer, Kontakt, Logo, KI-Hinweis |
+| `config/analytics.yml` | Search Console, aus ohne Secret |
+| `prompts/` | Anweisungen für Themenplanung, Autor und Redaktion |
+| `content/posts/` | Veröffentlichte Beiträge |
+| `data/` | Kalender, Register, Bilder, Protokoll, Scheduler-Status |
+| `scripts/` | Die Automatik |
+| `.github/actions/claude-step/` | Der einzige Aufruf von Claude |
+| `.github/workflows/` | scheduler, generate, publish, deploy, report |
+| `tests/` | Tests für jede Veröffentlichung |
+| `docs/setup-guide.md` | Einrichtung |
+
+## Variablen
+
+- `DRY_RUN`: nur `false` schaltet den echten Betrieb ein. Sonst läuft nichts nach Zeitplan und nichts wird veröffentlicht.
+- `AUTO_PUBLISH`: `true` veröffentlicht geprüfte Beiträge automatisch. Sonst nur mit dem Label `approved`.
+
+Secrets gehören nur in die GitHub Actions Secrets, nie in dieses Repository. Das Repository und seine Logs sind öffentlich.
+
+Der Ähnlichkeitsvergleich prüft nur gegen diesen Blog. Er ist keine Internet-Plagiatsprüfung. Die Prüfungen können nicht garantieren, dass jede Aussage stimmt.

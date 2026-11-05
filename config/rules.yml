@@ -1,0 +1,51 @@
+# Hard rules checked by code. A single failure blocks publishing.
+# Phrases are matched without regard to upper or lower case.
+forbidden_phrases:
+  - Musik, die aus einem Moment eine Erinnerung macht
+  - unvergessliche Momente
+  - unvergesslich
+  - in der heutigen schnelllebigen Zeit
+  - schnelllebig
+  - eintauchen
+  - tauchen sie ein
+  - taucht ein
+  - ein Muss
+  - Magie
+  - magisch
+  - perfekte Symbiose
+  - Symbiose
+  - Hochzeitspaket
+  - Firmenpaket
+  - Samstage im Sommer
+  - Halay
+  - türkische Hochzeit
+  - Musikbogen
+  - Musikfragebogen
+  - ankreuzen
+  - Spezialist für
+  - Tanzfläche zum Beben
+  - das gewisse Etwas
+  - Traumhochzeit
+  - rundum sorglos
+  - auf höchstem Niveau
+  - Maßstäbe setzen
+
+# name: message shown in reports. pattern: JavaScript regular expression.
+forbidden_patterns:
+  - { name: '"Hochzeits-DJ" mit Bindestrich', pattern: 'Hochzeits\s*[-‐‑‒–—]\s*DJ' }
+  - { name: 'Das Wort "Paket"', pattern: 'paket' }
+  - { name: Preisangabe, pattern: '(?:€|\bEUR\b|\d[\d.,]*\s*Euro\b|\bEuro\b)' }
+  - { name: Hinweis auf Umsatzsteuer, pattern: '\b(?:MwSt|Mehrwertsteuer|Umsatzsteuer|USt|UStG|Kleinunternehmer)\b|§\s*19' }
+  - { name: Uhrzeit, pattern: '\b\d{1,2}[:.]\d{2}\s*(?:Uhr|h)\b|\b\d{1,2}\s*Uhr\b|\b(?:um|ab|gegen|bis)\s+\d{1,2}[:.]\d{2}\b' }
+
+# Claims about the business with a number must match one of these.
+allowed_number_claims:
+  - 'über 10 Jahre'
+  - 'über 10 Jahren'
+  - '250\+? Events'
+  - '250 Gäste'
+  - 'zwei Funkmikrofone'
+  - '6 bis 12 Monate'
+  - 'etwa 6 Monate'
+  - '50 km'
+  - '50 Kilometer'

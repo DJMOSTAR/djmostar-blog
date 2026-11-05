@@ -1,0 +1,15 @@
+# Search Console stays off until the secret GSC_SERVICE_ACCOUNT_JSON exists.
+search_console:
+  property: sc-domain:djmostar.de
+  blog_host: blog.djmostar.de
+  tracked_keywords:
+    - Hochzeits DJ Hamburg
+    - DJ Hamburg
+    - DJ für Firmenfeier Hamburg
+    - DJ Firmenevent Hamburg
+    - Hochzeits DJ in meiner Nähe
+  # A post needs improving above these impressions and below this click rate.
+  improve_min_impressions: 100
+  improve_max_ctr: 0.02
+  improve_position_from: 8
+  improve_position_to: 20

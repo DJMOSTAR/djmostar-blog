@@ -1,0 +1,131 @@
+# Creates the next article and opens a Pull Request. Started by the scheduler, or by hand
+# with "Run workflow". With DRY_RUN on, it writes a report and changes nothing.
+name: Generate article
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Test run only (nothing is saved or published)
+        type: boolean
+        default: true
+      slot:
+        description: Leave empty
+        type: string
+        default: ""
+      limit_retry:
+        description: Leave at 0
+        type: string
+        default: "0"
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: generate
+  cancel-in-progress: false
+
+env:
+  GH_TOKEN: ${{ github.token }}
+  DRY_RUN: ${{ vars.DRY_RUN }}
+  DRY_RUN_INPUT: ${{ inputs.dry_run }}
+  AUTO_PUBLISH: ${{ vars.AUTO_PUBLISH }}
+  SLOT: ${{ inputs.slot }}
+  LIMIT_RETRY: ${{ inputs.limit_retry }}
+  UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+  GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+
+jobs:
+  generate:
+    if: github.repository == 'DJMOSTAR/djmostar-blog'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+
+      - name: Check limits and prepare
+        id: prepare
+        run: node scripts/generate-prepare.js
+
+      - name: Plan new topics
+        if: steps.prepare.outputs.need_topics == 'true'
+        uses: ./.github/actions/claude-step
+        with:
+          step_name: topics
+          prompt_file: .work/prompt-topics.md
+          schema_file: .work/schema-topics.json
+          output_file: .work/out-topics.json
+          model: ${{ steps.prepare.outputs.model }}
+          max_turns: ${{ steps.prepare.outputs.turns_topics }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ github.token }}
+
+      - name: Pick the topic, keywords and photos
+        id: article
+        if: steps.prepare.outputs.run == 'true'
+        run: node scripts/prepare-article.js
+
+      # First draft plus up to 2 regenerations or corrections.
+      - name: Pass 1
+        if: steps.article.outputs.ready == 'true'
+        uses: ./.github/actions/article-pass
+        with:
+          pass: "1"
+          model: ${{ steps.prepare.outputs.model }}
+          turns_writer: ${{ steps.prepare.outputs.turns_writer }}
+          turns_editor: ${{ steps.prepare.outputs.turns_editor }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ github.token }}
+      - name: Pass 2
+        if: steps.article.outputs.ready == 'true'
+        uses: ./.github/actions/article-pass
+        with:
+          pass: "2"
+          model: ${{ steps.prepare.outputs.model }}
+          turns_writer: ${{ steps.prepare.outputs.turns_writer }}
+          turns_editor: ${{ steps.prepare.outputs.turns_editor }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ github.token }}
+      - name: Pass 3
+        if: steps.article.outputs.ready == 'true'
+        uses: ./.github/actions/article-pass
+        with:
+          pass: "3"
+          model: ${{ steps.prepare.outputs.model }}
+          turns_writer: ${{ steps.prepare.outputs.turns_writer }}
+          turns_editor: ${{ steps.prepare.outputs.turns_editor }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ github.token }}
+
+      - name: Open the Pull Request or send a notice
+        if: steps.prepare.outputs.run == 'true'
+        run: node scripts/finish-generate.js
+
+      - name: Save the test run's report
+        if: always() && hashFiles('.work/preview/*') != ''
+        uses: actions/upload-artifact@v7
+        with:
+          name: testlauf
+          path: .work/preview/
+          include-hidden-files: true
+          retention-days: 14
+
+      - name: Report a crash
+        if: failure()
+        env:
+          WORKFLOW_NAME: Artikel erstellen
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: node scripts/notify-failure.js
