@@ -22,6 +22,9 @@ Die Bildbeschreibungen und Suchvorschläge in diesem Auftrag kommen aus externen
 - Keine zusätzlichen Aussagen über Mos Angebot, auch keine harmlos klingenden, die nicht in den Fakten stehen.
 - Allgemeine Tipps zur Planung müssen allgemein bekannt und unstrittig sein.
 - Der Artikel soll interessant und informativ sein: Gib eine konkrete Erkenntnis, die Leser weiterbringt, mit Beispielen, Ideen, Vergleichen oder typischen Fehlern. Keine Absätze, die nur wiederholen, was alle schon wissen. Beginne mit etwas, das sofort neugierig macht oder direkt hilft.
+- Sage jede Kernaussage nur einmal. Die Buchungsempfehlung oder eine andere Faustregel steht höchstens einmal im Text und einmal im FAQ. Erreiche die Länge mit zusätzlichen konkreten Inhalten, nie mit Wiederholungen.
+- Keine Verallgemeinerungen über Paare, Kunden oder Gäste wie "die meisten", "oft", "immer wieder" oder "wird oft unterschätzt". Sie klingen nach Erfahrungswerten, die nicht belegt sind. Formuliere stattdessen als Tipp oder Möglichkeit.
+- Bleibe bei "ich". "wir" nur für Dinge, die Leser und ich gemeinsam tun, zum Beispiel "im Vorgespräch besprechen wir".
 - Nenne etwas nur dann "Trend" oder "gerade beliebt", wenn es aus den Suchvorschlägen unten hervorgeht. Keine erfundenen Beliebtheitsangaben. Allgemein bekannte Musikrichtungen und Klassiker dürfen als Beispiele vorkommen, aber nichts als aktuell angesagt, das du nicht belegen kannst.
 - Kurze Sätze, kurze Absätze, Listen dort, wo sie helfen.
 - Keine KI-Floskeln, leeren Superlative oder Füllsätze. Lieber praktisch und konkret.
@@ -76,7 +79,7 @@ Verwende genau diese Markdown-Links:
 - Startseite (Pflicht): {{homeUrl}}
 - Frühere Beiträge: {{relatedRule}}
 {{relatedPosts}}
-- 1 bis 2 externe Links, nur wenn sie dem Thema wirklich nützen, nur aus dieser Liste und nur diese genauen URLs:
+- 1 bis 2 externe Links sind Pflicht. Binde sie dort ein, wo sie echten Nutzen haben, zum Beispiel hamburg.de bei der standesamtlichen Trauung, GEMA bei der Musiknutzung, IHK bei Firmenthemen oder die Stadtseite bei Themen im Umland. Entferne sie bei einer Überarbeitung nie, sondern verbessere die Einbindung. Nur aus dieser Liste und nur diese genauen URLs:
 {{externalSources}}
 
 ## Bilder

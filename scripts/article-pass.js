@@ -33,6 +33,8 @@ function buildWriterPrompt(run, images, state) {
       "",
       "Schreibe den Artikel nicht neu. Lies den abgelehnten Entwurf in `.work/previous-draft.json` und überarbeite ihn: Behalte, was gut ist, und ändere nur, was nötig ist. Gib den vollständigen Artikel in allen Feldern zurück.",
       "",
+      "Die Links zur Anfrageseite und zur Startseite und 1 bis 2 externe Links bleiben in jedem Fall erhalten.",
+      "",
       "Das muss behoben werden:",
       ...state.feedback.map((entry) => `- ${entry}`),
       ...(state.history && state.history.length ? ["", "Diese früheren Probleme dürfen nicht wieder auftreten:", ...state.history.map((entry) => `- ${entry}`)] : []),
@@ -83,6 +85,7 @@ function buildEditorPrompt(article, images) {
     minScore: content.limits.min_score,
     minWords: content.article.min_words,
     externalMax: 2,
+    externalSources: content.external_sources.map((source) => `- ${source.url} (${source.use})`).join("\n"),
   });
 }
 
