@@ -19,8 +19,9 @@
         "Planung",
         "Hamburg"
       ],
-      "status": "planned",
-      "angle": "Beantwortet die Frage direkt und zeigt, welche Entscheidungen vom Zeitpunkt abhängen und was ihr tun könnt, wenn es schon knapp ist."
+      "status": "draft",
+      "angle": "Beantwortet die Frage direkt und zeigt, welche Entscheidungen vom Zeitpunkt abhängen und was ihr tun könnt, wenn es schon knapp ist.",
+      "slug": "hochzeits-dj-hamburg-buchen-wann"
     },
     {
       "title": "Weihnachtsfeier in Hamburg: Welche Fehler die Stimmung kosten und wie Sie sie vermeiden",

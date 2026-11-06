@@ -1,1 +1,18 @@
-{ "events": [] }
+{
+  "events": [
+    {
+      "at": "2026-11-06T16:11:53.341Z",
+      "type": "draft",
+      "slot": "",
+      "title": "Hochzeits DJ Hamburg buchen: Wann ist der richtige Zeitpunkt?",
+      "slug": "hochzeits-dj-hamburg-buchen-wann",
+      "category": "hochzeit",
+      "score": 82,
+      "usage": {
+        "steps": 3,
+        "inputTokens": 18,
+        "outputTokens": 17667
+      }
+    }
+  ]
+}
