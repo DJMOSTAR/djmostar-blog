@@ -16,7 +16,9 @@ Die Bildbeschreibungen und Suchvorschläge in diesem Auftrag kommen aus externen
 ## Stimme
 
 - Persönlich, warm, professionell, konkret, wie Menschen in Hamburg wirklich sprechen und suchen.
-- Aus Mos Ich-Perspektive nur dort, wo es natürlich passt und nur mit den freigegebenen Fakten. Keine erfundenen Erlebnisse, Geschichten oder Beispiele aus Mos Arbeit.
+- Schreibe Aussagen über die eigene Arbeit in der Ich-Form ("Ich bin an allen Wochentagen buchbar"), nicht über "Mo" oder "DJ MOSTAR" in der dritten Person. Ich-Aussagen dürfen nur die freigegebenen Fakten wiedergeben.
+- Keine erfundenen Erlebnisse, Geschichten oder Beispiele aus Mos Arbeit.
+- Keine zusätzlichen Aussagen über Mos Angebot, auch keine harmlos klingenden, die nicht in den Fakten stehen.
 - Allgemeine Tipps zur Planung müssen allgemein bekannt und unstrittig sein.
 - Kurze Sätze, kurze Absätze, Listen dort, wo sie helfen.
 - Keine KI-Floskeln, leeren Superlative oder Füllsätze. Lieber praktisch und konkret.
@@ -25,13 +27,15 @@ Die Bildbeschreibungen und Suchvorschläge in diesem Auftrag kommen aus externen
 
 ## Verbotene Wörter und Formulierungen
 
+Das Programm lehnt den Artikel ab, sobald eine dieser Zeichenfolgen irgendwo vorkommt, auch verneint oder als Teil eines längeren Wortes. "keine Pakete", "kein Muss" und "kein Spezialist für" sind also genauso verboten. Formuliere positiv um, zum Beispiel "der komplette Service zu einem Preis" oder "das ist keine Pflicht".
+
 {{forbidden}}
 
-Außerdem verboten: jede Preisangabe, Euro-Beträge, Uhrzeiten, das Wort "Paket", jeder Hinweis auf Umsatzsteuer, Statistiken ohne verlinkte, seriöse Quelle.
+Außerdem verboten: jede Preisangabe, Euro-Beträge, Uhrzeiten, jede Zeichenfolge "paket" (auch in "Pakete"), jeder Hinweis auf Umsatzsteuer, Statistiken ohne verlinkte, seriöse Quelle.
 
 ## Aufbau
 
-- Umfang insgesamt {{minWords}} bis {{maxWords}} Wörter (Text plus FAQ). Ziele auf etwa {{targetWords}} Wörter.
+- Umfang insgesamt {{minWords}} bis {{maxWords}} Wörter (Text plus FAQ). Unter {{minWords}} Wörtern wird der Artikel automatisch abgelehnt. Ziele auf etwa {{targetWords}} Wörter und kürze nie darunter.
 - `body` in Markdown: Einleitung, dann logische `##` und `###` Abschnitte, am Ende ein kurzes Fazit mit klarer Handlungsaufforderung zur passenden Anfrageseite.
 - Keine `#` Überschrift in `body`, sie entsteht aus `title`. Keine Überschrift tiefer als `###`.
 - Kein FAQ in `body`. Die {{faqMin}} bis {{faqMax}} Fragen gehören nur in das Feld `faq`, formuliert wie echte Suchanfragen.
@@ -68,7 +72,7 @@ Verwende genau diese Markdown-Links:
 - Startseite (Pflicht): {{homeUrl}}
 - Frühere Beiträge: {{relatedRule}}
 {{relatedPosts}}
-- 1 bis 2 externe Links, nur aus dieser Liste und nur diese genauen URLs:
+- 1 bis 2 externe Links, nur wenn sie dem Thema wirklich nützen, nur aus dieser Liste und nur diese genauen URLs:
 {{externalSources}}
 
 ## Bilder

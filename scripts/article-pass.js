@@ -27,8 +27,16 @@ function buildWriterPrompt(run, images, state) {
   const audience = topic.audience || category.audience;
   const inquiryUrl = site.inquiry[topic.inquiry || category.inquiry];
   const related = publishedPosts();
-  const feedback = state.feedback.length
-    ? `## Rückmeldung zum vorherigen Entwurf\n\nDer vorherige Entwurf wurde abgelehnt. Behebe unbedingt:\n${state.feedback.map((entry) => `- ${entry}`).join("\n")}`
+  const feedback = state.last
+    ? [
+      "## Überarbeitung des vorherigen Entwurfs",
+      "",
+      "Schreibe den Artikel nicht neu. Lies den abgelehnten Entwurf in `.work/previous-draft.json` und überarbeite ihn: Behalte, was gut ist, und ändere nur, was nötig ist. Gib den vollständigen Artikel in allen Feldern zurück.",
+      "",
+      "Das muss behoben werden:",
+      ...state.feedback.map((entry) => `- ${entry}`),
+      ...(state.history && state.history.length ? ["", "Diese früheren Probleme dürfen nicht wieder auftreten:", ...state.history.map((entry) => `- ${entry}`)] : []),
+    ].join("\n")
     : "";
   return fill(fs.readFileSync(fromRoot("prompts/writer.md"), "utf8"), {
     title: topic.title,
@@ -71,7 +79,14 @@ function buildEditorPrompt(article, images) {
     forbidden: rules.forbidden_phrases.join(", "),
     addressRule: addressText(audienceFor(article, content)),
     minScore: content.limits.min_score,
+    minWords: content.article.min_words,
   });
+}
+
+// Keeps earlier problems, so a revision can't bring them back.
+function rememberFeedback(state, latest) {
+  state.history = [...new Set([...(state.history || []), ...(state.feedback || [])])].filter((entry) => !latest.includes(entry));
+  state.feedback = latest;
 }
 
 function start() {
@@ -90,6 +105,7 @@ function start() {
   }
   state.candidateIsCorrection = false;
   writeJson(work("pass.json"), state);
+  if (state.last) writeJson(work("previous-draft.json"), state.last);
   fs.writeFileSync(work("prompt-writer.md"), buildWriterPrompt(run, images, state));
   return setOutputs({ run: "true", need_write: "true" });
 }
@@ -122,7 +138,7 @@ async function check() {
   state.passes.push(record);
   state.last = article;
   if (allFailures.length) {
-    state.feedback = allFailures;
+    rememberFeedback(state, allFailures);
     console.log(`Pass ${pass}: ${allFailures.length} hard rule problem(s).`);
     for (const failure of allFailures) console.log(`- ${failure}`);
     writeJson(work("pass.json"), state);
@@ -154,14 +170,14 @@ function finish() {
   if (review.corrected) {
     // A corrected version never approves itself: it goes through all checks again.
     state.pending = review.corrected;
-    state.feedback = review.issues;
+    rememberFeedback(state, review.issues);
     record.result = "corrected";
   } else if (score >= content.limits.min_score) {
     state.passed = true;
     state.finalScore = score;
     record.result = "passed";
   } else {
-    state.feedback = review.issues.length ? review.issues : [`Redaktionsnote ${score} liegt unter ${content.limits.min_score}.`];
+    rememberFeedback(state, review.issues.length ? review.issues : [`Redaktionsnote ${score} liegt unter ${content.limits.min_score}.`]);
     record.result = "rejected";
   }
   console.log(`Pass ${pass}: score ${score}, ${record.result}.`);

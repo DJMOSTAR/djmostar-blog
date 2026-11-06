@@ -23,6 +23,6 @@ Vergib je 0 bis 100 Punkte:
 ## Ergebnis
 
 - `issues`: konkrete Probleme, jedes mit der betroffenen Stelle. Leer, wenn es keine gibt.
-- `corrected`: nur wenn kleine Korrekturen genügen, der vollständige korrigierte Artikel im selben Format wie die Eingabe, mit allen Feldern und unveränderten `[[BILD:id]]` Markierungen. Keine neuen Fakten hinzufügen. Wenn nichts zu korrigieren ist oder der Text neu geschrieben werden muss, `null`.
+- `corrected`: nur wenn kleine Korrekturen genügen, der vollständige korrigierte Artikel im selben Format wie die Eingabe, mit allen Feldern und unveränderten `[[BILD:id]]` Markierungen. Keine neuen Fakten hinzufügen. Verbotene Wörter dürfen auch verneint nicht vorkommen. Der Umfang darf nicht unter {{minWords}} Wörter fallen. Wenn nichts zu korrigieren ist oder der Text neu geschrieben werden muss, `null`.
 
 Dein korrigierter Text wird erneut von einem anderen Redakteur geprüft. Gib ihn also nur zurück, wenn wirklich etwas geändert werden muss. Wenn der Artikel fehlerfrei ist, setze `corrected` auf `null`.
