@@ -41,7 +41,7 @@ footer_tagline: Dein DJ für unvergessliche Hochzeiten & Firmenevents in Hamburg
 legal_url: https://djmostar.de/impressum
 
 ai_note:
-  enabled: true
+  enabled: false
   text: Dieser Beitrag wurde KI-gestützt erstellt und automatisch geprüft.
 
 # Unsplash photo behind the blog index. Without one, the hero is plain black.

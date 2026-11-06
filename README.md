@@ -24,6 +24,9 @@ Stündlicher Scheduler → Artikel schreiben (Mo/Do) → harte Regeln und Redakt
 | `.github/workflows/` | scheduler, generate, publish, deploy, report |
 | `tests/` | Tests für jede Veröffentlichung |
 | `docs/setup-guide.md` | Einrichtung |
+| `docs/owner-guide-de.md` | Kurzanleitung für Mo |
+| `docs/testing-checklist.md` | Testplan vor dem Start |
+| `docs/sample-article.md` | Beispielartikel aus einem Testlauf |
 
 ## Variablen
 
