@@ -22,7 +22,7 @@ Die Bildbeschreibungen und Suchvorschläge in diesem Auftrag kommen aus externen
 - Allgemeine Tipps zur Planung müssen allgemein bekannt und unstrittig sein.
 - Kurze Sätze, kurze Absätze, Listen dort, wo sie helfen.
 - Keine KI-Floskeln, leeren Superlative oder Füllsätze. Lieber praktisch und konkret.
-- Beginne nicht mit einer Frage.
+- Beginne nicht mit einer Frage und nicht mit einer Vorstellung ("Ich bin ..."). Steige direkt ins Thema ein.
 - Schreibe immer "Hochzeits DJ" ohne Bindestrich.
 
 ## Verbotene Wörter und Formulierungen
@@ -35,7 +35,7 @@ Außerdem verboten: jede Preisangabe, Euro-Beträge, Uhrzeiten, jede Zeichenfolg
 
 ## Aufbau
 
-- Umfang insgesamt {{minWords}} bis {{maxWords}} Wörter (Text plus FAQ). Unter {{minWords}} Wörtern wird der Artikel automatisch abgelehnt. Ziele auf etwa {{targetWords}} Wörter und kürze nie darunter.
+- Umfang insgesamt {{minWords}} bis {{maxWords}} Wörter (Text plus FAQ). Unter {{minWords}} Wörtern wird der Artikel automatisch abgelehnt. Entwürfe fallen erfahrungsgemäß zu kurz aus, also ziele auf etwa {{targetWords}} Wörter und mindestens sieben `##` Abschnitte mit echtem Inhalt.
 - `body` in Markdown: Einleitung, dann logische `##` und `###` Abschnitte, am Ende ein kurzes Fazit mit klarer Handlungsaufforderung zur passenden Anfrageseite.
 - Keine `#` Überschrift in `body`, sie entsteht aus `title`. Keine Überschrift tiefer als `###`.
 - Kein FAQ in `body`. Die {{faqMin}} bis {{faqMax}} Fragen gehören nur in das Feld `faq`, formuliert wie echte Suchanfragen.

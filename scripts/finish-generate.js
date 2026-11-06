@@ -35,6 +35,7 @@ function qualityReport(run, state, images, article) {
       const s = pass.scores;
       lines.push(`Redaktion: Note ${pass.score}. Fakten ${s.factualSafety}, Stimme ${s.brandVoice}, Anrede ${s.addressForm}, SEO ${s.seo}, Lesbarkeit ${s.readability}, Grammatik ${s.grammar}`);
       for (const issue of pass.issues || []) lines.push(`- ${issue}`);
+      if (pass.correctionIgnored) lines.push("Hinweis: Der Korrekturvorschlag wurde nicht übernommen, weil diese Fassung bereits bestanden hat.");
     }
     for (const warning of pass.warnings || []) lines.push(`- Hinweis: ${warning}`);
     if (pass.similarity && pass.similarity.slug) lines.push(`Größte Ähnlichkeit: ${pass.similarity.slug} (${pass.similarity.score.toFixed(2)}). Das ist nur ein Vergleich mit diesem Blog, keine Internet-Plagiatsprüfung.`);

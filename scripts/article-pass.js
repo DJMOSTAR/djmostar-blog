@@ -48,7 +48,7 @@ function buildWriterPrompt(run, images, state) {
     forbidden: rules.forbidden_phrases.map((phrase) => `- ${phrase}`).join("\n"),
     minWords: content.article.min_words,
     maxWords: content.article.max_words,
-    targetWords: Math.round((content.article.min_words + content.article.max_words) / 2),
+    targetWords: Math.round(content.article.min_words + (content.article.max_words - content.article.min_words) * 0.6),
     faqMin: content.article.faq_min,
     faqMax: content.article.faq_max,
     secondaryMin: content.article.secondary_keywords_min,
@@ -80,6 +80,7 @@ function buildEditorPrompt(article, images) {
     addressRule: addressText(audienceFor(article, content)),
     minScore: content.limits.min_score,
     minWords: content.article.min_words,
+    externalMax: 2,
   });
 }
 
@@ -167,15 +168,18 @@ function finish() {
   record.scores = review.scores;
   record.issues = review.issues;
 
-  if (review.corrected) {
+  if (score >= content.limits.min_score) {
+    // This exact version passed every check. Optional edits are ignored, because they would
+    // produce a different text that nobody has reviewed.
+    state.passed = true;
+    state.finalScore = score;
+    record.result = "passed";
+    if (review.corrected) record.correctionIgnored = true;
+  } else if (review.corrected) {
     // A corrected version never approves itself: it goes through all checks again.
     state.pending = review.corrected;
     rememberFeedback(state, review.issues);
     record.result = "corrected";
-  } else if (score >= content.limits.min_score) {
-    state.passed = true;
-    state.finalScore = score;
-    record.result = "passed";
   } else {
     rememberFeedback(state, review.issues.length ? review.issues : [`Redaktionsnote ${score} liegt unter ${content.limits.min_score}.`]);
     record.result = "rejected";
