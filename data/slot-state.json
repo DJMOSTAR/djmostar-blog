@@ -1,9 +1,10 @@
 {
   "slots": {
     "publish-2026-11-06": {
-      "status": "dispatched",
       "firstAt": "2026-11-06T13:09:11.253Z",
-      "retries": 0
+      "retries": 0,
+      "status": "done",
+      "result": "nothing-to-publish"
     }
   }
 }
