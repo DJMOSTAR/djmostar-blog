@@ -26,12 +26,12 @@ async function main() {
     candidate.file = `.work/images/${candidate.id}.jpg`;
   }
   writeJson(work("hero-candidates.json"), candidates);
-  writeJson(work("schema-hero.json"), {
+  fs.writeFileSync(work("schema-hero.json"), JSON.stringify({
     type: "object",
     properties: { id: { type: "string" }, alt: { type: "string" } },
     required: ["id", "alt"],
     additionalProperties: false,
-  });
+  }));
   const list = Object.values(candidates).map((image) => `- id \`${image.id}\`: Datei \`${image.file}\``).join("\n");
   fs.writeFileSync(work("prompt-hero.md"), `Wähle ein Hintergrundbild für den oberen Bereich der Startseite des Blogs von DJ MOSTAR, einem Hochzeits DJ und Firmenevent-DJ in Hamburg. Über dem Bild liegen eine dunkle Abdeckung und weißer Text.
 

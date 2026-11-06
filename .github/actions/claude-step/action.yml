@@ -30,7 +30,8 @@ runs:
       shell: bash
       env:
         SCHEMA_FILE: ${{ inputs.schema_file }}
-      run: echo "json=$(cat "$SCHEMA_FILE")" >> "$GITHUB_OUTPUT"
+      # Always passed on one line, whatever the file's formatting.
+      run: node -e 'const fs=require("fs");fs.appendFileSync(process.env.GITHUB_OUTPUT,"json="+JSON.stringify(JSON.parse(fs.readFileSync(process.env.SCHEMA_FILE,"utf8")))+"\n")'
 
     - id: claude
       uses: anthropics/claude-code-action@v1
