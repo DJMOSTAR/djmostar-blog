@@ -110,6 +110,19 @@ jobs:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ github.token }}
 
+      # Only runs when pass 3 ended with a correction, so that correction still gets its fresh review.
+      - name: Review the last correction
+        if: steps.article.outputs.ready == 'true'
+        uses: ./.github/actions/article-pass
+        with:
+          pass: "4"
+          model: ${{ steps.prepare.outputs.model }}
+          turns_writer: ${{ steps.prepare.outputs.turns_writer }}
+          turns_editor: ${{ steps.prepare.outputs.turns_editor }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ github.token }}
+
       - name: Open the Pull Request or send a notice
         if: steps.prepare.outputs.run == 'true'
         run: node scripts/finish-generate.js

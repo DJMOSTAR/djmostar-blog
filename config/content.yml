@@ -33,7 +33,7 @@ limits:
   monthly_articles: 10
   max_waiting_drafts: 2      # Applies when AUTO_PUBLISH=false.
   min_score: 85
-  max_passes: 3              # First draft plus 2 regenerations or corrections.
+  max_passes: 3              # First draft plus 2 regenerations or corrections. A correction from pass 3 gets one more review.
 
 calendar:
   target_upcoming: 8

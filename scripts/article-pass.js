@@ -77,6 +77,8 @@ function buildEditorPrompt(article, images) {
 function start() {
   const state = readJson(work("pass.json"));
   if (state.passed || state.aiFailure) return setOutputs({ run: "false", need_write: "false" });
+  // The extra pass only reviews a correction from the last regular pass. It never writes.
+  if (pass > content.limits.max_passes && !state.pending) return setOutputs({ run: "false", need_write: "false" });
   const run = readJson(work("run.json"));
   const images = readJson(work("images.json"));
   if (state.pending) {
@@ -122,6 +124,7 @@ async function check() {
   if (allFailures.length) {
     state.feedback = allFailures;
     console.log(`Pass ${pass}: ${allFailures.length} hard rule problem(s).`);
+    for (const failure of allFailures) console.log(`- ${failure}`);
     writeJson(work("pass.json"), state);
     return setOutputs({ need_review: "false" });
   }
@@ -162,6 +165,7 @@ function finish() {
     record.result = "rejected";
   }
   console.log(`Pass ${pass}: score ${score}, ${record.result}.`);
+  for (const issue of review.issues) console.log(`- ${issue}`);
   writeJson(work("pass.json"), state);
 }
 

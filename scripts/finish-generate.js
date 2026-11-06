@@ -186,7 +186,7 @@ async function main() {
     if (postText) fs.writeFileSync(work("preview", "artikel.md"), postText);
     fs.writeFileSync(work("preview", "bericht.md"), `${report}\n${buildProblem ? `\nProblem: ${buildProblem}\n` : ""}`);
     addSummary(`# Testlauf: ${article.title}\n\n${ok ? "Würde veröffentlicht werden." : "Würde NICHT veröffentlicht werden."}\n\n${report}\n\n## Artikel\n\n${article.body}`);
-    notify({ title: `Testlauf: ${ok ? "bestanden" : "nicht bestanden"}: ${article.title}`, problem: false, body: `Nichts wurde veröffentlicht. Bericht und Artikel:\n\n${runUrl()}` });
+    notify({ title: `Testlauf: ${ok ? "bestanden" : "nicht bestanden"}: ${article.title}`, problem: false, body: `Nichts wurde veröffentlicht.\n\n${runUrl()}\n\n${buildProblem ? `Problem: ${buildProblem}\n\n` : ""}${report}\n\n## Artikel\n\n**${article.title}**\n\n${article.body}\n\n## FAQ\n\n${(article.faq || []).map((entry) => `**${entry.question}**\n${entry.answer}`).join("\n\n")}`.slice(0, 60000) });
     return;
   }
 
