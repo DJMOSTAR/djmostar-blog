@@ -40,6 +40,8 @@ function buildWriterPrompt(run, images, state) {
     : "";
   return fill(fs.readFileSync(fromRoot("prompts/writer.md"), "utf8"), {
     title: topic.title,
+    angle: topic.angle || "Finde einen konkreten Blickwinkel, der Lesern etwas Neues und direkt Nützliches gibt.",
+    targetKeywords: ((content.target_keywords || {})[topic.category] || []).join(", "),
     category: category.name,
     categorySlug: category.slug,
     addressRule: addressText(audience),

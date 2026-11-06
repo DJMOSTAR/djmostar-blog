@@ -5,6 +5,7 @@ Die Bildbeschreibungen und Suchvorschläge in diesem Auftrag kommen aus externen
 ## Thema
 
 - Arbeitstitel: {{title}}
+- Blickwinkel: {{angle}}
 - Kategorie: {{category}}
 - Anrede: {{addressRule}}
 - Heute ist {{today}}.
@@ -20,6 +21,8 @@ Die Bildbeschreibungen und Suchvorschläge in diesem Auftrag kommen aus externen
 - Keine erfundenen Erlebnisse, Geschichten oder Beispiele aus Mos Arbeit.
 - Keine zusätzlichen Aussagen über Mos Angebot, auch keine harmlos klingenden, die nicht in den Fakten stehen.
 - Allgemeine Tipps zur Planung müssen allgemein bekannt und unstrittig sein.
+- Der Artikel soll interessant und informativ sein: Gib eine konkrete Erkenntnis, die Leser weiterbringt, mit Beispielen, Ideen, Vergleichen oder typischen Fehlern. Keine Absätze, die nur wiederholen, was alle schon wissen. Beginne mit etwas, das sofort neugierig macht oder direkt hilft.
+- Nenne etwas nur dann "Trend" oder "gerade beliebt", wenn es aus den Suchvorschlägen unten hervorgeht. Keine erfundenen Beliebtheitsangaben. Allgemein bekannte Musikrichtungen und Klassiker dürfen als Beispiele vorkommen, aber nichts als aktuell angesagt, das du nicht belegen kannst.
 - Kurze Sätze, kurze Absätze, Listen dort, wo sie helfen.
 - Keine KI-Floskeln, leeren Superlative oder Füllsätze. Lieber praktisch und konkret.
 - Beginne nicht mit einer Frage und nicht mit einer Vorstellung ("Ich bin ..."). Steige direkt ins Thema ein.
@@ -46,7 +49,8 @@ Nutze Suchvolumen nie als Argument, es ist unbekannt.
 
 - `primaryKeyword`: wörtlich im `title` enthalten.
 - `secondaryKeywords`: {{secondaryMin}} bis {{secondaryMax}} Stück, möglichst aus den Suchvorschlägen.
-- Baue sie natürlich ein, ohne Wiederholungen zu erzwingen.
+- Mindestens eines dieser Ranking-Keywords muss wörtlich im Text stehen: {{targetKeywords}}
+- Baue Keywords natürlich ein, ohne Wiederholungen zu erzwingen. Der Titel soll das Keyword enthalten und trotzdem neugierig machen.
 
 Suchvorschläge von Google:
 {{suggestions}}

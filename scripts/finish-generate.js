@@ -33,7 +33,7 @@ function qualityReport(run, state, images, article) {
     for (const failure of pass.hardRuleFailures) lines.push(`- ${failure}`);
     if (pass.scores) {
       const s = pass.scores;
-      lines.push(`Redaktion: Note ${pass.score}. Fakten ${s.factualSafety}, Stimme ${s.brandVoice}, Anrede ${s.addressForm}, SEO ${s.seo}, Lesbarkeit ${s.readability}, Grammatik ${s.grammar}`);
+      lines.push(`Redaktion: Note ${pass.score}. Fakten ${s.factualSafety}, Stimme ${s.brandVoice}, Interesse ${s.interest ?? "-"}, Anrede ${s.addressForm}, SEO ${s.seo}, Lesbarkeit ${s.readability}, Grammatik ${s.grammar}`);
       for (const issue of pass.issues || []) lines.push(`- ${issue}`);
       if (pass.correctionIgnored) lines.push("Hinweis: Der Korrekturvorschlag wurde nicht übernommen, weil diese Fassung bereits bestanden hat.");
     }

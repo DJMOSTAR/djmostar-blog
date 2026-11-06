@@ -57,6 +57,11 @@ test("the report covers the previous month and suggests improvements", () => {
   assert.match(report, /Veränderung 2\.0/);
   assert.match(report, /Beiträge zum Verbessern/);
 });
+test("the trends feed is read, and its failure doesn't stop planning", async () => {
+  const { parseTitles, germanTrends } = require("../../scripts/lib/trends");
+  assert.deepStrictEqual(parseTitles("<rss><channel><title>Feed</title><item><title>Hochzeit &amp; Musik</title></item><item><title><![CDATA[Zwei]]></title></item></channel></rss>"), ["Hochzeit & Musik", "Zwei"]);
+  assert.deepStrictEqual(await germanTrends(async () => { throw new Error("blocked"); }), []);
+});
 test("schemas contain no apostrophes", () => {
   for (const schema of Object.values(schemas)) assert.ok(!JSON.stringify(schema).includes("'"));
 });

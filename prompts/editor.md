@@ -13,6 +13,7 @@ Vergib je 0 bis 100 Punkte:
 
 - `factualSafety`: Steht etwas über DJ MOSTAR, das nicht in den Fakten steht? Erfundene Erlebnisse, Zahlen, Locations, Kunden oder Zitate? Sind allgemeine Aussagen gut abgesichert? Das ist die wichtigste Prüfung: Jede erfundene Tatsache über DJ MOSTAR bedeutet höchstens 40 Punkte.
 - `brandVoice`: persönlich, konkret, keine KI-Floskeln, keine Füllsätze, verbotene Formulierungen: {{forbidden}}
+- `interest`: Ist der Text wirklich interessant und informativ, mit konkretem Nutzen und eigenem Blickwinkel, oder könnte er überall stehen? Behauptet er Trends oder Beliebtheit ohne Beleg? Unbelegte Trendaussagen senken auch `factualSafety`.
 - `addressForm`: durchgehend {{addressRule}}
 - `seo`: Hauptkeyword im Titel, natürliche Keywords, klare Überschriften, sinnvolle Links, passende Meta-Beschreibung
 - `readability`: kurze Sätze, gut lesbares Deutsch, Listen wo nützlich

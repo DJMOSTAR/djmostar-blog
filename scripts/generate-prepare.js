@@ -7,6 +7,7 @@ const { collectSuggestions } = require("./lib/autocomplete");
 const { waitingDrafts } = require("./lib/pull-requests");
 const { gh, changeDataOnMain } = require("./lib/shell");
 const { notify } = require("./lib/notify");
+const { germanTrends } = require("./lib/trends");
 const gsc = require("./lib/gsc");
 const schemas = require("./lib/schemas");
 
@@ -52,8 +53,9 @@ async function main() {
   const calendar = load("calendar");
   const needTopics = upcomingCount(calendar) < content.calendar.refill_below;
   if (needTopics) {
-    const seeds = Object.values(content.seed_terms).flat();
+    const seeds = [...Object.values(content.seed_terms).flat(), ...(content.trend_terms || [])];
     const { suggestions, errors } = await collectSuggestions(seeds);
+    const trends = await germanTrends();
     if (errors.length) console.warn(`Autocomplete problems: ${errors.length}`);
     let searchConsole = [];
     try {
@@ -72,6 +74,8 @@ async function main() {
       existing,
       suggestions: suggestions.map((entry) => `- ${entry}`).join("\n") || "- keine verfügbar",
       searchConsole: searchConsole.map((entry) => `- ${entry}`).join("\n") || "- keine",
+      trends: trends.map((entry) => `- ${entry}`).join("\n") || "- keine verfügbar",
+      targetKeywords: Object.entries(content.target_keywords || {}).map(([category, keywords]) => `- ${category}: ${keywords.join(", ")}`).join("\n"),
     });
     fs.writeFileSync(work("prompt-topics.md"), prompt);
   }

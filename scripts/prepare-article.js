@@ -35,7 +35,7 @@ async function main() {
   }
   run.topic = topic;
 
-  const seedTerms = [...(topic.seeds || []), ...(content.seed_terms[topic.category] || []).slice(0, 2)];
+  const seedTerms = [...(topic.seeds || []), ...(content.seed_terms[topic.category] || []).slice(0, 2), ...((content.target_keywords || {})[topic.category] || []).slice(0, 2)];
   const { suggestions, errors } = await collectSuggestions(seedTerms);
   run.suggestions = suggestions;
   run.keywordSource = suggestions.length ? "google-autocomplete" : "seed-terms-only";

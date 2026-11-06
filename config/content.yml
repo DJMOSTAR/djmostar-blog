@@ -85,3 +85,24 @@ external_sources:
   - { domain: elmshorn.de, url: "https://www.elmshorn.de/", use: Stadt Elmshorn }
   - { domain: buxtehude.de, url: "https://www.buxtehude.de/", use: Stadt Buxtehude }
   - { domain: lueneburg.de, url: "https://www.lueneburg.de/", use: Hansestadt Lüneburg }
+
+# Search terms that show which event topics people are looking into right now.
+trend_terms:
+  - Hochzeit Trends
+  - Hochzeitsmusik Trends
+  - Hochzeit Ideen
+  - Hochzeitstanz Ideen
+  - Firmenfeier Ideen
+  - Weihnachtsfeier Ideen
+  - Sommerfest Ideen Firma
+  - Mottoparty Ideen
+  - Geburtstagsfeier Ideen
+  - Partymusik aktuell
+
+# Each article must contain at least one of these ranking keywords for its category.
+target_keywords:
+  hochzeit: [Hochzeits DJ Hamburg, Hochzeits DJ in Hamburg, DJ für Hochzeit Hamburg, DJ für die Hochzeit in Hamburg]
+  firmenfeier: [DJ für Firmenfeier Hamburg, DJ für die Firmenfeier in Hamburg, DJ Firmenevent Hamburg, DJ für Firmenevents in Hamburg]
+  private-feiern: [DJ Hamburg, DJ in Hamburg, DJ für Geburtstag Hamburg]
+  hamburg-umgebung: [DJ Hamburg, DJ in Hamburg, Hochzeits DJ Hamburg, Hochzeits DJ in der Nähe, Hochzeits DJ in meiner Nähe, DJ in der Nähe]
+  musik: [DJ Hamburg, DJ in Hamburg, Hochzeits DJ Hamburg, Hochzeits DJ in Hamburg]

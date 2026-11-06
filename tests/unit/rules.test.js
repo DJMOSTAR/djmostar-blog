@@ -48,6 +48,12 @@ test("blocks length, heading, FAQ and keyword problems", () => {
   assert.ok(failuresFor({ body: `Was macht einen guten DJ aus?\n\n${goodArticle().body}` }).some((f) => /rhetorische Frage/.test(f)));
 });
 
+test("requires a ranking keyword for the category", () => {
+  const without = goodArticle().body.replace(/Hochzeits DJ in Hamburg/g, "DJ");
+  assert.ok(failuresFor({ body: without, title: "Wann sollte man buchen?", primaryKeyword: "buchen", faq: goodArticle().faq }).some((f) => /Ranking-Keyword/.test(f)));
+  assert.ok(!failuresFor({}).some((f) => /Ranking-Keyword/.test(f)));
+});
+
 test("blocks missing or wrong links", () => {
   const body = goodArticle().body;
   assert.ok(failuresFor({ body: body.replace("(https://djmostar.de/hochzeit)", "(https://djmostar.de/firmenfeier)") }).some((f) => /Anfrageseite/.test(f)));

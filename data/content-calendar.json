@@ -1,12 +1,174 @@
 {
   "topics": [
-    { "title": "Wann sollte man den Hochzeits DJ in Hamburg buchen?", "category": "hochzeit", "priority": true, "seeds": ["Hochzeits DJ Hamburg buchen", "Hochzeits DJ wann buchen", "DJ für Hochzeit Hamburg"], "imageQueries": ["wedding dance floor", "wedding DJ", "Hochzeit Tanzfläche", "wedding planning calendar"], "tags": ["Planung", "Hamburg"], "status": "planned" },
-    { "title": "Weihnachtsfeier in Hamburg planen: Was Sie früh klären sollten", "category": "firmenfeier", "seeds": ["Weihnachtsfeier Firma planen", "Weihnachtsfeier Hamburg Firma", "DJ für Firmenfeier Hamburg"], "imageQueries": ["christmas party office", "corporate event lights", "Weihnachtsfeier Firma", "Hamburg winter"], "tags": ["Weihnachtsfeier", "Planung", "Hamburg"], "status": "planned" },
-    { "title": "Fragen an den Hochzeits DJ: Darauf solltet ihr im Vorgespräch achten", "category": "hochzeit", "seeds": ["Fragen an Hochzeits DJ", "Hochzeits DJ Vorgespräch", "Hochzeits DJ finden"], "imageQueries": ["wedding couple planning", "DJ mixer lights", "Hochzeit Planung", "couple talking"], "tags": ["Planung"], "status": "planned" },
-    { "title": "DJ für die Weihnachtsfeier: Musik für alle Abteilungen und Generationen", "category": "firmenfeier", "seeds": ["DJ Weihnachtsfeier", "Musik Weihnachtsfeier Firma", "DJ Firmenevent Hamburg"], "imageQueries": ["company party dance floor", "christmas party lights", "DJ party lights", "Firmenfeier"], "tags": ["Weihnachtsfeier", "Musik"], "status": "planned" },
-    { "title": "Eröffnungstanz: So findet ihr den richtigen Song für eure Hochzeit", "category": "hochzeit", "seeds": ["Eröffnungstanz Hochzeit Lieder", "Eröffnungstanz Song", "Hochzeitstanz Musik"], "imageQueries": ["first dance wedding", "wedding couple dancing", "Hochzeitstanz", "wedding lights"], "tags": ["Eröffnungstanz", "Musik"], "status": "planned" },
-    { "title": "Geburtstag feiern in Hamburg: Wann sich ein DJ für die private Party lohnt", "category": "private-feiern", "seeds": ["DJ Geburtstag Hamburg", "DJ für Geburtstag", "Geburtstagsfeier Hamburg planen"], "imageQueries": ["birthday party dance", "private party lights", "Geburtstagsparty", "party friends dancing"], "tags": ["Geburtstag", "Hamburg", "Planung"], "status": "planned" },
-    { "title": "Musikwünsche der Gäste: So klappt es auf eurer Feier", "category": "musik", "seeds": ["Musikwünsche Hochzeit", "Musikwünsche Gäste Party", "Musik für Hochzeit"], "imageQueries": ["party crowd dancing", "DJ turntable", "guests dancing wedding", "Tanzfläche Party"], "tags": ["Gästewünsche", "Musik"], "status": "planned" },
-    { "title": "DJ in Pinneberg und Norderstedt: Eure Feier im Hamburger Umland planen", "category": "hamburg-umgebung", "seeds": ["DJ Pinneberg", "DJ Norderstedt", "Hochzeits DJ in der Nähe"], "imageQueries": ["northern germany countryside", "wedding barn lights", "Hamburg skyline", "party venue lights"], "tags": ["Umgebung", "Planung"], "status": "planned" }
+    {
+      "title": "Wann sollte man den Hochzeits DJ in Hamburg buchen?",
+      "category": "hochzeit",
+      "priority": true,
+      "seeds": [
+        "Hochzeits DJ Hamburg buchen",
+        "Hochzeits DJ wann buchen",
+        "DJ für Hochzeit Hamburg"
+      ],
+      "imageQueries": [
+        "wedding dance floor",
+        "wedding DJ",
+        "Hochzeit Tanzfläche",
+        "wedding planning calendar"
+      ],
+      "tags": [
+        "Planung",
+        "Hamburg"
+      ],
+      "status": "planned",
+      "angle": "Beantwortet die Frage direkt und zeigt, welche Entscheidungen vom Zeitpunkt abhängen und was ihr tun könnt, wenn es schon knapp ist."
+    },
+    {
+      "title": "Weihnachtsfeier in Hamburg: Welche Fehler die Stimmung kosten und wie Sie sie vermeiden",
+      "category": "firmenfeier",
+      "seeds": [
+        "Weihnachtsfeier Firma planen",
+        "Weihnachtsfeier Hamburg Firma",
+        "DJ für Firmenfeier Hamburg"
+      ],
+      "imageQueries": [
+        "christmas party office",
+        "corporate event lights",
+        "Weihnachtsfeier Firma",
+        "Hamburg winter"
+      ],
+      "tags": [
+        "Weihnachtsfeier",
+        "Planung",
+        "Hamburg"
+      ],
+      "status": "planned",
+      "angle": "Typische Planungsfehler bei Firmenfeiern und was Veranstalter stattdessen tun können, damit der Abend nicht nach dem Essen endet."
+    },
+    {
+      "title": "Hochzeits DJ finden: Diese Fragen zeigen euch schnell, ob er zu eurer Feier passt",
+      "category": "hochzeit",
+      "seeds": [
+        "Fragen an Hochzeits DJ",
+        "Hochzeits DJ Vorgespräch",
+        "Hochzeits DJ finden"
+      ],
+      "imageQueries": [
+        "wedding couple planning",
+        "DJ mixer lights",
+        "Hochzeit Planung",
+        "couple talking"
+      ],
+      "tags": [
+        "Planung"
+      ],
+      "status": "planned",
+      "angle": "Konkrete Fragen fürs erste Gespräch, was gute und was ausweichende Antworten verraten."
+    },
+    {
+      "title": "DJ für die Weihnachtsfeier: Wie Azubis und Geschäftsführung auf derselben Tanzfläche landen",
+      "category": "firmenfeier",
+      "seeds": [
+        "DJ Weihnachtsfeier",
+        "Musik Weihnachtsfeier Firma",
+        "DJ Firmenevent Hamburg"
+      ],
+      "imageQueries": [
+        "company party dance floor",
+        "christmas party lights",
+        "DJ party lights",
+        "Firmenfeier"
+      ],
+      "tags": [
+        "Weihnachtsfeier",
+        "Musik"
+      ],
+      "status": "planned",
+      "angle": "Wie Musik über Altersgruppen und Abteilungen hinweg funktioniert und was Sie vorab abstimmen sollten."
+    },
+    {
+      "title": "Eröffnungstanz: So findet ihr einen Song, der wirklich zu euch passt, auch ohne Tanzkurs",
+      "category": "hochzeit",
+      "seeds": [
+        "Eröffnungstanz Hochzeit Lieder",
+        "Eröffnungstanz Song",
+        "Hochzeitstanz Musik"
+      ],
+      "imageQueries": [
+        "first dance wedding",
+        "wedding couple dancing",
+        "Hochzeitstanz",
+        "wedding lights"
+      ],
+      "tags": [
+        "Eröffnungstanz",
+        "Musik"
+      ],
+      "status": "planned",
+      "angle": "Entscheidungshilfe für Paare, inklusive Ideen für alle, die nicht gern im Mittelpunkt tanzen."
+    },
+    {
+      "title": "Geburtstag in Hamburg: Playlist oder DJ? Woran ihr merkt, was eure Party braucht",
+      "category": "private-feiern",
+      "seeds": [
+        "DJ Geburtstag Hamburg",
+        "DJ für Geburtstag",
+        "Geburtstagsfeier Hamburg planen"
+      ],
+      "imageQueries": [
+        "birthday party dance",
+        "private party lights",
+        "Geburtstagsparty",
+        "party friends dancing"
+      ],
+      "tags": [
+        "Geburtstag",
+        "Hamburg",
+        "Planung"
+      ],
+      "status": "planned",
+      "angle": "Ehrlicher Vergleich mit klaren Kriterien, wann eine Playlist reicht und wann ein DJ den Unterschied macht."
+    },
+    {
+      "title": "Musikwünsche auf der Feier: Warum sie die Party retten oder ruinieren können",
+      "category": "musik",
+      "seeds": [
+        "Musikwünsche Hochzeit",
+        "Musikwünsche Gäste Party",
+        "Musik für Hochzeit"
+      ],
+      "imageQueries": [
+        "party crowd dancing",
+        "DJ turntable",
+        "guests dancing wedding",
+        "Tanzfläche Party"
+      ],
+      "tags": [
+        "Gästewünsche",
+        "Musik"
+      ],
+      "status": "planned",
+      "angle": "Wie sich Gästewünsche sinnvoll einbauen lassen, ohne dass die Tanzfläche leer wird."
+    },
+    {
+      "title": "Feiern im Hamburger Umland: Was bei Pinneberg, Norderstedt und Co. anders zu planen ist",
+      "category": "hamburg-umgebung",
+      "seeds": [
+        "DJ Pinneberg",
+        "DJ Norderstedt",
+        "Hochzeits DJ in der Nähe"
+      ],
+      "imageQueries": [
+        "northern germany countryside",
+        "wedding barn lights",
+        "Hamburg skyline",
+        "party venue lights"
+      ],
+      "tags": [
+        "Umgebung",
+        "Planung"
+      ],
+      "status": "planned",
+      "angle": "Worauf ihr bei Feiern außerhalb der Stadt achten solltet, von der Anreise der Gäste bis zur Technik vor Ort, ohne konkrete Locations zu empfehlen."
+    }
   ]
 }

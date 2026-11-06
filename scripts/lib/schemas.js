@@ -23,8 +23,8 @@ const editor = {
   properties: {
     scores: {
       type: "object",
-      properties: { factualSafety: score, brandVoice: score, addressForm: score, seo: score, readability: score, grammar: score },
-      required: ["factualSafety", "brandVoice", "addressForm", "seo", "readability", "grammar"],
+      properties: { factualSafety: score, brandVoice: score, interest: score, addressForm: score, seo: score, readability: score, grammar: score },
+      required: ["factualSafety", "brandVoice", "interest", "addressForm", "seo", "readability", "grammar"],
       additionalProperties: false,
     },
     overall: score,
@@ -42,8 +42,8 @@ const topics = {
       type: "array",
       items: {
         type: "object",
-        properties: { title: text, category: text, seeds: strings, imageQueries: strings, tags: strings },
-        required: ["title", "category", "seeds", "imageQueries", "tags"],
+        properties: { title: text, angle: text, category: text, seeds: strings, imageQueries: strings, tags: strings },
+        required: ["title", "angle", "category", "seeds", "imageQueries", "tags"],
         additionalProperties: false,
       },
     },

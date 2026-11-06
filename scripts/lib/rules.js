@@ -112,6 +112,10 @@ function checkArticle(article, context) {
   const secondary = (article.secondaryKeywords || []).length;
   if (secondary < limits.secondary_keywords_min || secondary > limits.secondary_keywords_max) failures.push(`${limits.secondary_keywords_min} bis ${limits.secondary_keywords_max} Nebenkeywords nötig, gefunden: ${secondary}`);
 
+  const targets = (content.target_keywords || {})[article.category] || [];
+  const searchable = normalize(`${article.title} ${visibleText(article.body)} ${(article.faq || []).map((entry) => `${entry.question} ${entry.answer}`).join(" ")}`);
+  if (targets.length && !targets.some((keyword) => searchable.includes(normalize(keyword)))) failures.push(`Ranking-Keyword fehlt, nötig ist eines von: ${targets.join(", ")}`);
+
   if (!findCategory(content, article.category)) failures.push(`Unbekannte Kategorie: ${article.category}`);
   for (const tag of article.tags || []) {
     if (!(content.tags || []).includes(tag)) failures.push(`Unbekannter Tag: ${tag}`);
