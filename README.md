@@ -21,7 +21,7 @@ Stündlicher Scheduler → Artikel schreiben (Mo/Do) → harte Regeln und Redakt
 | `data/` | Kalender, Register, Bilder, Protokoll, Scheduler-Status |
 | `scripts/` | Die Automatik |
 | `.github/actions/claude-step/` | Der einzige Aufruf von Claude |
-| `.github/workflows/` | scheduler, generate, publish, deploy, report |
+| `.github/workflows/` | scheduler, generate, publish, deploy, report, hero (Titelbild der Startseite) |
 | `tests/` | Tests für jede Veröffentlichung |
 | `docs/setup-guide.md` | Einrichtung |
 | `docs/owner-guide-de.md` | Kurzanleitung für Mo |

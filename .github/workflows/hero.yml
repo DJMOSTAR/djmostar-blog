@@ -1,0 +1,69 @@
+# Picks a new Unsplash photo for the top of the blog home and publishes it.
+# Run it by hand whenever you want a different photo. Uses one Claude call.
+name: Set hero image
+
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: Unsplash search terms, separated by |
+        type: string
+        default: "DJ party lights|wedding dance floor lights|dj mixer stage lights"
+
+concurrency:
+  group: hero
+  cancel-in-progress: false
+
+jobs:
+  pick:
+    if: github.repository == 'DJMOSTAR/djmostar-blog'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      issues: write
+    outputs:
+      changed: ${{ steps.finish.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - id: model
+        run: node -e "const y=require('js-yaml'),fs=require('fs');const c=y.load(fs.readFileSync('config/content.yml','utf8'));fs.appendFileSync(process.env.GITHUB_OUTPUT,'model='+c.ai.model+'\n')"
+      - name: Find candidate photos
+        env:
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+          HERO_QUERY: ${{ inputs.query }}
+        run: node scripts/hero-prepare.js
+      - name: Pick the photo and write the alt text
+        uses: ./.github/actions/claude-step
+        with:
+          step_name: hero
+          prompt_file: .work/prompt-hero.md
+          schema_file: .work/schema-hero.json
+          output_file: .work/out-hero.json
+          model: ${{ steps.model.outputs.model }}
+          max_turns: "12"
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ github.token }}
+      - id: finish
+        name: Save the photo
+        env:
+          GH_TOKEN: ${{ github.token }}
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+        run: node scripts/hero-finish.js
+
+  deploy:
+    needs: pick
+    if: needs.pick.outputs.changed == 'true'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy.yml
