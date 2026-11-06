@@ -45,4 +45,11 @@ ai_note:
   text: Dieser Beitrag wurde KI-gestützt erstellt und automatisch geprüft.
 
 # Unsplash photo behind the blog index. Without one, the hero is plain black.
-index_hero: null
+index_hero:
+  id: "0BZcsD8UVmM"
+  url: "https://images.unsplash.com/photo-1599739291060-4578e77dac5d?ixid=M3wxMTI0NTQ4fDB8MXxzZWFyY2h8N3x8REolMjBwYXJ0eSUyMGxpZ2h0c3xlbnwxfDB8fHwxNzkzOTY5Nzg0fDA&ixlib=rb-4.1.0"
+  width: 6720
+  height: 4480
+  alt: "Dunkle Tanzfläche in einer Halle, über der sich viele Lichtstrahlen in Violett, Weiß und Orange kreuzen. Auf dem glänzenden Boden zeichnen sich runde violette und weiße Lichtflecken ab. Es sind keine Menschen zu sehen."
+  photographer: "David von Diemar"
+  photographerUrl: "https://unsplash.com/@davidvondiemar"
