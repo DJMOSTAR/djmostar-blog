@@ -11,7 +11,7 @@ tags:
   - Musik
   - Hamburg
   - Gästewünsche
-date: '2026-11-06'
+date: 2026-11-06
 primaryKeyword: Hochzeits DJ Hamburg buchen
 secondaryKeywords:
   - Hochzeits DJ wann buchen
