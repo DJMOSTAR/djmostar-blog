@@ -80,7 +80,9 @@ a.pill--active:hover { background: var(--ink); }
 .nav-mobile[open] .nav-mobile__icon i:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .nav-mobile[open] .nav-mobile__icon i:nth-child(2) { opacity: 0; }
 .nav-mobile[open] .nav-mobile__icon i:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-.nav--mobile { position: absolute; left: 0; right: 0; top: 100%; display: grid; padding: 4px var(--gutter) 16px; background: var(--pure-black); border-top: 1px solid var(--rule-on-black); }
+/* The open menu fills the screen below the header, so no page text shows half-covered beneath it. */
+.nav--mobile { position: absolute; left: 0; right: 0; top: 100%; display: grid; align-content: start; height: calc(100vh - 100%); height: calc(100dvh - 100%); overflow-y: auto; overscroll-behavior: contain; padding: 4px var(--gutter) 24px; background: var(--pure-black); border-top: 1px solid var(--rule-on-black); }
+body:has(.nav-mobile[open]) { overflow: hidden; }
 .nav--mobile a { padding: 13px 0; border-bottom: 1px solid #242424; }
 
 @media (min-width: 900px) {

@@ -64,6 +64,32 @@ function checkLinks(article, { site, content, publishedPosts = [] }) {
   return failures;
 }
 
+// Sentences of the body and FAQ, as a reader sees them.
+function sentences(article) {
+  const parts = [visibleText(article.body), ...(article.faq || []).flatMap((entry) => [entry.question, entry.answer])];
+  return parts.join("\n").split(/(?<=[.!?])\s+|\n+/).map((sentence) => sentence.trim()).filter(Boolean);
+}
+
+function checkKeyFacts(article, rules) {
+  const max = rules.key_fact_max || 2;
+  const all = sentences(article);
+  return (rules.key_facts || []).flatMap(({ name, pattern }) => {
+    const regex = new RegExp(pattern, "i");
+    const count = all.filter((sentence) => regex.test(sentence)).length;
+    return count > max ? [`Wiederholung: ${name} kommt ${count}x vor, höchstens ${max}x erlaubt (einmal im Text, einmal im FAQ)`] : [];
+  });
+}
+
+function checkMusicStyles(article, rules) {
+  const config = rules.music_styles;
+  if (!config) return [];
+  const regex = new RegExp(config.pattern, "gi");
+  const mentioning = sentences(article).filter((sentence) => (sentence.match(regex) || []).length >= config.min_matches);
+  if (mentioning.length === 0) return [];
+  if (!config.allowed_categories.includes(article.category)) return [`Liste der Musikrichtungen nur in Artikeln über Musik erlaubt (Kategorie: ${article.category})`];
+  return mentioning.length > 1 ? [`Liste der Musikrichtungen höchstens in einem Satz, gefunden in ${mentioning.length}`] : [];
+}
+
 function checkArticle(article, context) {
   const { content, rules } = context;
   const limits = content.article;
@@ -151,6 +177,8 @@ function checkArticle(article, context) {
     if (!allowedClaims.some((pattern) => pattern.test(match[0]))) failures.push(`Zahl ist nicht freigegeben: "${match[0]}"`);
   }
 
+  failures.push(...checkKeyFacts(article, rules));
+  failures.push(...checkMusicStyles(article, rules));
   failures.push(...checkLinks(article, context));
   return [...new Set(failures)];
 }
@@ -196,4 +224,4 @@ async function checkLiveLinks(markdown, fetchImpl = fetch) {
   return { failures, warnings };
 }
 
-module.exports = { checkArticle, checkAddressForm, checkOriginality, checkLiveLinks, audienceFor, findCategory, allArticleText };
+module.exports = { checkKeyFacts, checkMusicStyles, checkArticle, checkAddressForm, checkOriginality, checkLiveLinks, audienceFor, findCategory, allArticleText };

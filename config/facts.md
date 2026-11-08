@@ -10,9 +10,12 @@ Das sind die einzigen Fakten, die über DJ MOSTAR genannt werden dürfen. Alles 
 - Jede Feier wird persönlich im Vorgespräch vorbereitet: Ablauf, Musikrichtungen, Lieblingssongs, besondere Momente.
 - Mo nutzt einen Fragebogen nur für seine eigenen Notizen. Paare füllen keinen Musikfragebogen aus und kreuzen nichts an. Niemals das Gegenteil behaupten.
 - Jede Hochzeit ist individuell. Niemals feste Abläufe mit Uhrzeiten nennen.
-- Internationale Musik gehört zum Repertoire (u. a. türkisch, italienisch, französisch, persisch, russisch, arabisch, Balkan) und wird individuell abgestimmt. Keine einzelne Kultur hervorheben.
+- Internationale Musik gehört zum Repertoire (u. a. türkisch, italienisch, französisch, persisch, russisch, arabisch, Balkan) und wird individuell abgestimmt. Keine einzelne Kultur hervorheben. Die Liste der Musikrichtungen nur in Artikeln über Musik oder das Repertoire nennen, und dann in einem einzigen Satz.
 - Professionelles Licht und Sound für bis zu 250 Gäste, Ersatzgeräte und immer ZWEI Funkmikrofone inklusive.
-- Jeder Kunde erhält den kompletten Service zu einem Preis. Das Wort "Paket" darf in keiner Form vorkommen, auch nicht verneint.
+- Mo verkauft keine Pakete. Das Wort "Paket" darf in keiner Form vorkommen, auch nicht verneint.
+- Standardsatz zum Preis, wörtlich zu verwenden, wenn es um das Angebot geht:
+  - Hochzeit und private Feiern ("ihr"): "Ihr erhaltet ein individuelles Angebot, abgestimmt auf eure Feier und den benötigten Leistungsumfang."
+  - Firmenevents ("Sie"): "Sie erhalten ein individuelles Angebot, abgestimmt auf Ihre Feier und den benötigten Leistungsumfang."
 - Keine Preise. Der Preis hängt von Spielzeit, Gästezahl, Location, Technik und Ablauf ab und wird persönlich besprochen.
 - Umsatzsteuer nie erwähnen.
 - Es gibt Firmenkunden, die ihn Jahr für Jahr für ihre Weihnachtsfeier buchen.

@@ -18,6 +18,11 @@ forbidden_phrases:
   - Firmenpaket
   - Pauschalpreis
   - von der Stange
+  - kompletten Service zu einem Preis
+  - Der Kunde erhält
+  - Die Musik wächst mit der Planung
+  - bis sie gereift sind
+  - gereift
   - Samstage im Sommer
   - Halay
   - türkische Hochzeit
@@ -39,6 +44,29 @@ forbidden_patterns:
   - { name: Preisangabe, pattern: '(?:€|\bEUR\b|\d[\d.,]*\s*Euro\b|\bEuro\b)' }
   - { name: Hinweis auf Umsatzsteuer, pattern: '\b(?:MwSt|Mehrwertsteuer|Umsatzsteuer|USt|UStG|Kleinunternehmer)\b|§\s*19' }
   - { name: Uhrzeit, pattern: '\b\d{1,2}[:.]\d{2}\s*(?:Uhr|h)\b|\b\d{1,2}\s*Uhr\b|\b(?:um|ab|gegen|bis)\s+\d{1,2}[:.]\d{2}\b' }
+
+# Each key fact may appear at most this often in the body and FAQ together: once in each.
+# A sentence counts once, however often it matches.
+key_fact_max: 2
+key_facts:
+  - { name: '"6 bis 12 Monate"', pattern: '6 bis 12 Monate' }
+  - { name: '"etwa 6 Monate"', pattern: 'etwa 6 Monate' }
+  - { name: 'Kurzfristige Anfragen', pattern: 'kurzfristig|spontan' }
+  - { name: 'An allen Wochentagen buchbar', pattern: 'allen Wochentagen' }
+  - { name: 'Preisfaktoren', pattern: 'Spielzeit, Gästezahl' }
+  - { name: 'Individuelles Angebot', pattern: 'individuelles Angebot' }
+  - { name: 'Inhalt des Vorgesprächs', pattern: 'Ablauf, Musikrichtungen' }
+  - { name: 'Kein Fragebogen für Kunden', pattern: 'Fragebogen|nichts ausfüllen|nichts ankreuzen|eigenen Notizen' }
+  - { name: 'Technik für 250 Gäste', pattern: '250 Gäste' }
+  - { name: 'Zwei Funkmikrofone', pattern: 'zwei Funkmikrofone' }
+  - { name: 'Einsatzgebiet', pattern: 'Norderstedt, Pinneberg' }
+  - { name: 'Erfahrung', pattern: 'über 10 Jahre' }
+
+# The list of international music styles: only in the "musik" category, and in one sentence at most.
+music_styles:
+  pattern: 'türkisch|italienisch|französisch|persisch|russisch|arabisch|Balkan'
+  min_matches: 2
+  allowed_categories: [musik]
 
 # Claims about the business with a number must match one of these.
 allowed_number_claims:

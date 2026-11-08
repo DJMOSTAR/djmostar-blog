@@ -31,6 +31,8 @@ jobs:
       - run: npm install --no-audit --no-fund
       - name: Test the rules and scheduling
         run: npm test
+      - name: Check every published article against the rules
+        run: node scripts/check-posts.js
       - name: Test the templates with the test article
         run: |
           PREVIEW=1 npx @11ty/eleventy --output=_preview

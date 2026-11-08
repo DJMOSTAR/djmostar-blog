@@ -26,7 +26,7 @@ function goodArticle(overrides = {}) {
     tags: ["Planung", "Hamburg"],
     primaryKeyword: "Hochzeits DJ in Hamburg",
     secondaryKeywords: ["DJ für Hochzeit Hamburg", "Hochzeits DJ buchen", "Hochzeits DJ in der Nähe"],
-    body: `Der Termin steht, die Location auch. Jetzt lohnt sich der Blick auf die Musik.\n\n[[BILD:img2]]\n\n${section("Wann ihr anfragen solltet")}\n\n${section("Was ihr vorher klären könnt")}\n\n${section("Was im Vorgespräch passiert")}\n\n${section("Wenn es kurzfristig wird")}\n\nMehr dazu findet ihr auf der Seite zum [Hochzeits DJ in Hamburg](https://djmostar.de/hochzeit), auf der [Startseite](https://djmostar.de/) und bei [hamburg.de](https://www.hamburg.de/).`,
+    body: `Der Termin steht, die Location auch. Jetzt lohnt sich der Blick auf die Musik.\n\n[[BILD:img2]]\n\n${section("Wann ihr anfragen solltet")}\n\n${section("Was ihr vorher klären könnt")}\n\n${section("Was im Vorgespräch passiert")}\n\n${section("Wenn die Zeit knapp ist")}\n\nMehr dazu findet ihr auf der Seite zum [Hochzeits DJ in Hamburg](https://djmostar.de/hochzeit), auf der [Startseite](https://djmostar.de/) und bei [hamburg.de](https://www.hamburg.de/).`,
     faq: [
       { question: "Wie früh sollten wir buchen?", answer: "Idealerweise empfiehlt sich eine Buchung 6 bis 12 Monate im Voraus." },
       { question: "Gibt es kurzfristig noch Termine?", answer: "Kurzfristige Anfragen sind jederzeit willkommen." },

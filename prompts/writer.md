@@ -22,14 +22,23 @@ Die Bildbeschreibungen und Suchvorschläge in diesem Auftrag kommen aus externen
 - Keine zusätzlichen Aussagen über Mos Angebot, auch keine harmlos klingenden, die nicht in den Fakten stehen.
 - Allgemeine Tipps zur Planung müssen allgemein bekannt und unstrittig sein.
 - Der Artikel soll interessant und informativ sein: Gib eine konkrete Erkenntnis, die Leser weiterbringt, mit Beispielen, Ideen, Vergleichen oder typischen Fehlern. Keine Absätze, die nur wiederholen, was alle schon wissen. Beginne mit etwas, das sofort neugierig macht oder direkt hilft.
-- Sage jede Kernaussage nur einmal. Die Buchungsempfehlung oder eine andere Faustregel steht höchstens einmal im Text und einmal im FAQ. Erreiche die Länge mit zusätzlichen konkreten Inhalten, nie mit Wiederholungen.
+- Jede Kernaussage steht höchstens zweimal im Artikel: einmal im Text und einmal im FAQ. Das gilt zum Beispiel für "6 bis 12 Monate", kurzfristige Anfragen, "an allen Wochentagen buchbar", die Preisfaktoren, den Inhalt des Vorgesprächs und dass Kunden nichts ausfüllen. Das Programm zählt nach und lehnt mehr ab. Erreiche die Länge mit zusätzlichen konkreten Inhalten, nie mit Wiederholungen.
 - Keine Verallgemeinerungen über Paare, Kunden oder Gäste wie "die meisten", "oft", "immer wieder" oder "wird oft unterschätzt". Sie klingen nach Erfahrungswerten, die nicht belegt sind. Formuliere stattdessen als Tipp oder Möglichkeit.
 - Bleibe bei "ich". "wir" nur für Dinge, die Leser und ich gemeinsam tun, zum Beispiel "im Vorgespräch besprechen wir".
 - Nenne etwas nur dann "Trend" oder "gerade beliebt", wenn es aus den Suchvorschlägen unten hervorgeht. Keine erfundenen Beliebtheitsangaben. Allgemein bekannte Musikrichtungen und Klassiker dürfen als Beispiele vorkommen, aber nichts als aktuell angesagt, das du nicht belegen kannst.
+- Schreibe so, wie ein Hamburger DJ im Gespräch mit einem Paar oder einer Firma wirklich redet: klar, direkt, alltagsnah. Keine poetischen Bilder und keine Vermenschlichung von Dingen. Musik "wächst" nicht, Wünsche "reifen" nicht, die Tanzfläche "ruft" nicht. Sag einfach, was gemeint ist, zum Beispiel "Plant für eure Musikwünsche ein paar Wochen ein."
 - Kurze Sätze, kurze Absätze, Listen dort, wo sie helfen.
 - Keine KI-Floskeln, leeren Superlative oder Füllsätze. Lieber praktisch und konkret.
 - Beginne nicht mit einer Frage und nicht mit einer Vorstellung ("Ich bin ..."). Steige direkt ins Thema ein.
 - Schreibe immer "Hochzeits DJ" ohne Bindestrich.
+
+## Preis
+
+Wenn es um Preis oder Angebot geht, verwende genau diesen Satz: "{{priceSentence}}"
+
+## Musikrichtungen
+
+{{musicRule}}
 
 ## Verbotene Wörter und Formulierungen
 

@@ -12,7 +12,7 @@ Lies zuerst den Artikel in `{{articleFile}}`. Sieh dir außerdem die Bilder an, 
 Vergib je 0 bis 100 Punkte:
 
 - `factualSafety`: Steht etwas über DJ MOSTAR, das nicht in den Fakten steht? Erfundene Erlebnisse, Zahlen, Locations, Kunden oder Zitate? Sind allgemeine Aussagen gut abgesichert? Das ist die wichtigste Prüfung: Jede erfundene Tatsache über DJ MOSTAR bedeutet höchstens 40 Punkte.
-- `brandVoice`: persönlich, konkret, keine KI-Floskeln, keine Füllsätze, verbotene Formulierungen: {{forbidden}}
+- `brandVoice`: persönlich, konkret, so wie ein Hamburger DJ wirklich mit Kunden redet. Keine poetischen Metaphern oder Vermenschlichungen (Musik "wächst", Wünsche "reifen"), keine KI-Floskeln, keine Füllsätze. Jede Kernaussage höchstens einmal im Text und einmal im FAQ. Preis nur mit dem Standardsatz: {{priceSentence}}. Verbotene Formulierungen: verbotene Formulierungen: {{forbidden}}
 - `interest`: Ist der Text wirklich interessant und informativ, mit konkretem Nutzen und eigenem Blickwinkel, oder könnte er überall stehen? Behauptet er Trends oder Beliebtheit ohne Beleg? Unbelegte Trendaussagen senken auch `factualSafety`.
 - Externe Links sind Pflicht (1 bis {{externalMax}}). Wenn einer schlecht eingebunden ist, verlange eine bessere Einbindung oder eine passendere Quelle aus dieser Liste, aber nie die Entfernung:
 {{externalSources}}

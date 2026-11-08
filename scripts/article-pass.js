@@ -47,6 +47,10 @@ function buildWriterPrompt(run, images, state) {
     category: category.name,
     categorySlug: category.slug,
     addressRule: addressText(audience),
+    priceSentence: audience === "sie" ? "Sie erhalten ein individuelles Angebot, abgestimmt auf Ihre Feier und den benötigten Leistungsumfang." : "Ihr erhaltet ein individuelles Angebot, abgestimmt auf eure Feier und den benötigten Leistungsumfang.",
+    musicRule: (rules.music_styles && rules.music_styles.allowed_categories.includes(category.slug))
+      ? "Die Liste der internationalen Musikrichtungen darfst du nennen, aber nur in einem einzigen Satz."
+      : "Nenne keine Liste internationaler Musikrichtungen. Sie gehört nur in Artikel über Musik.",
     today: new Date().toISOString().slice(0, 10),
     facts,
     forbidden: rules.forbidden_phrases.map((phrase) => `- ${phrase}`).join("\n"),
@@ -82,6 +86,7 @@ function buildEditorPrompt(article, images) {
     facts,
     forbidden: rules.forbidden_phrases.join(", "),
     addressRule: addressText(audienceFor(article, content)),
+    priceSentence: audienceFor(article, content) === "sie" ? "Sie erhalten ein individuelles Angebot, abgestimmt auf Ihre Feier und den benötigten Leistungsumfang." : "Ihr erhaltet ein individuelles Angebot, abgestimmt auf eure Feier und den benötigten Leistungsumfang.",
     minScore: content.limits.min_score,
     minWords: content.article.min_words,
     externalMax: 2,

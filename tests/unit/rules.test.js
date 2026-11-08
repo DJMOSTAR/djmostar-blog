@@ -96,3 +96,42 @@ test("live link check separates dead links from blocked bots", async () => {
   assert.strictEqual(result.failures.length, 1);
   assert.strictEqual(result.warnings.length, 1);
 });
+
+test("a hyphenated Hochzeits-DJ is caught in every visible field", () => {
+  const hyphen = "Hochzeits-DJ";
+  const cases = {
+    title: { title: `${hyphen} in Hamburg buchen`, primaryKeyword: "Hamburg buchen" },
+    seoTitle: { seoTitle: `${hyphen} Hamburg buchen` },
+    description: { description: `${goodArticle().description.slice(0, 120)} ${hyphen} hier.`.padEnd(150, ".") },
+    excerpt: { excerpt: `So findet ihr den passenden ${hyphen}.` },
+    subtitle: { subtitle: `Der passende ${hyphen} für euch` },
+    heading: addToBody(`## Was ein ${hyphen} vorher wissen muss`),
+    altText: { featured: { id: "img1", alt: `Ein ${hyphen} legt auf einer Feier auf` } },
+    faq: { faq: [...goodArticle().faq, { question: `Wann bucht man den ${hyphen}?`, answer: "Am besten früh." }] },
+  };
+  for (const [field, overrides] of Object.entries(cases)) {
+    assert.ok(failuresFor(overrides).some((f) => /Bindestrich/.test(f)), `not caught in ${field}`);
+  }
+});
+
+test("poetic phrases from Mo's review are blocked", () => {
+  assert.ok(failuresFor(addToBody("Die Musik wächst mit der Planung.")).some((f) => /wächst/.test(f)));
+  assert.ok(failuresFor(addToBody("Wünsche brauchen Zeit, bis sie gereift sind.")).some((f) => /gereift/.test(f)));
+  assert.ok(failuresFor(addToBody("Der Kunde erhält den kompletten Service zu einem Preis.")).some((f) => /Preis|Kunde/.test(f)));
+});
+
+test("a key fact may appear twice at most", () => {
+  assert.deepStrictEqual(failuresFor({}).filter((f) => /Wiederholung/.test(f)), []);
+  const twice = addToBody("Ich bin an allen Wochentagen buchbar. Da ich an allen Wochentagen buchbar bin, geht viel.");
+  const failures = failuresFor({ ...twice, faq: [...goodArticle().faq, { question: "Nur am Wochenende?", answer: "Nein, ich bin an allen Wochentagen buchbar." }] });
+  assert.ok(failures.some((f) => /Wiederholung: An allen Wochentagen buchbar kommt 3x/.test(f)), failures.join("; "));
+  assert.ok(failuresFor(addToBody("Idealerweise 6 bis 12 Monate. Wirklich 6 bis 12 Monate.")).some((f) => /6 bis 12 Monate/.test(f)));
+});
+
+test("the music style list is limited to music articles and one sentence", () => {
+  const list = "Zum Repertoire gehören türkische, italienische und persische Musik.";
+  assert.ok(failuresFor(addToBody(list)).some((f) => /Musikrichtungen nur in Artikeln über Musik/.test(f)));
+  assert.ok(!failuresFor({ ...addToBody(list), category: "musik" }).some((f) => /Musikrichtungen/.test(f)));
+  assert.ok(failuresFor({ ...addToBody(`${list} Auch russische und arabische Musik spiele ich.`), category: "musik" }).some((f) => /einem Satz/.test(f)));
+  assert.ok(!failuresFor(addToBody("Internationale Musik stimmen wir individuell ab.")).some((f) => /Musikrichtungen/.test(f)));
+});
