@@ -63,7 +63,7 @@ for (const file of html) {
   // Request buttons and form links must go straight to the form. Menu links to the pages are fine.
   const withoutMenus = page.replace(/<nav class="nav[\s\S]*?<\/nav>/g, "");
   for (const href of withoutMenus.match(/href="https:\/\/(?:www\.)?djmostar\.de\/(?:hochzeit|firmenfeier)[^"]*"/g) || []) {
-    if (!href.endsWith('#anfrage"')) fail(name, `request link without #anfrage: ${href}`);
+    if (!href.endsWith('#kontakt"')) fail(name, `request link without #kontakt: ${href}`);
   }
 
   const schemas = [...page.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];

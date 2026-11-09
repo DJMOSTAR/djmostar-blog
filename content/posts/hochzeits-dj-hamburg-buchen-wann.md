@@ -111,7 +111,7 @@ Eine klare Reihenfolge hilft, nichts zu vergessen. Sie ist ein Vorschlag, kein s
 
 1. **Termin festlegen.** Der Termin der Trauung gibt den Rahmen vor. Allgemeine Infos der Stadt findet ihr bei der [Stadt Hamburg](https://www.hamburg.de/).
 2. **Location klären.** Fragt nach Platz, Stromanschlüssen und möglichen Regeln zur Lautstärke.
-3. **Hochzeits DJ anfragen.** Sobald Datum und Ort stehen, könnt ihr eure Anfrage über das [Formular für Hochzeiten](https://djmostar.de/hochzeit#anfrage) stellen.
+3. **Hochzeits DJ anfragen.** Sobald Datum und Ort stehen, könnt ihr eure Anfrage über das [Formular für Hochzeiten](https://djmostar.de/hochzeit#kontakt) stellen.
 4. **Vorgespräch führen.** Dort klären wir alle Details eurer Feier.
 
 Wer Schritt drei nach hinten schiebt, riskiert, dass das Datum schon belegt ist. Eine Anfrage ist dagegen in ein paar Minuten gestellt.
@@ -175,4 +175,4 @@ Mit diesen Antworten kann ich die Feier auf euch zuschneiden. Ich halte alles in
 
 Frühe Anfragen geben euch Ruhe. Ihr sichert euch das Datum und habt Zeit für Vorgespräch und Musikauswahl. Ist die Hochzeit schon nah, lohnt sich die Anfrage trotzdem.
 
-Wenn ihr einen DJ für die Hochzeit in Hamburg sucht, schickt mir eure Eckdaten über die [Anfrageseite für Hochzeiten](https://djmostar.de/hochzeit#anfrage). Mehr über mich und meine Arbeit findet ihr auf der [Startseite](https://djmostar.de/). Ich freue mich auf eure Nachricht.
+Wenn ihr einen DJ für die Hochzeit in Hamburg sucht, schickt mir eure Eckdaten über die [Anfrageseite für Hochzeiten](https://djmostar.de/hochzeit#kontakt). Mehr über mich und meine Arbeit findet ihr auf der [Startseite](https://djmostar.de/). Ich freue mich auf eure Nachricht.

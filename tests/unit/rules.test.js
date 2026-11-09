@@ -56,7 +56,7 @@ test("requires a ranking keyword for the category", () => {
 
 test("blocks missing or wrong links", () => {
   const body = goodArticle().body;
-  assert.ok(failuresFor({ body: body.replace("(https://djmostar.de/hochzeit#anfrage)", "(https://djmostar.de/firmenfeier#anfrage)") }).some((f) => /Anfrageseite/.test(f)));
+  assert.ok(failuresFor({ body: body.replace("(https://djmostar.de/hochzeit#kontakt)", "(https://djmostar.de/firmenfeier#kontakt)") }).some((f) => /Anfrageseite/.test(f)));
   assert.ok(failuresFor({ body: body.replace("[Startseite](https://djmostar.de/)", "Startseite") }).some((f) => /Startseite/.test(f)));
   assert.ok(failuresFor({ body: body.replace("https://www.hamburg.de/", "https://example.com/") }).some((f) => /nicht freigegeben/.test(f)));
   assert.ok(failuresFor({}, { publishedPosts: [{ slug: "alt", title: "Alt" }] }).some((f) => /früheren Blogbeitrag/.test(f)));
@@ -77,7 +77,7 @@ test("checks the address form", () => {
   assert.ok(checkAddressForm("Dann planen Sie früh.", "ihr").length > 0);
   assert.deepStrictEqual(checkAddressForm("Das hilft Ihnen sehr. Sie planen früh.", "sie"), []);
   assert.deepStrictEqual(checkAddressForm("Das hilft euch sehr.", "ihr"), []);
-  assert.ok(failuresFor({ category: "firmenfeier", body: `${goodArticle().body.replace("https://djmostar.de/hochzeit#anfrage", "https://djmostar.de/firmenfeier#anfrage")}` }).some((f) => /informelle/.test(f)));
+  assert.ok(failuresFor({ category: "firmenfeier", body: `${goodArticle().body.replace("https://djmostar.de/hochzeit#kontakt", "https://djmostar.de/firmenfeier#kontakt")}` }).some((f) => /informelle/.test(f)));
 });
 
 test("rejects duplicates against earlier posts", () => {
@@ -136,12 +136,12 @@ test("the music style list is limited to music articles and one sentence", () =>
   assert.ok(!failuresFor(addToBody("Internationale Musik stimmen wir individuell ab.")).some((f) => /Musikrichtungen/.test(f)));
 });
 
-test("every inquiry link must go to the form with #anfrage", () => {
+test("every inquiry link must go to the form with #kontakt", () => {
   const body = goodArticle().body;
-  assert.ok(failuresFor({ body: body.replace("(https://djmostar.de/hochzeit#anfrage)", "(https://djmostar.de/hochzeit)") }).some((f) => /Anfrageseite fehlt/.test(f)));
-  assert.ok(failuresFor(addToBody("Siehe [Firmenfeiern](https://djmostar.de/firmenfeier).")).some((f) => /ohne #anfrage: https:\/\/djmostar\.de\/firmenfeier$/.test(f)));
-  assert.ok(failuresFor(addToBody("Siehe [Hochzeit](https://djmostar.de/hochzeit/).")).some((f) => /ohne #anfrage/.test(f)));
-  assert.ok(!failuresFor({}).some((f) => /#anfrage/.test(f)));
+  assert.ok(failuresFor({ body: body.replace("(https://djmostar.de/hochzeit#kontakt)", "(https://djmostar.de/hochzeit)") }).some((f) => /Anfrageseite fehlt/.test(f)));
+  assert.ok(failuresFor(addToBody("Siehe [Firmenfeiern](https://djmostar.de/firmenfeier).")).some((f) => /ohne #kontakt: https:\/\/djmostar\.de\/firmenfeier$/.test(f)));
+  assert.ok(failuresFor(addToBody("Siehe [Hochzeit](https://djmostar.de/hochzeit/).")).some((f) => /ohne #kontakt/.test(f)));
+  assert.ok(!failuresFor({}).some((f) => /#kontakt/.test(f)));
 });
 
 test("asking readers to collect music wishes is allowed once", () => {

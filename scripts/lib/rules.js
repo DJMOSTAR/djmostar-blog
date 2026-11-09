@@ -44,7 +44,7 @@ function checkLinks(article, { site, content, publishedPosts = [] }) {
   // Every link to an inquiry page must go straight to the form.
   const inquiryPages = new Set(Object.values(site.inquiry).map((url) => clean(String(url))));
   for (const link of links) {
-    if (inquiryPages.has(clean(link.url)) && !link.url.endsWith("#anfrage")) failures.push(`Anfrage-Link ohne #anfrage: ${link.url}`);
+    if (inquiryPages.has(clean(link.url)) && !link.url.endsWith("#kontakt")) failures.push(`Anfrage-Link ohne #kontakt: ${link.url}`);
   }
   if (!links.some((link) => clean(link.url) === String(site.main_site).replace(/\/$/, ""))) failures.push(`Link zur Startseite fehlt: ${site.main_site}`);
 

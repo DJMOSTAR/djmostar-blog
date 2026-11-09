@@ -19,11 +19,11 @@ nav:
   - { label: Galerie, url: "https://djmostar.de/" }
   - { label: FAQ, url: "https://djmostar.de/" }
 
-# Inquiry forms. Every request button and form link uses these, and they must keep #anfrage.
+# Inquiry forms. Every request button and form link uses these, and they must keep #kontakt.
 # The header button uses the corporate form on corporate pages, otherwise the wedding form.
 inquiry:
-  hochzeit: https://djmostar.de/hochzeit#anfrage
-  firmenfeier: https://djmostar.de/firmenfeier#anfrage
+  hochzeit: https://djmostar.de/hochzeit#kontakt
+  firmenfeier: https://djmostar.de/firmenfeier#kontakt
 
 contact:
   email: info@djmostar.de
