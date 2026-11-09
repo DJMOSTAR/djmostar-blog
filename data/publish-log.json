@@ -22,6 +22,20 @@
       "slug": "hochzeits-dj-hamburg-buchen-wann",
       "category": "hochzeit",
       "pr": 7
+    },
+    {
+      "at": "2026-11-09T09:20:55.870Z",
+      "type": "draft",
+      "slot": "generate-2026-11-09",
+      "title": "Weihnachtsfeier Hamburg: Welche Fehler die Stimmung kosten und wie Sie sie vermeiden",
+      "slug": "weihnachtsfeier-hamburg-fehler-stimmung-vermeiden",
+      "category": "firmenfeier",
+      "score": 87,
+      "usage": {
+        "steps": 2,
+        "inputTokens": 12,
+        "outputTokens": 14581
+      }
     }
   ]
 }

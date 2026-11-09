@@ -42,8 +42,9 @@
         "Planung",
         "Hamburg"
       ],
-      "status": "planned",
-      "angle": "Typische Planungsfehler bei Firmenfeiern und was Veranstalter stattdessen tun können, damit der Abend nicht nach dem Essen endet."
+      "status": "draft",
+      "angle": "Typische Planungsfehler bei Firmenfeiern und was Veranstalter stattdessen tun können, damit der Abend nicht nach dem Essen endet.",
+      "slug": "weihnachtsfeier-hamburg-fehler-stimmung-vermeiden"
     },
     {
       "title": "Hochzeits DJ finden: Diese Fragen zeigen euch schnell, ob er zu eurer Feier passt",
