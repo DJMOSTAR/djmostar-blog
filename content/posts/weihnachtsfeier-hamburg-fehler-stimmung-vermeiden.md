@@ -133,7 +133,7 @@ Denken Sie auch an die Heimfahrt. Nennen Sie in der Einladung Hinweise zur Anrei
 
 Wer den Abend in Abschnitte teilt, den Wechsel ankündigt und Technik wie Raum vorher prüft, nimmt der Feier die typischen Stolperstellen. Es gibt Firmenkunden, die mich Jahr für Jahr für ihre Weihnachtsfeier buchen. Ich bringe über 10 Jahre Erfahrung und 250+ Events mit und war früher in der Hamburger Clubszene aktiv.
 
-Wenn Sie einen DJ für Firmenevents in Hamburg suchen, schicken Sie mir Ihre Anfrage über die [Anfrageseite für Firmenfeiern](https://djmostar.de/firmenfeier#anfrage). Mehr über mich finden Sie auf der [Startseite von DJ MOSTAR](https://djmostar.de/).
+Wenn Sie einen DJ für Firmenevents in Hamburg suchen, schicken Sie mir Ihre Anfrage über die [Anfrageseite für Firmenfeiern](https://djmostar.de/firmenfeier#kontakt). Mehr über mich finden Sie auf der [Startseite von DJ MOSTAR](https://djmostar.de/).
 
 <figure data-unsplash-id="2c7JUuO-C3E">
   <img src="https://images.unsplash.com/photo-1766154559837-d295d7510480?ixid=M3wxMTI0NTQ4fDB8MXxzZWFyY2h8MXx8Y2hyaXN0bWFzJTIwcGFydHklMjBvZmZpY2V8ZW58MXwwfHx8MTc5NDIxNTkwNnww&amp;ixlib=rb-4.1.0&amp;w=1200&amp;q=70&amp;auto=format&amp;fit=crop" width="1200" height="800" alt="Eine Girlande aus roten und grünen Wimpeln mit dem Schriftzug MERRY, daneben hängen grüne und rote Christbaumkugeln an einer Raumdecke." loading="lazy">
