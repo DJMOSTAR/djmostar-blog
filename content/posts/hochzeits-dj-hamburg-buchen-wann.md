@@ -87,7 +87,6 @@ Diese Dinge hängen am Zeitpunkt:
 
 - **Das Datum selbst:** Ist euer Wunschtag noch frei oder nicht?
 - **Das Vorgespräch:** Je mehr Luft im Kalender ist, desto entspannter lässt sich ein Termin dafür finden.
-- **Die Musikauswahl:** Ihr habt Zeit, Lieblingssongs zu sammeln und euch auf Richtungen zu einigen.
 - **Die Abstimmung mit der Location:** Technik, Stromanschlüsse und Aufbau lassen sich in Ruhe klären.
 
 ### Das Vorgespräch braucht Raum
@@ -112,9 +111,8 @@ Eine klare Reihenfolge hilft, nichts zu vergessen. Sie ist ein Vorschlag, kein s
 
 1. **Termin festlegen.** Der Termin der Trauung gibt den Rahmen vor. Allgemeine Infos der Stadt findet ihr bei der [Stadt Hamburg](https://www.hamburg.de/).
 2. **Location klären.** Fragt nach Platz, Stromanschlüssen und möglichen Regeln zur Lautstärke.
-3. **Hochzeits DJ anfragen.** Sobald Datum und Ort stehen, könnt ihr eure Anfrage über das [Formular für Hochzeiten](https://djmostar.de/hochzeit) stellen.
-4. **Musikwünsche sammeln.** Legt eine gemeinsame Liste an, in die beide Songs eintragen.
-5. **Vorgespräch führen.** Dort klären wir alle Details eurer Feier.
+3. **Hochzeits DJ anfragen.** Sobald Datum und Ort stehen, könnt ihr eure Anfrage über das [Formular für Hochzeiten](https://djmostar.de/hochzeit#anfrage) stellen.
+4. **Vorgespräch führen.** Dort klären wir alle Details eurer Feier.
 
 Wer Schritt drei nach hinten schiebt, riskiert, dass das Datum schon belegt ist. Eine Anfrage ist dagegen in ein paar Minuten gestellt.
 
@@ -141,7 +139,7 @@ Neben dem Formular erreicht ihr mich per WhatsApp, Telefon unter +49 175 4193485
 
 ### Bleibt bei der Musik flexibel
 
-Mit weniger Vorlauf gibt es weniger Zeit zum Sammeln von Songs. Das ist machbar. Legt euch dann auf eine Handvoll Lieblingssongs und zwei, drei Richtungen fest. Den Rest besprechen wir im Vorgespräch.
+Mit weniger Vorlauf reicht es, wenn ihr zum Vorgespräch zwei, drei Musikrichtungen mitbringt, die euch gefallen. Den Rest besprechen wir dort gemeinsam.
 
 ### Prüft die Alternativen bei der Terminwahl
 
@@ -155,7 +153,6 @@ Diese Stolpersteine lassen sich vermeiden:
 - **Nur auf den Preis schauen.** Vergleicht, was alles dazugehört, zum Beispiel Technik, Ersatzgeräte und Mikrofone, nicht nur die Zahl.
 - **Die Technik nicht mit der Location abstimmen.** Klärt früh, wo aufgebaut wird und welche Anschlüsse es gibt.
 - **Die Musiknutzung vergessen.** Fragt bei der Location nach, wer sich um die Musiknutzung kümmert. Allgemeine Infos gibt es bei der [GEMA](https://www.gema.de/).
-- **Die Gästewünsche unterschätzen.** Plant im Vorfeld ein, wie ihr Wünsche eurer Gäste einsammeln möchtet.
 
 <figure data-unsplash-id="G3O5fc5_r4s">
   <img src="https://images.unsplash.com/photo-1708569176813-746f00614012?ixid=M3wxMTI0NTQ4fDB8MXxzZWFyY2h8Mnx8d2VkZGluZyUyMGRhbmNlJTIwZmxvb3J8ZW58MXwwfHx8MTc5Mzk0MDIzOHww&amp;ixlib=rb-4.1.0&amp;w=1200&amp;q=70&amp;auto=format&amp;fit=crop" width="1200" height="800" alt="Eine lachende Braut im weißen Kleid steht zwischen Gästen auf einer Feier mit Lichtreflexen im Hintergrund" loading="lazy">
@@ -178,4 +175,4 @@ Mit diesen Antworten kann ich die Feier auf euch zuschneiden. Ich halte alles in
 
 Frühe Anfragen geben euch Ruhe. Ihr sichert euch das Datum und habt Zeit für Vorgespräch und Musikauswahl. Ist die Hochzeit schon nah, lohnt sich die Anfrage trotzdem.
 
-Wenn ihr einen DJ für die Hochzeit in Hamburg sucht, schickt mir eure Eckdaten über die [Anfrageseite für Hochzeiten](https://djmostar.de/hochzeit). Mehr über mich und meine Arbeit findet ihr auf der [Startseite](https://djmostar.de/). Ich freue mich auf eure Nachricht.
+Wenn ihr einen DJ für die Hochzeit in Hamburg sucht, schickt mir eure Eckdaten über die [Anfrageseite für Hochzeiten](https://djmostar.de/hochzeit#anfrage). Mehr über mich und meine Arbeit findet ihr auf der [Startseite](https://djmostar.de/). Ich freue mich auf eure Nachricht.

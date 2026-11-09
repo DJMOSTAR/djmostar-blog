@@ -56,7 +56,7 @@ test("requires a ranking keyword for the category", () => {
 
 test("blocks missing or wrong links", () => {
   const body = goodArticle().body;
-  assert.ok(failuresFor({ body: body.replace("(https://djmostar.de/hochzeit)", "(https://djmostar.de/firmenfeier)") }).some((f) => /Anfrageseite/.test(f)));
+  assert.ok(failuresFor({ body: body.replace("(https://djmostar.de/hochzeit#anfrage)", "(https://djmostar.de/firmenfeier#anfrage)") }).some((f) => /Anfrageseite/.test(f)));
   assert.ok(failuresFor({ body: body.replace("[Startseite](https://djmostar.de/)", "Startseite") }).some((f) => /Startseite/.test(f)));
   assert.ok(failuresFor({ body: body.replace("https://www.hamburg.de/", "https://example.com/") }).some((f) => /nicht freigegeben/.test(f)));
   assert.ok(failuresFor({}, { publishedPosts: [{ slug: "alt", title: "Alt" }] }).some((f) => /früheren Blogbeitrag/.test(f)));
@@ -77,7 +77,7 @@ test("checks the address form", () => {
   assert.ok(checkAddressForm("Dann planen Sie früh.", "ihr").length > 0);
   assert.deepStrictEqual(checkAddressForm("Das hilft Ihnen sehr. Sie planen früh.", "sie"), []);
   assert.deepStrictEqual(checkAddressForm("Das hilft euch sehr.", "ihr"), []);
-  assert.ok(failuresFor({ category: "firmenfeier", body: `${goodArticle().body.replace("https://djmostar.de/hochzeit", "https://djmostar.de/firmenfeier")}` }).some((f) => /informelle/.test(f)));
+  assert.ok(failuresFor({ category: "firmenfeier", body: `${goodArticle().body.replace("https://djmostar.de/hochzeit#anfrage", "https://djmostar.de/firmenfeier#anfrage")}` }).some((f) => /informelle/.test(f)));
 });
 
 test("rejects duplicates against earlier posts", () => {
@@ -134,4 +134,19 @@ test("the music style list is limited to music articles and one sentence", () =>
   assert.ok(!failuresFor({ ...addToBody(list), category: "musik" }).some((f) => /Musikrichtungen/.test(f)));
   assert.ok(failuresFor({ ...addToBody(`${list} Auch russische und arabische Musik spiele ich.`), category: "musik" }).some((f) => /einem Satz/.test(f)));
   assert.ok(!failuresFor(addToBody("Internationale Musik stimmen wir individuell ab.")).some((f) => /Musikrichtungen/.test(f)));
+});
+
+test("every inquiry link must go to the form with #anfrage", () => {
+  const body = goodArticle().body;
+  assert.ok(failuresFor({ body: body.replace("(https://djmostar.de/hochzeit#anfrage)", "(https://djmostar.de/hochzeit)") }).some((f) => /Anfrageseite fehlt/.test(f)));
+  assert.ok(failuresFor(addToBody("Siehe [Firmenfeiern](https://djmostar.de/firmenfeier).")).some((f) => /ohne #anfrage: https:\/\/djmostar\.de\/firmenfeier$/.test(f)));
+  assert.ok(failuresFor(addToBody("Siehe [Hochzeit](https://djmostar.de/hochzeit/).")).some((f) => /ohne #anfrage/.test(f)));
+  assert.ok(!failuresFor({}).some((f) => /#anfrage/.test(f)));
+});
+
+test("asking readers to collect music wishes is allowed once", () => {
+  assert.ok(!failuresFor(addToBody("Sammelt eure Lieblingssongs in Ruhe.")).some((f) => /Musikwünsche zu sammeln/.test(f)));
+  const twice = addToBody("Sammelt eure Lieblingssongs in Ruhe. Legt eine gemeinsame Liste an, in die beide Songs eintragen.");
+  assert.ok(failuresFor(twice).some((f) => /Musikwünsche zu sammeln kommt 2x/.test(f)));
+  assert.ok(!failuresFor(addToBody("Eine Playlist vom Handy reicht für den Empfang. Die Musik läuft dann nebenher.")).some((f) => /Musikwünsche/.test(f)));
 });

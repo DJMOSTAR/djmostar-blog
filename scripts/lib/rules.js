@@ -37,10 +37,15 @@ function checkLinks(article, { site, content, publishedPosts = [] }) {
   const failures = [];
   const links = markdownLinks(article.body);
   const inquiryKey = article.inquiry || (findCategory(content, article.category) || {}).inquiry || "hochzeit";
-  const inquiryUrl = String(site.inquiry[inquiryKey]).split("#")[0].replace(/\/$/, "");
+  const inquiryUrl = String(site.inquiry[inquiryKey]);
   const clean = (url) => url.split("#")[0].split("?")[0].replace(/\/$/, "");
 
-  if (!links.some((link) => clean(link.url) === inquiryUrl)) failures.push(`Interner Link zur Anfrageseite fehlt: ${inquiryUrl}`);
+  if (!links.some((link) => link.url === inquiryUrl)) failures.push(`Interner Link zur Anfrageseite fehlt: ${inquiryUrl}`);
+  // Every link to an inquiry page must go straight to the form.
+  const inquiryPages = new Set(Object.values(site.inquiry).map((url) => clean(String(url))));
+  for (const link of links) {
+    if (inquiryPages.has(clean(link.url)) && !link.url.endsWith("#anfrage")) failures.push(`Anfrage-Link ohne #anfrage: ${link.url}`);
+  }
   if (!links.some((link) => clean(link.url) === String(site.main_site).replace(/\/$/, ""))) failures.push(`Link zur Startseite fehlt: ${site.main_site}`);
 
   const blogHost = new URL(site.url).hostname;
@@ -73,10 +78,13 @@ function sentences(article) {
 function checkKeyFacts(article, rules) {
   const max = rules.key_fact_max || 2;
   const all = sentences(article);
-  return (rules.key_facts || []).flatMap(({ name, pattern }) => {
+  return (rules.key_facts || []).flatMap(({ name, pattern, also, max: own }) => {
     const regex = new RegExp(pattern, "i");
-    const count = all.filter((sentence) => regex.test(sentence)).length;
-    return count > max ? [`Wiederholung: ${name} kommt ${count}x vor, höchstens ${max}x erlaubt (einmal im Text, einmal im FAQ)`] : [];
+    const second = also ? new RegExp(also, "i") : null;
+    const limit = own || max;
+    const count = all.filter((sentence) => regex.test(sentence) && (!second || second.test(sentence))).length;
+    const where = limit === 1 ? "einmal im ganzen Artikel" : "einmal im Text, einmal im FAQ";
+    return count > limit ? [`Wiederholung: ${name} kommt ${count}x vor, höchstens ${limit}x erlaubt (${where})`] : [];
   });
 }
 

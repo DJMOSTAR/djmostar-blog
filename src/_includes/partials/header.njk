@@ -10,7 +10,9 @@
     <div class="social social--header">
       {% for item in site.social %}{% set iconName = item.icon %}<a href="{{ item.url }}" target="_blank" rel="noopener" aria-label="{{ item.label }}">{% include "partials/icon.njk" %}</a>{% endfor %}
     </div>
-    <a class="button button--gold button--small" href="{{ site.inquiry.header }}">Anfrage</a>
+    {% set headerCategory = taxonomy.categories | findCategory(category or (listing.category.slug if listing and listing.category else '')) %}
+    {% set headerInquiry = inquiry or (headerCategory.inquiry if headerCategory else 'hochzeit') %}
+    <a class="button button--gold button--small" href="{{ site.inquiry[headerInquiry] }}">Anfrage</a>
     <details class="nav-mobile">
       <summary aria-label="Menü öffnen oder schließen">
         <span class="nav-mobile__icon" aria-hidden="true"><i></i><i></i><i></i></span>

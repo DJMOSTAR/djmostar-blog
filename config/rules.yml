@@ -61,6 +61,8 @@ key_facts:
   - { name: 'Zwei Funkmikrofone', pattern: 'zwei Funkmikrofone' }
   - { name: 'Einsatzgebiet', pattern: 'Norderstedt, Pinneberg' }
   - { name: 'Erfahrung', pattern: 'über 10 Jahre' }
+  # Prompts to collect music wishes or make song lists: once per article.
+  - { name: 'Aufforderung, Musikwünsche zu sammeln', pattern: 'sammel|Liste an|Wunschliste|Musikliste|Songliste|eintrag', also: 'Song|Lied|Musik|Wünsch', max: 1 }
 
 # The list of international music styles: only in the "musik" category, and in one sentence at most.
 music_styles:

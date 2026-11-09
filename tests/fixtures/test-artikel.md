@@ -46,4 +46,4 @@ Im persönlichen Vorgespräch nehmen wir uns Zeit für den Ablauf, eure Musikric
 
 Professionelles Licht und Sound für bis zu 250 Gäste, Ersatzgeräte und immer zwei Funkmikrofone sind dabei.
 
-Mehr dazu findet ihr auf der Seite zum [Hochzeits DJ in Hamburg](https://djmostar.de/hochzeit). Allgemeine Infos zur Stadt gibt es bei [hamburg.de](https://www.hamburg.de/).
+Mehr dazu findet ihr auf der Seite zum [Hochzeits DJ in Hamburg](https://djmostar.de/hochzeit#anfrage). Allgemeine Infos zur Stadt gibt es bei [hamburg.de](https://www.hamburg.de/).
