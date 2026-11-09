@@ -89,7 +89,7 @@ Stellen Sie außerdem keine Tische direkt vor die Lautsprecher. Wer dort sitzt, 
 
 Klären Sie mit der Location auch, wie die Musiknutzung geregelt ist. Allgemeine Informationen zur Musik bei Veranstaltungen bietet die [GEMA](https://www.gema.de/).
 
-Ich bin mobiler DJ und komme zu jedem Event, in Hamburg und im Umkreis von etwa 50 km. Licht und Sound sind für bis zu 250 Gäste ausgelegt, Ersatzgeräte bringe ich mit.
+Ich bin mobiler DJ und komme zu jedem Event, in Hamburg und im Umkreis von etwa 50 km. Ich bringe Licht- und Tontechnik passend zu Raum und Gästezahl mit, für Feiern bis zu 250 Gästen, dazu Ersatzgeräte.
 
 ## Fehler 4: Reden ohne Technik und ohne Limit
 
