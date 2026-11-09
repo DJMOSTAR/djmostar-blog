@@ -81,10 +81,12 @@ function checkKeyFacts(article, rules) {
   return (rules.key_facts || []).flatMap(({ name, pattern, also, max: own }) => {
     const regex = new RegExp(pattern, "i");
     const second = also ? new RegExp(also, "i") : null;
-    const limit = own || max;
+    const limit = own ?? max;
     const count = all.filter((sentence) => regex.test(sentence) && (!second || second.test(sentence))).length;
+    if (count <= limit) return [];
+    if (limit === 0) return [`Nicht erlaubt: ${name} (${count}x gefunden)`];
     const where = limit === 1 ? "einmal im ganzen Artikel" : "einmal im Text, einmal im FAQ";
-    return count > limit ? [`Wiederholung: ${name} kommt ${count}x vor, höchstens ${limit}x erlaubt (${where})`] : [];
+    return [`Wiederholung: ${name} kommt ${count}x vor, höchstens ${limit}x erlaubt (${where})`];
   });
 }
 

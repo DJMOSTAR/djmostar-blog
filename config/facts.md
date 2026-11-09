@@ -9,9 +9,10 @@ Das sind die einzigen Fakten, die über DJ MOSTAR genannt werden dürfen. Alles 
 - Einsatzgebiet: Hamburg und ca. 50 km Umkreis (Norderstedt, Pinneberg, Ahrensburg, Halstenbek, Elmshorn, Buxtehude, Lüneburg). Mobiler DJ, kommt zu jedem Event.
 - Jede Feier wird persönlich im Vorgespräch vorbereitet: Ablauf, Musikrichtungen, Lieblingssongs, besondere Momente.
 - Mo nutzt einen Fragebogen nur für seine eigenen Notizen. Paare füllen keinen Musikfragebogen aus und kreuzen nichts an. Niemals das Gegenteil behaupten.
+- Mo wählt die Musik flexibel und live aus, nach der Stimmung auf der Tanzfläche und den Gästen. Musikwünsche werden im persönlichen Vorgespräch besprochen. Leser nie auffordern, Song- oder Musiklisten anzulegen oder Musikwünsche zu sammeln.
 - Jede Hochzeit ist individuell. Niemals feste Abläufe mit Uhrzeiten nennen.
 - Internationale Musik gehört zum Repertoire (u. a. türkisch, italienisch, französisch, persisch, russisch, arabisch, Balkan) und wird individuell abgestimmt. Keine einzelne Kultur hervorheben. Die Liste der Musikrichtungen nur in Artikeln über Musik oder das Repertoire nennen, und dann in einem einzigen Satz.
-- Professionelles Licht und Sound für bis zu 250 Gäste, Ersatzgeräte und immer ZWEI Funkmikrofone inklusive.
+- Technik, freigegebener Wortlaut: "Licht- und Tontechnik passend zu Raum und Gästezahl, für Feiern bis zu 250 Gästen" (oder eine natürliche Variante mit derselben Bedeutung). Nicht "für bis zu 250 Gäste" schreiben. Dazu Ersatzgeräte und immer ZWEI Funkmikrofone inklusive.
 - Mo verkauft keine Pakete. Das Wort "Paket" darf in keiner Form vorkommen, auch nicht verneint.
 - Standardsatz zum Preis, wörtlich zu verwenden, wenn es um das Angebot geht:
   - Hochzeit und private Feiern ("ihr"): "Ihr erhaltet ein individuelles Angebot, abgestimmt auf eure Feier und den benötigten Leistungsumfang."

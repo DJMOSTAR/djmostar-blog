@@ -95,15 +95,15 @@ Jede Feier bereite ich persönlich im Vorgespräch vor. Wir besprechen Ablauf, M
 
 Für dieses Gespräch solltet ihr euch Zeit nehmen. Mit mehreren Monaten Vorlauf könnt ihr in Ruhe überlegen, was euch wichtig ist. Ihr könnt Ideen sammeln, mit Familie und Freunden sprechen und beim Gespräch schon klare Vorstellungen mitbringen.
 
-### Zeit für eure Musikwünsche
+### Eure Musikwünsche
 
-Plant für eure Musikwünsche ein paar Wochen ein. Für den Song zum Eröffnungstanz lohnt es sich, an mehreren Abenden Musik zu hören. Hört euch in Ruhe Playlists an, sprecht darüber und streicht auch mal wieder Lieder von der Liste.
+Eine fertige Song-Liste braucht ihr nicht. Eure Wünsche besprechen wir im persönlichen Vorgespräch: welche Musik euch gefällt und welche Songs euch als Paar wichtig sind.
 
-Kommen eure Gäste aus verschiedenen Ländern, überlegt euch, welche Musik sie gern hören würden. Das besprechen wir dann gemeinsam.
+Am Abend selbst wähle ich die Musik flexibel und live aus. Ich achte auf die Stimmung auf der Tanzfläche und auf eure Gäste und passe die Auswahl daran an.
 
 ### Technik und Location
 
-Für bis zu 250 Gäste bringe ich professionelles Licht und Sound mit. Dazu gehören Ersatzgeräte und zwei Funkmikrofone. Ob die Technik zu eurer Location passt, lässt sich am besten früh klären. Das gilt vor allem für Hamburg und die Orte im Umkreis von etwa 50 km, also zum Beispiel Norderstedt, Pinneberg, Ahrensburg, Halstenbek, Elmshorn, Buxtehude oder Lüneburg. Als mobiler DJ komme ich zu jedem Event.
+Ich bringe Licht- und Tontechnik passend zu Raum und Gästezahl mit, für Feiern bis zu 250 Gästen. Dazu gehören Ersatzgeräte und zwei Funkmikrofone. Ob die Technik zu eurer Location passt, lässt sich am besten früh klären. Das gilt vor allem für Hamburg und die Orte im Umkreis von etwa 50 km, also zum Beispiel Norderstedt, Pinneberg, Ahrensburg, Halstenbek, Elmshorn, Buxtehude oder Lüneburg. Als mobiler DJ komme ich zu jedem Event.
 
 ## In welcher Reihenfolge ihr plant
 

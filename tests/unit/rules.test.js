@@ -144,9 +144,14 @@ test("every inquiry link must go to the form with #kontakt", () => {
   assert.ok(!failuresFor({}).some((f) => /#kontakt/.test(f)));
 });
 
-test("asking readers to collect music wishes is allowed once", () => {
-  assert.ok(!failuresFor(addToBody("Sammelt eure Lieblingssongs in Ruhe.")).some((f) => /Musikwünsche zu sammeln/.test(f)));
-  const twice = addToBody("Sammelt eure Lieblingssongs in Ruhe. Legt eine gemeinsame Liste an, in die beide Songs eintragen.");
-  assert.ok(failuresFor(twice).some((f) => /Musikwünsche zu sammeln kommt 2x/.test(f)));
-  assert.ok(!failuresFor(addToBody("Eine Playlist vom Handy reicht für den Empfang. Die Musik läuft dann nebenher.")).some((f) => /Musikwünsche/.test(f)));
+test("readers are never asked to compile song lists or collect music wishes", () => {
+  assert.ok(failuresFor(addToBody("Sammelt eure Lieblingssongs in Ruhe.")).some((f) => /Nicht erlaubt: Aufforderung, Song- oder Musiklisten/.test(f)));
+  assert.ok(failuresFor(addToBody("Legt eine gemeinsame Liste an, in die beide Songs eintragen.")).some((f) => /Musiklisten/.test(f)));
+  assert.ok(failuresFor(addToBody("Erstellt eine Playlist mit euren Lieblingsliedern. Stellt eine Playlist zusammen.")).some((f) => /Musiklisten/.test(f)));
+  assert.ok(!failuresFor(addToBody("Eine Playlist vom Handy reicht für den Empfang. Die Musik läuft dann nebenher.")).some((f) => /Musiklisten/.test(f)));
+  assert.ok(!failuresFor(addToBody("Eure Wünsche besprechen wir im persönlichen Vorgespräch. Am Abend wähle ich die Musik live aus.")).some((f) => /Musiklisten/.test(f)));
+});
+
+test("the approved capacity wording passes", () => {
+  assert.deepStrictEqual(failuresFor(addToBody("Ich bringe Licht- und Tontechnik passend zu Raum und Gästezahl mit, für Feiern bis zu 250 Gästen.")), []);
 });
