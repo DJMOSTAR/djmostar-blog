@@ -5,6 +5,11 @@
       "retries": 0,
       "status": "done",
       "result": "nothing-to-publish"
+    },
+    "generate-2026-11-09": {
+      "status": "dispatched",
+      "firstAt": "2026-11-09T09:17:28.809Z",
+      "retries": 0
     }
   }
 }
