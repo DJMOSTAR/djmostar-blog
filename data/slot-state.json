@@ -13,9 +13,10 @@
       "result": "draft"
     },
     "publish-2026-11-10": {
-      "status": "dispatched",
       "firstAt": "2026-11-10T09:59:00.248Z",
-      "retries": 0
+      "retries": 0,
+      "status": "done",
+      "result": "published"
     }
   }
 }
