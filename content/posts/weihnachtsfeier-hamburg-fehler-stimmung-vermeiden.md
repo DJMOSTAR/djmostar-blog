@@ -12,7 +12,7 @@ tags:
   - Hamburg
   - Musik
   - Location
-date: '2026-11-09'
+date: 2026-11-10
 primaryKeyword: Weihnachtsfeier Hamburg
 secondaryKeywords:
   - weihnachtsfeier firma planen
