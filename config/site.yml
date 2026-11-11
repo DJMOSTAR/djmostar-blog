@@ -37,7 +37,8 @@ social:
   - { label: Instagram, icon: instagram, url: "https://www.instagram.com/dj.mostar/" }
   - { label: YouTube, icon: youtube, url: "https://www.youtube.com/@DJ-MOSTAR" }
 
-footer_tagline: Dein DJ für unvergessliche Hochzeiten & Firmenevents in Hamburg und Umgebung.
+footer_slogan: Feel the Music
+footer_tagline: Persönlich geplant. Live aufgelegt. Hochzeiten & Firmenevents in Hamburg und Umgebung.
 legal_url: https://djmostar.de/impressum
 
 ai_note:

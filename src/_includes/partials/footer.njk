@@ -2,6 +2,7 @@
   <div class="site-footer__inner">
     <div class="site-footer__brand">
       <img src="{{ site.logo.src }}" width="{{ site.logo.width }}" height="{{ site.logo.height }}" alt="{{ site.logo.alt }}" loading="lazy">
+      {% if site.footer_slogan %}<p class="site-footer__slogan">{{ site.footer_slogan }}</p>{% endif %}
       <p>{{ site.footer_tagline }}</p>
       <a class="site-footer__main-link" href="{{ site.main_site }}">Zu djmostar.de</a>
     </div>
