@@ -51,6 +51,20 @@
       "type": "ai-failed",
       "slot": "generate-2026-11-12",
       "kind": "auth"
+    },
+    {
+      "at": "2026-11-12T09:59:24.978Z",
+      "type": "needs-review",
+      "slot": "",
+      "title": "DJ für die Weihnachtsfeier: Wie Azubis und Geschäftsführung auf derselben Tanzfläche landen",
+      "slug": "dj-weihnachtsfeier-azubis-geschaeftsfuehrung-tanzflaeche",
+      "category": "firmenfeier",
+      "score": null,
+      "usage": {
+        "steps": 4,
+        "inputTokens": 28,
+        "outputTokens": 26444
+      }
     }
   ]
 }

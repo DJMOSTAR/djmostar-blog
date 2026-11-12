@@ -13,6 +13,13 @@
       "primaryKeyword": "Weihnachtsfeier Hamburg",
       "category": "firmenfeier",
       "status": "published"
+    },
+    {
+      "title": "DJ für die Weihnachtsfeier: Wie Azubis und Geschäftsführung auf derselben Tanzfläche landen",
+      "slug": "dj-weihnachtsfeier-azubis-geschaeftsfuehrung-tanzflaeche",
+      "primaryKeyword": "DJ für die Weihnachtsfeier",
+      "category": "firmenfeier",
+      "status": "needs-review"
     }
   ]
 }

@@ -84,8 +84,9 @@
         "Weihnachtsfeier",
         "Musik"
       ],
-      "status": "planned",
-      "angle": "Wie Musik über Altersgruppen und Abteilungen hinweg funktioniert und was Sie vorab abstimmen sollten."
+      "status": "needs-review",
+      "angle": "Wie Musik über Altersgruppen und Abteilungen hinweg funktioniert und was Sie vorab abstimmen sollten.",
+      "slug": "dj-weihnachtsfeier-azubis-geschaeftsfuehrung-tanzflaeche"
     },
     {
       "title": "Eröffnungstanz: So findet ihr einen Song, der wirklich zu euch passt, auch ohne Tanzkurs",
