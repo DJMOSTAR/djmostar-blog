@@ -45,6 +45,12 @@
       "slug": "weihnachtsfeier-hamburg-fehler-stimmung-vermeiden",
       "category": "firmenfeier",
       "pr": 9
+    },
+    {
+      "at": "2026-11-12T09:07:04.265Z",
+      "type": "ai-failed",
+      "slot": "generate-2026-11-12",
+      "kind": "auth"
     }
   ]
 }
