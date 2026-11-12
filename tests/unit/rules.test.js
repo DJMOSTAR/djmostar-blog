@@ -155,3 +155,10 @@ test("readers are never asked to compile song lists or collect music wishes", ()
 test("the approved capacity wording passes", () => {
   assert.deepStrictEqual(failuresFor(addToBody("Ich bringe Licht- und Tontechnik passend zu Raum und Gästezahl mit, für Feiern bis zu 250 Gästen.")), []);
 });
+
+test("plain links to the inquiry pages are pointed at the form", () => {
+  const { fixInquiryLinks } = require("../../scripts/lib/rules");
+  const { site } = require("./support");
+  const fixed = fixInquiryLinks("[A](https://djmostar.de/firmenfeier) [B](https://www.djmostar.de/hochzeit/) [C](https://djmostar.de/hochzeit#anfrage) [D](https://djmostar.de/hochzeit#kontakt) [E](https://djmostar.de/) [F](https://djmostar.de/hochzeitsfotos)", site);
+  assert.strictEqual(fixed, "[A](https://djmostar.de/firmenfeier#kontakt) [B](https://djmostar.de/hochzeit#kontakt) [C](https://djmostar.de/hochzeit#kontakt) [D](https://djmostar.de/hochzeit#kontakt) [E](https://djmostar.de/) [F](https://djmostar.de/hochzeitsfotos)");
+});

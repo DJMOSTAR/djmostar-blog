@@ -234,4 +234,17 @@ async function checkLiveLinks(markdown, fetchImpl = fetch) {
   return { failures, warnings };
 }
 
-module.exports = { checkKeyFacts, checkMusicStyles, checkArticle, checkAddressForm, checkOriginality, checkLiveLinks, audienceFor, findCategory, allArticleText };
+// Points every link to an inquiry page at its form. The AI sometimes adds a plain link to
+// /hochzeit or /firmenfeier, which would land at the top of the page instead of the form.
+function fixInquiryLinks(markdown, site) {
+  let text = String(markdown || "");
+  for (const url of Object.values(site.inquiry)) {
+    const page = String(url).split("#")[0];
+    const path = new URL(page).pathname.replace(/\/$/, "");
+    const pattern = new RegExp(`\\]\\(https?://(?:www\\.)?djmostar\\.de${path.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/?(?:#[^)\\s]*)?\\)`, "g");
+    text = text.replace(pattern, `](${url})`);
+  }
+  return text;
+}
+
+module.exports = { fixInquiryLinks, checkKeyFacts, checkMusicStyles, checkArticle, checkAddressForm, checkOriginality, checkLiveLinks, audienceFor, findCategory, allArticleText };

@@ -85,7 +85,7 @@ Startbegriffe: {{seeds}}
 
 Verwende genau diese Markdown-Links:
 
-- Anfrageseite (Pflicht): {{inquiryUrl}}
+- Anfrageseite (Pflicht): {{inquiryUrl}}. Jeder Link auf https://djmostar.de/hochzeit oder https://djmostar.de/firmenfeier muss mit #kontakt enden.
 - Startseite (Pflicht): {{homeUrl}}
 - Frühere Beiträge: {{relatedRule}}
 {{relatedPosts}}
