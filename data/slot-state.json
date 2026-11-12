@@ -17,6 +17,11 @@
       "retries": 0,
       "status": "done",
       "result": "published"
+    },
+    "generate-2026-11-12": {
+      "status": "dispatched",
+      "firstAt": "2026-11-12T09:06:24.865Z",
+      "retries": 0
     }
   }
 }
