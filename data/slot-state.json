@@ -23,6 +23,11 @@
       "retries": 0,
       "status": "failed",
       "reason": "auth"
+    },
+    "publish-2026-11-13": {
+      "status": "dispatched",
+      "firstAt": "2026-11-13T09:03:46.018Z",
+      "retries": 0
     }
   }
 }
