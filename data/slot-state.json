@@ -25,9 +25,10 @@
       "reason": "auth"
     },
     "publish-2026-11-13": {
-      "status": "dispatched",
       "firstAt": "2026-11-13T09:03:46.018Z",
-      "retries": 0
+      "retries": 0,
+      "status": "done",
+      "result": "nothing-to-publish"
     }
   }
 }
