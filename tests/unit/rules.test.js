@@ -162,3 +162,13 @@ test("plain links to the inquiry pages are pointed at the form", () => {
   const fixed = fixInquiryLinks("[A](https://djmostar.de/firmenfeier) [B](https://www.djmostar.de/hochzeit/) [C](https://djmostar.de/hochzeit#anfrage) [D](https://djmostar.de/hochzeit#kontakt) [E](https://djmostar.de/) [F](https://djmostar.de/hochzeitsfotos)", site);
   assert.strictEqual(fixed, "[A](https://djmostar.de/firmenfeier#kontakt) [B](https://djmostar.de/hochzeit#kontakt) [C](https://djmostar.de/hochzeit#kontakt) [D](https://djmostar.de/hochzeit#kontakt) [E](https://djmostar.de/) [F](https://djmostar.de/hochzeitsfotos)");
 });
+
+test("stray image markers are removed before checking, and caught if left in", () => {
+  const { fixImageMarkers } = require("../../scripts/lib/rules");
+  const body = `${goodArticle().body}\n\n[[BILD:img1]]\n\n[[BILD:other]]\n\n[[BILD:img2]]`;
+  assert.ok(failuresFor({ body }).some((f) => /Bildmarkierung ohne Eintrag/.test(f)));
+  const fixed = fixImageMarkers(goodArticle({ body }));
+  assert.strictEqual((fixed.body.match(/\[\[BILD:/g) || []).length, 1);
+  assert.ok(fixed.body.includes("[[BILD:img2]]"));
+  assert.deepStrictEqual(failuresFor({ body: fixed.body }), []);
+});

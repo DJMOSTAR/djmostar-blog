@@ -3,7 +3,7 @@
 const fs = require("node:fs");
 const { loadConfig, work, readJson, writeJson, setOutputs, fromRoot } = require("./lib/config");
 const { knownPosts, publishedPosts, usedImageIds } = require("./lib/data");
-const { checkArticle, checkOriginality, checkLiveLinks, audienceFor, findCategory, fixInquiryLinks } = require("./lib/rules");
+const { checkArticle, checkOriginality, checkLiveLinks, audienceFor, findCategory, fixInquiryLinks, fixImageMarkers } = require("./lib/rules");
 
 const [step, passArg] = process.argv.slice(2);
 const pass = Number(passArg);
@@ -134,7 +134,7 @@ async function check() {
     }
     writeJson(work("candidate.json"), written);
   }
-  const article = readJson(work("candidate.json"));
+  const article = fixImageMarkers(readJson(work("candidate.json")));
   article.body = fixInquiryLinks(article.body, site);
   writeJson(work("candidate.json"), article);
   if (run.topic.audience) article.audience = run.topic.audience;

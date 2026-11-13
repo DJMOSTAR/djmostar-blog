@@ -170,6 +170,9 @@ function checkArticle(article, context) {
   }
   const imageIds = images.filter(Boolean).map((image) => image.id);
   if (new Set(imageIds).size !== imageIds.length) failures.push("Ein Bild wird doppelt verwendet");
+  for (const [, id] of String(article.body).matchAll(/\[\[BILD:([^\]]+)\]\]/g)) {
+    if (!(article.inlineImages || []).some((image) => image.id === id)) failures.push(`Bildmarkierung ohne Eintrag in inlineImages: ${id}`);
+  }
   for (const image of article.inlineImages || []) {
     if (!article.body.includes(`[[BILD:${image.id}]]`) && !article.body.includes(`/${image.id}`) && !article.body.includes(`data-unsplash-id="${image.id}"`)) failures.push(`Bild ${image.id} ist nicht im Text platziert`);
   }
@@ -247,4 +250,17 @@ function fixInquiryLinks(markdown, site) {
   return text;
 }
 
-module.exports = { fixInquiryLinks, checkKeyFacts, checkMusicStyles, checkArticle, checkAddressForm, checkOriginality, checkLiveLinks, audienceFor, findCategory, allArticleText };
+// Removes image markers for photos that aren't in inlineImages. The AI sometimes places the
+// featured photo or an unused candidate in the text, which would otherwise stop the build.
+function fixImageMarkers(article) {
+  const inline = new Set((article.inlineImages || []).map((image) => image.id));
+  const seen = new Set();
+  const body = String(article.body || "").replace(/[ \t]*\[\[BILD:([^\]]+)\]\][ \t]*\n?/g, (marker, id) => {
+    if (!inline.has(id) || seen.has(id)) return "";
+    seen.add(id);
+    return marker;
+  });
+  return { ...article, body: body.replace(/\n{3,}/g, "\n\n") };
+}
+
+module.exports = { fixImageMarkers, fixInquiryLinks, checkKeyFacts, checkMusicStyles, checkArticle, checkAddressForm, checkOriginality, checkLiveLinks, audienceFor, findCategory, allArticleText };
