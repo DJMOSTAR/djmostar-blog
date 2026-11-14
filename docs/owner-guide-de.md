@@ -9,7 +9,10 @@ Alles geht auf dem Handy, in der **GitHub-App** oder im Browser auf github.com. 
 - **Montag und Donnerstag** ab etwa 9 Uhr schreibt das System einen neuen Beitrag und prüft ihn streng.
 - **Dienstag und Freitag** ab etwa 10 Uhr wird ein geprüfter Beitrag veröffentlicht.
 - Nach jeder Veröffentlichung bekommst du eine **E-Mail** mit dem Link zum Beitrag.
-- Fällt ein Beitrag durch die Prüfung, wird er **nicht** veröffentlicht. Du bekommst eine E-Mail mit dem Grund. Der Termin wird dann einfach übersprungen.
+- Fällt ein Beitrag durch die Prüfung, versucht das System es von selbst noch einmal: erst wird der Beitrag an den bemängelten Stellen überarbeitet, dann komplett neu geschrieben, dann mit einem anderen Thema. Höchstens 5 Versuche pro Termin. Veröffentlicht wird nur, was alle Prüfungen besteht.
+- Kurze Störungen (Claude überlastet, Netzwerk, GitHub) werden nach 2, 5 und 15 Minuten automatisch wiederholt. Ist dein Claude-Limit erreicht, schaut das System jede Stunde wieder nach, bis zu 6-mal.
+- Kommt der Beitrag erst nach dem Veröffentlichungstermin fertig, wird er sofort veröffentlicht. Pro Termin erscheint nie mehr als ein Beitrag.
+- Eine E-Mail mit einem Problem bekommst du nur, wenn das System selbst nicht weiterkommt, zum Beispiel wenn der Claude-Token abgelaufen ist. In der E-Mail steht genau, was zu tun ist. Sobald danach wieder ein Beitrag online ist, wird die Meldung automatisch geschlossen.
 
 GitHub kann die Läufe etwas später starten, manchmal um ein paar Stunden. Das ist normal.
 
@@ -17,7 +20,7 @@ GitHub kann die Läufe etwas später starten, manchmal um ein paar Stunden. Das 
 
 ## 1. Einen Beitrag auf dem Handy freigeben
 
-Das brauchst du nur, wenn ein Beitrag durch die Prüfung gefallen ist und du ihn trotzdem veröffentlichen möchtest, oder wenn die automatische Veröffentlichung pausiert ist (siehe Punkt 2).
+Das brauchst du nur, wenn die automatische Veröffentlichung pausiert ist (siehe Punkt 2). Beiträge, die die Prüfung nicht bestehen, werden gar nicht erst als Entwurf angelegt.
 
 1. Öffne die E-Mail. Sie enthält einen Link zum Entwurf, einem sogenannten **Pull Request**. Oder öffne im Blog oben **Pull requests**.
 2. Lies den Beitrag: Tippe auf **Files changed** und dann auf die Datei. Oben im Pull Request steht der Prüfbericht mit Note, Problemen, Keywords und Bildnachweisen.

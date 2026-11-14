@@ -10,14 +10,25 @@ publish:
   - { day: tuesday, time: "10:00" }
   - { day: friday, time: "10:00" }
 
-# Runs only when Search Console is switched on.
+# Monthly report: retries every month, Search Console figures once it is switched on.
 report: { day_of_month: 1, time: "08:00" }
 
 # A slot still runs if GitHub starts the scheduler this many hours late.
 catch_up_hours: 8
 
-# Hours after the slot to retry when a Claude run fails, for example at a Pro limit.
-limit_retry_hours: [2.5, 5, 7.5]
+# What happens when something goes wrong. Problems a retry can't fix (sign-in, missing
+# secret, broken settings, no topics left) stop at once with an Issue.
+retries:
+  # Temporary errors (timeout, network, server busy): retry the same step after these minutes.
+  wait_minutes: [2, 5, 15]
+  # Claude usage or rate limit: check again after this many hours, at most limit_checks times.
+  limit_wait_hours: 1
+  limit_checks: 6
+  # Claude attempts per slot. Attempt 2 fixes the failed checks, 3 writes a new article,
+  # 4 and 5 switch to the next unused topic.
+  max_attempts: 5
+  # Stop early when the exact same check fails this many attempts in a row.
+  same_error_limit: 3
 
 # Warn this many days before the one-year Claude token expires.
 token_warning_days: 30

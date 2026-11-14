@@ -1,4 +1,6 @@
 # Publishes the next approved article. Needs no AI, so a Pro limit can't block it.
+# A failed deploy is retried after 2, 5 and 15 minutes with the same merged article.
+# Claude is never called again for a deploy problem.
 name: Publish article
 
 on:
@@ -8,6 +10,10 @@ on:
         description: Leave empty
         type: string
         default: ""
+      simulate_deploy_failure:
+        description: "Test only: merge nothing, make the first deploy fail, check the retry"
+        type: boolean
+        default: false
 
 concurrency:
   group: publish
@@ -17,7 +23,7 @@ jobs:
   publish:
     if: github.repository == 'DJMOSTAR/djmostar-blog'
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 45
     permissions:
       contents: write
       pull-requests: write
@@ -25,6 +31,7 @@ jobs:
     outputs:
       merged: ${{ steps.run.outputs.merged }}
       url: ${{ steps.run.outputs.url }}
+      simulated: ${{ steps.run.outputs.simulated }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -41,6 +48,7 @@ jobs:
           DRY_RUN: ${{ vars.DRY_RUN }}
           AUTO_PUBLISH: ${{ vars.AUTO_PUBLISH }}
           SLOT: ${{ inputs.slot }}
+          SIMULATE_DEPLOY_FAILURE: ${{ inputs.simulate_deploy_failure }}
           UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
         run: node scripts/run-publish.js
       - name: Report a crash
@@ -52,6 +60,7 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: node scripts/notify-failure.js
 
+  # Deploy, and up to 3 more deploys after waits of 2, 5 and 15 minutes if it fails.
   deploy:
     needs: publish
     if: needs.publish.outputs.merged == 'true'
@@ -60,17 +69,73 @@ jobs:
       pages: write
       id-token: write
     uses: ./.github/workflows/deploy.yml
+    with:
+      simulate_failure: ${{ needs.publish.outputs.simulated == 'true' }}
 
-  confirm:
-    needs: [publish, deploy]
-    if: always() && needs.publish.outputs.merged == 'true'
+  wait2:
+    needs: deploy
+    if: always() && needs.deploy.result == 'failure'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 7
+    steps:
+      - run: echo "Deploy failed. Retrying in 2 minutes." && sleep 120
+
+  deploy2:
+    needs: wait2
+    if: always() && needs.wait2.result == 'success'
     permissions:
       contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy.yml
+
+  wait3:
+    needs: deploy2
+    if: always() && needs.deploy2.result == 'failure'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - run: echo "Deploy failed. Retrying in 5 minutes." && sleep 300
+
+  deploy3:
+    needs: wait3
+    if: always() && needs.wait3.result == 'success'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy.yml
+
+  wait4:
+    needs: deploy3
+    if: always() && needs.deploy3.result == 'failure'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - run: echo "Deploy failed. Retrying in 15 minutes." && sleep 900
+
+  deploy4:
+    needs: wait4
+    if: always() && needs.wait4.result == 'success'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy.yml
+
+  confirm:
+    needs: [publish, deploy, deploy2, deploy3, deploy4]
+    if: always() && needs.publish.outputs.merged == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
       issues: write
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
           node-version: 22
@@ -79,6 +144,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           POST_URL: ${{ needs.publish.outputs.url }}
-          DEPLOY_RESULT: ${{ needs.deploy.result }}
+          SIMULATED: ${{ needs.publish.outputs.simulated }}
+          SLOT: ${{ inputs.slot }}
+          DEPLOY_RESULTS: ${{ needs.deploy.result }},${{ needs.deploy2.result }},${{ needs.deploy3.result }},${{ needs.deploy4.result }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: node scripts/confirm-publish.js

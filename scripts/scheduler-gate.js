@@ -16,8 +16,7 @@ async function main() {
     return;
   }
 
-  const hasSearchConsole = process.env.HAS_GSC === "true";
-  const first = decide(now, schedule, load("slots"), { hasSearchConsole });
+  const first = decide(now, schedule, load("slots"));
   const warning = tokenWarning(process.env.CLAUDE_TOKEN_CREATED, now, schedule.token_warning_days, load("slots").tokenWarnedFor);
 
   if (first.actions.length === 0 && !warning) {
@@ -28,7 +27,7 @@ async function main() {
   // Saved first, so a slot can't start twice. Worked out again on the newest data.
   let actions = [];
   await changeDataOnMain([FILES.slots], "Update the schedule state", () => {
-    const result = decide(now, schedule, load("slots"), { hasSearchConsole });
+    const result = decide(now, schedule, load("slots"));
     actions = result.actions;
     save("slots", warning ? { ...result.state, tokenWarnedFor: process.env.CLAUDE_TOKEN_CREATED } : result.state);
   });

@@ -13,6 +13,15 @@ test("failures are classified", () => {
   assert.strictEqual(classify("Invalid API key"), "auth");
   assert.strictEqual(classify("OAuth token has expired"), "auth");
   assert.strictEqual(classify("something else"), "other");
+  assert.strictEqual(classify("OAuth token revoked"), "auth");
+  assert.strictEqual(classify("API Error: 401 authentication_error: Invalid bearer token"), "auth");
+  assert.strictEqual(classify("API Error: 403 forbidden"), "auth");
+  assert.strictEqual(classify("API Error: 503 Service Unavailable"), "temporary");
+  assert.strictEqual(classify("API Error: 529 overloaded_error"), "temporary");
+  assert.strictEqual(classify("API Error: 502 Bad Gateway"), "temporary");
+  assert.strictEqual(classify("Request timed out"), "temporary");
+  assert.strictEqual(classify("fetch failed ECONNRESET"), "temporary");
+  assert.strictEqual(classify("error_max_turns"), "invalid");
 });
 
 const pr = (extra) => ({ headRefName: "post/a", isCrossRepository: false, author: { login: "app/github-actions" }, labels: [{ name: "passed" }], createdAt: "2026-11-09T10:00:00Z", ...extra });

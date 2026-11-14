@@ -1,5 +1,9 @@
 # Creates the next article and opens a Pull Request. Started by the scheduler, or by hand
 # with "Run workflow". With DRY_RUN on, it writes a report and changes nothing.
+#
+# Up to 5 Claude attempts per slot. Temporary errors are retried inside each step, a usage
+# limit pauses the slot for an hour (at most 6 times), and problems a retry can't fix stop
+# the run with one Issue. See config/schedule.yml → retries.
 name: Generate article
 
 on:
@@ -17,11 +21,18 @@ on:
         description: Leave at 0
         type: string
         default: "0"
+      simulate:
+        description: "Test only: simulate a problem (always a test run)"
+        type: choice
+        options: [none, quality, "503", auth]
+        default: none
 
 permissions:
   contents: write
   pull-requests: write
   issues: write
+  # Starts Publish straight away when a late article's publish slot has already passed.
+  actions: write
 
 concurrency:
   group: generate
@@ -30,7 +41,11 @@ concurrency:
 env:
   GH_TOKEN: ${{ github.token }}
   DRY_RUN: ${{ vars.DRY_RUN }}
-  DRY_RUN_INPUT: ${{ inputs.dry_run }}
+  # A simulation is always a test run.
+  DRY_RUN_INPUT: ${{ inputs.dry_run || (inputs.simulate != '' && inputs.simulate != 'none') }}
+  SIMULATE: ${{ inputs.simulate }}
+  # Only true or false is passed, never the secret itself.
+  HAS_CLAUDE_CREDENTIAL: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' || secrets.ANTHROPIC_API_KEY != '' }}
   AUTO_PUBLISH: ${{ vars.AUTO_PUBLISH }}
   SLOT: ${{ inputs.slot }}
   LIMIT_RETRY: ${{ inputs.limit_retry }}
@@ -41,7 +56,8 @@ jobs:
   generate:
     if: github.repository == 'DJMOSTAR/djmostar-blog'
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    # Room for 5 attempts plus waits of 2, 5 and 15 minutes after temporary errors.
+    timeout-minutes: 300
     steps:
       - uses: actions/checkout@v7
         with:
@@ -75,8 +91,8 @@ jobs:
         if: steps.prepare.outputs.run == 'true'
         run: node scripts/prepare-article.js
 
-      # First draft plus up to 2 regenerations or corrections.
-      - name: Pass 1
+      # Up to 5 attempts. Each step skips itself once an article has passed or the run has stopped.
+      - name: Attempt 1 (new article)
         if: steps.article.outputs.ready == 'true'
         uses: ./.github/actions/article-pass
         with:
@@ -84,10 +100,11 @@ jobs:
           model: ${{ steps.prepare.outputs.model }}
           turns_writer: ${{ steps.prepare.outputs.turns_writer }}
           turns_editor: ${{ steps.prepare.outputs.turns_editor }}
+          simulate: ${{ steps.prepare.outputs.simulate }}
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ github.token }}
-      - name: Pass 2
+      - name: Attempt 2 (fix the failed checks)
         if: steps.article.outputs.ready == 'true'
         uses: ./.github/actions/article-pass
         with:
@@ -95,10 +112,11 @@ jobs:
           model: ${{ steps.prepare.outputs.model }}
           turns_writer: ${{ steps.prepare.outputs.turns_writer }}
           turns_editor: ${{ steps.prepare.outputs.turns_editor }}
+          simulate: ${{ steps.prepare.outputs.simulate }}
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ github.token }}
-      - name: Pass 3
+      - name: Attempt 3 (new article, same topic)
         if: steps.article.outputs.ready == 'true'
         uses: ./.github/actions/article-pass
         with:
@@ -106,12 +124,11 @@ jobs:
           model: ${{ steps.prepare.outputs.model }}
           turns_writer: ${{ steps.prepare.outputs.turns_writer }}
           turns_editor: ${{ steps.prepare.outputs.turns_editor }}
+          simulate: ${{ steps.prepare.outputs.simulate }}
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ github.token }}
-
-      # Only runs when pass 3 ended with a correction, so that correction still gets its fresh review.
-      - name: Review the last correction
+      - name: Attempt 4 (next topic)
         if: steps.article.outputs.ready == 'true'
         uses: ./.github/actions/article-pass
         with:
@@ -119,11 +136,24 @@ jobs:
           model: ${{ steps.prepare.outputs.model }}
           turns_writer: ${{ steps.prepare.outputs.turns_writer }}
           turns_editor: ${{ steps.prepare.outputs.turns_editor }}
+          simulate: ${{ steps.prepare.outputs.simulate }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ github.token }}
+      - name: Attempt 5 (next topic)
+        if: steps.article.outputs.ready == 'true'
+        uses: ./.github/actions/article-pass
+        with:
+          pass: "5"
+          model: ${{ steps.prepare.outputs.model }}
+          turns_writer: ${{ steps.prepare.outputs.turns_writer }}
+          turns_editor: ${{ steps.prepare.outputs.turns_editor }}
+          simulate: ${{ steps.prepare.outputs.simulate }}
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ github.token }}
 
-      - name: Open the Pull Request or send a notice
+      - name: Open the Pull Request, pause, or stop with a notice
         if: steps.prepare.outputs.run == 'true'
         run: node scripts/finish-generate.js
 

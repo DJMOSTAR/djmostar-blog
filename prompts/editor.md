@@ -26,6 +26,4 @@ Vergib je 0 bis 100 Punkte:
 ## Ergebnis
 
 - `issues`: konkrete Probleme, jedes mit der betroffenen Stelle. Leer, wenn es keine gibt.
-- `corrected`: Wenn `overall` mindestens {{minScore}} ist, immer `null`. Darunter nur wenn kleine Korrekturen genügen, der vollständige korrigierte Artikel im selben Format wie die Eingabe, mit allen Feldern und unveränderten `[[BILD:id]]` Markierungen. Keine neuen Fakten hinzufügen. Verbotene Wörter dürfen auch verneint nicht vorkommen. Der Umfang darf nicht unter {{minWords}} Wörter fallen. Die Links zur Anfrageseite und zur Startseite und 1 bis {{externalMax}} externe Links müssen erhalten bleiben, und `sources` muss zu den externen Links passen. Wenn nichts zu korrigieren ist oder der Text neu geschrieben werden muss, `null`.
-
-Dein korrigierter Text wird erneut von einem anderen Redakteur geprüft. Nenne Kleinigkeiten nur in `issues`, ohne deshalb den Text zu ändern.
+- `corrected`: immer `null`. Du korrigierst nichts selbst. Wenn der Text nicht besteht, schreibt ihn der Autor anhand deiner `issues` neu.

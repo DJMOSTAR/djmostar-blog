@@ -1,6 +1,6 @@
 const test = require("node:test");
 const assert = require("node:assert");
-const { dueSlots, decide, nextRetry, tokenWarning } = require("../../scripts/lib/scheduler");
+const { dueSlots, decide, nextLimitCheck, slotTime, publishTarget, tokenWarning } = require("../../scripts/lib/scheduler");
 const { pickTopic, acceptNewTopics } = require("../../scripts/lib/calendar");
 const { isDryRun, isAutoPublish } = require("../../scripts/lib/config");
 const { schedule, content } = require("./support");
@@ -29,21 +29,33 @@ test("a slot runs once", () => {
   const second = decide(new Date("2026-11-09T09:17:00Z"), schedule, first.state);
   assert.strictEqual(second.actions.length, 0);
 });
-test("the report waits for Search Console", () => {
+test("the monthly report runs every month, with or without Search Console", () => {
   const now = new Date("2026-12-01T07:17:00Z");
-  assert.strictEqual(decide(now, schedule, { slots: {} }).actions.length, 0);
-  assert.strictEqual(decide(now, schedule, { slots: {} }, { hasSearchConsole: true }).actions[0].workflow, "report");
+  assert.strictEqual(decide(now, schedule, { slots: {} }).actions[0].workflow, "report");
 });
-test("limit retries run at planned times, then stop", () => {
-  const first = "2026-11-09T08:17:00Z";
-  const one = nextRetry({ firstAt: first, retries: 0 }, schedule.limit_retry_hours, new Date(first));
-  assert.strictEqual(one.retries, 1);
-  assert.strictEqual(one.retryAt, "2026-11-09T10:47:00.000Z");
-  assert.strictEqual(nextRetry({ firstAt: first, retries: 3 }, schedule.limit_retry_hours, new Date(first)), null);
-  const state = { slots: { "generate-2026-11-09": { status: "retry_wait", firstAt: first, retries: 1, retryAt: one.retryAt } } };
-  assert.strictEqual(decide(new Date("2026-11-09T10:17:00Z"), schedule, state).actions.length, 0);
-  const due = decide(new Date("2026-11-09T11:17:00Z"), schedule, state);
+test("a limit pause checks again every hour, at most 6 times", () => {
+  const now = new Date("2026-11-09T08:17:00Z");
+  const one = nextLimitCheck({ limitChecks: 0 }, schedule.retries, now);
+  assert.strictEqual(one.limitChecks, 1);
+  assert.strictEqual(one.retryAt, "2026-11-09T09:17:00.000Z");
+  assert.strictEqual(nextLimitCheck({ limitChecks: 5 }, schedule.retries, now).limitChecks, 6);
+  assert.strictEqual(nextLimitCheck({ limitChecks: 6 }, schedule.retries, now), null);
+  const state = { slots: { "generate-2026-11-09": { status: "retry_wait", firstAt: now.toISOString(), limitChecks: 1, retryAt: one.retryAt } } };
+  assert.strictEqual(decide(new Date("2026-11-09T09:00:00Z"), schedule, state).actions.length, 0);
+  const due = decide(new Date("2026-11-09T09:17:00Z"), schedule, state);
   assert.deepStrictEqual(due.actions[0], { workflow: "generate", slot: "generate-2026-11-09", limitRetry: 1 });
+  assert.strictEqual(decide(new Date("2026-11-09T10:17:00Z"), schedule, due.state).actions.length, 0, "started once");
+});
+test("Berlin slot times include summer time", () => {
+  assert.strictEqual(slotTime("2026-11-13", "10:00", "Europe/Berlin").toISOString(), "2026-11-13T09:00:00.000Z");
+  assert.strictEqual(slotTime("2026-07-14", "10:00", "Europe/Berlin").toISOString(), "2026-07-14T08:00:00.000Z");
+});
+test("an article belongs to the first publish slot after its generate slot", () => {
+  assert.strictEqual(publishTarget("generate-2026-11-12", new Date("2026-11-13T14:00:00Z"), schedule).key, "publish-2026-11-13");
+  assert.strictEqual(publishTarget("generate-2026-11-16", new Date("2026-11-16T09:00:00Z"), schedule).key, "publish-2026-11-17");
+  // Started by hand: belongs to the latest generate slot before now.
+  assert.strictEqual(publishTarget("manual-7", new Date("2026-11-14T12:00:00Z"), schedule).key, "publish-2026-11-13");
+  assert.strictEqual(publishTarget("manual-7", new Date("2026-11-16T09:00:00Z"), schedule).key, "publish-2026-11-17");
 });
 test("the token warning starts 30 days before expiry and fires once", () => {
   assert.strictEqual(tokenWarning("2026-11-05", new Date("2027-08-01T00:00:00Z"), 30, null), null);

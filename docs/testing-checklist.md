@@ -55,7 +55,7 @@ This tests the parts a manual run can't: the scheduler starting runs as a bot, r
    - `DRY_RUN` = `false`
 2. On the next generate day:
    - [ ] **Scheduler** starts **Generate article** after 09:00 Berlin time. It runs at about 17 minutes past each hour.
-   - [ ] A Pull Request appears with the label `passed` or `needs-review`, with the quality report in its description.
+   - [ ] A Pull Request appears with the label `passed`, with the quality report in its description.
 3. Read the Pull Request. If it's good, add the label `approved`.
 4. On the next publish day:
    - [ ] **Publish article** merges it, then **Deploy site** runs.
@@ -73,7 +73,21 @@ When week 4 worked:
 - [ ] Apply for Unsplash production access, using a live article (setup guide, Part 11).
 - [ ] Submit the sitemap in Search Console (setup guide, Part 9).
 
-From then on, articles that pass are published automatically. Failed ones are skipped, and you get an email.
+From then on, articles that pass are published automatically. A failed article is retried automatically (see section 6). You only get an email when the system stops and needs you.
+
+## 6. Retry simulations
+
+Each of these is a test run: nothing is published, and the variable `DRY_RUN` can stay `false`.
+
+**Generate article** → **Run workflow** → choose **simulate**:
+
+- [ ] `quality`: attempt 1 gets a price added on purpose and fails, attempt 2 fixes only that point and passes. Email: "Testlauf: bestanden", with "Versuch 1 nicht bestanden: Preisangabe" under **Wiederholungen**. About 6 to 10 minutes.
+- [ ] `503`: the first writer call fails as "503", the step waits 2 minutes and tries again, then passes. No new article attempt. Email: "Testlauf: bestanden", with "Vorübergehende Fehler, automatisch wiederholt: 1".
+- [ ] `auth`: the first Claude call is rejected as an invalid token. The run stops at once, with no retries. Email: "Testlauf: Blog-Automatik gestoppt: Claude-Anmeldung fehlgeschlagen", with the steps for a new token. This test Issue is closed straight away.
+
+**Publish article** → **Run workflow** → tick **simulate_deploy_failure**:
+
+- [ ] Nothing is merged and Claude isn't called. The first deploy fails on purpose, **wait2** waits 2 minutes, **deploy2** succeeds. Email: "Testlauf: Deploy-Wiederholung funktioniert".
 
 ## If something goes wrong
 
@@ -81,6 +95,6 @@ From then on, articles that pass are published automatically. Failed ones are sk
 |---|---|
 | Red **Deploy site** after a change | Undo the last change, or send me the run link. The live site stays as it was. |
 | An article is live but wrong | Set `DRY_RUN` = `true` to stop everything, then send me the link. |
-| Email "Artikel übersprungen" | Nothing to do if it happens now and then. If it happens every time, send me the report. |
-| Email "Claude-Anmeldung fehlgeschlagen" | Create a new token with `claude setup-token` and update the secret. |
+| Email "Blog-Automatik gestoppt: …" | Follow the steps in the email. It closes itself once the next article is online. |
+| Email "Claude-Anmeldung fehlgeschlagen" | Create a new token with `claude setup-token` and update the secret, then start Generate by hand. |
 | No runs for a long time | Check **Actions** → **Scheduler** for a "disabled" notice, and enable it. |

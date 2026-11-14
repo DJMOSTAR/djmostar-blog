@@ -224,11 +224,13 @@ Run this in your normal terminal, not by asking Claude in the app or a chat, so 
 There's no bot to set up. When something needs your attention, the system opens a GitHub Issue that mentions `@DJMOSTAR`, and GitHub emails you. You'll get one for each of these:
 
 - A post went live, with its title and URL
-- A post failed its checks and was skipped
-- All limit retries failed
-- The Claude token expires within 30 days, or stops working
+- The automation stopped and needs you (label `blog-failure`): the Claude token stopped working, a secret is missing, no topics are left, 5 attempts failed, or the same check failed 3 times in a row. The Issue says what happened, what was tried and exactly what to do.
+- The Claude token expires within 30 days
+- The monthly report, with the retries of the past month
 
-The repository is public, so these Issues are public too. They contain no keys or tokens. Publish notices close automatically, while problems stay open until you close them.
+Problems that a retry fixes send no Issue. They appear in the run's summary and the monthly report.
+
+The repository is public, so these Issues are public too. They contain no keys or tokens. Publish notices close automatically. `blog-failure` Issues close automatically, with a link, once the next article is online.
 
 ### Turn on the emails
 
@@ -441,7 +443,7 @@ Use this whenever you get a new `djmostar-blog.zip`.
 | **Enforce HTTPS** stays greyed out | The certificate is pending, or a CAA record blocks it | Wait, then check for CAA records. See the table in Part 3, Step 2. |
 | Workflow error mentioning a Pull Request or permissions | Part 2 settings are missing | Repeat "Let the workflows create Pull Requests". |
 | Claude step fails with a login or authentication error | The token is wrong, expired or revoked, or the Pro plan ended | Repeat "Create the token" in Part 5, update the secret, and update `CLAUDE_TOKEN_CREATED`. |
-| An Issue says the Pro limit was reached | Your Pro usage ran out | The system retries later that day, up to 3 times. If all fail, that article is skipped. Nothing partial is published. |
+| A run shows "Paused" in its summary | Your Pro usage ran out, or a service was down | Nothing to do. The system checks again every hour, up to 6 times, and continues the same slot. After that the slot is skipped and the next one runs normally. Nothing partial is published. |
 | Claude step reports the model isn't available | Your plan doesn't include the model set in `config/content.yml` | Change the model in `config/content.yml`. |
 | Unsplash error 401 | The Secret Key was used instead of the Access Key | Update the secret with the Access Key. |
 | Issues appear but no email arrives | Email is off for participating notifications, or it went to spam or another address | Repeat Part 6 and check your spam folder. |

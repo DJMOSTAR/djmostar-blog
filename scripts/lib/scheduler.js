@@ -33,20 +33,20 @@ function dueSlots(now, schedule) {
   return due;
 }
 
-// Returns what to start now, with the updated state.
-function decide(now, schedule, state, { hasSearchConsole = false } = {}) {
+// Returns what to start now, with the updated state. The monthly report always runs: it
+// lists the retries, and adds Search Console figures once that is switched on.
+function decide(now, schedule, state) {
   const slots = { ...(state.slots || {}) };
   const actions = [];
   for (const slot of dueSlots(now, schedule)) {
     if (slots[slot.key]) continue;
-    if (slot.workflow === "report" && !hasSearchConsole) continue;
     slots[slot.key] = { status: "dispatched", firstAt: now.toISOString(), retries: 0 };
     actions.push({ workflow: slot.workflow, slot: slot.key, limitRetry: 0 });
   }
   for (const [key, entry] of Object.entries(slots)) {
     if (entry.status === "retry_wait" && new Date(entry.retryAt) <= now) {
       slots[key] = { ...entry, status: "dispatched" };
-      actions.push({ workflow: "generate", slot: key, limitRetry: entry.retries });
+      actions.push({ workflow: "generate", slot: key, limitRetry: entry.limitChecks || 0 });
     }
   }
   const cutoff = now.getTime() - 60 * 86400000;
@@ -56,13 +56,57 @@ function decide(now, schedule, state, { hasSearchConsole = false } = {}) {
   return { actions, state: { ...state, slots } };
 }
 
-// Next retry time, or null when all retries are used.
-function nextRetry(entry, retryHours, now) {
-  const retries = entry.retries || 0;
-  if (retries >= retryHours.length) return null;
-  const first = new Date(entry.firstAt || now).getTime();
-  const planned = first + retryHours[retries] * 3600000;
-  return { retries: retries + 1, retryAt: new Date(Math.max(planned, now.getTime() + 3600000)).toISOString() };
+// At a usage limit or after an outage: check again in an hour, at most limit_checks times.
+// Returns null when all checks are used.
+function nextLimitCheck(entry, retries, now) {
+  const checks = entry.limitChecks || 0;
+  if (checks >= retries.limit_checks) return null;
+  return { limitChecks: checks + 1, retryAt: new Date(now.getTime() + retries.limit_wait_hours * 3600000).toISOString() };
+}
+
+// The UTC time of a Berlin date and clock time, including summer time.
+function slotTime(dateKey, time, timeZone) {
+  const [year, month, day] = dateKey.split("-").map(Number);
+  const target = Date.UTC(year, month - 1, day) + toMinutes(time) * 60000;
+  let guess = target;
+  for (let round = 0; round < 3; round += 1) {
+    const local = localParts(new Date(guess), timeZone);
+    const [ly, lm, ld] = local.dateKey.split("-").map(Number);
+    const shown = Date.UTC(ly, lm - 1, ld) + local.minutes * 60000;
+    guess += target - shown;
+  }
+  return new Date(guess);
+}
+
+function slotsBetween(list, from, days, timeZone, direction) {
+  const found = [];
+  for (let offset = 0; offset <= days; offset += 1) {
+    const local = localParts(new Date(from.getTime() + direction * offset * 86400000), timeZone);
+    for (const slot of list) {
+      if (slot.day === local.weekday) found.push({ dateKey: local.dateKey, at: slotTime(local.dateKey, slot.time, timeZone) });
+    }
+  }
+  return found;
+}
+
+// The publish slot an article from this generate run belongs to: the first publish slot after
+// its generate slot. Runs started by hand belong to the latest generate slot before now.
+function publishTarget(generateKey, now, schedule) {
+  const tz = schedule.time_zone;
+  let generatedAt = null;
+  const match = /^generate-(\d{4}-\d{2}-\d{2})$/.exec(generateKey || "");
+  if (match) {
+    const weekday = localParts(slotTime(match[1], "12:00", tz), tz).weekday;
+    const slot = schedule.generate.find((entry) => entry.day === weekday);
+    if (slot) generatedAt = slotTime(match[1], slot.time, tz);
+  }
+  if (!generatedAt) {
+    const earlier = slotsBetween(schedule.generate, now, 8, tz, -1).filter((slot) => slot.at <= now).sort((a, b) => b.at - a.at);
+    if (!earlier.length) return null;
+    generatedAt = earlier[0].at;
+  }
+  const next = slotsBetween(schedule.publish, generatedAt, 8, tz, 1).filter((slot) => slot.at > generatedAt).sort((a, b) => a.at - b.at)[0];
+  return next ? { key: `publish-${next.dateKey}`, at: next.at.toISOString() } : null;
 }
 
 function tokenWarning(createdDate, now, warningDays, alreadyWarnedFor) {
@@ -74,4 +118,4 @@ function tokenWarning(createdDate, now, warningDays, alreadyWarnedFor) {
   return daysLeft <= warningDays ? { daysLeft, expires: expires.toISOString().slice(0, 10) } : null;
 }
 
-module.exports = { localParts, dueSlots, decide, nextRetry, tokenWarning };
+module.exports = { localParts, dueSlots, decide, nextLimitCheck, slotTime, publishTarget, tokenWarning };

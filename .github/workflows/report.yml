@@ -1,4 +1,4 @@
-# Monthly Search Console report. It does nothing until the secret GSC_SERVICE_ACCOUNT_JSON exists.
+# Monthly report: retries every month, plus Search Console figures once GSC_SERVICE_ACCOUNT_JSON exists.
 name: Monthly report
 
 on:

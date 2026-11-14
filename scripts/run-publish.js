@@ -1,6 +1,7 @@
 // Publishes the next approved article. The article is checked again immediately before merging.
+// It never publishes two articles for one slot, or the same article twice.
 const fs = require("node:fs");
-const { loadConfig, setOutputs, isDryRun, isAutoPublish, fromRoot, addSummary } = require("./lib/config");
+const { loadConfig, setOutputs, isDryRun, isAutoPublish, fromRoot, addSummary, readJson, work } = require("./lib/config");
 const { FILES, load, save, updateSlot, logEvent, publishedPosts } = require("./lib/data");
 const { selectForPublishing, labelNames } = require("./lib/pull-requests");
 const { parsePost, setDate } = require("./lib/postfile");
@@ -8,7 +9,7 @@ const { checkArticle } = require("./lib/rules");
 const { triggerDownload } = require("./lib/unsplash");
 const { git, gh, configureGit, changeDataOnMain } = require("./lib/shell");
 const { notify } = require("./lib/notify");
-const { retry } = require("./lib/retry");
+const { retryStep } = require("./lib/retry");
 
 const config = loadConfig();
 const slot = process.env.SLOT || "";
@@ -28,11 +29,33 @@ async function finishSlot(result) {
   await changeDataOnMain(dataFiles, `Finish ${slot}`, () => updateSlot(slot, { status: "done", result }));
 }
 
+// Test only: no merge. The deploy that follows is told to fail once, to check the deploy retries.
+function simulateDeployFailure() {
+  const latest = (load("log").events || []).filter((event) => event.type === "published").pop();
+  const url = latest ? `${config.site.url}/${latest.slug}/` : `${config.site.url}/`;
+  console.log("Test: nothing is merged. The first deploy will fail on purpose.");
+  addSummary(`# Testlauf: Deploy-Fehler simuliert\n\nEs wurde nichts zusammengeführt und Claude wurde nicht aufgerufen. Der erste Deploy schlägt absichtlich fehl, danach wird nur der Deploy wiederholt.\n\nGeprüfte Adresse: ${url}`);
+  setOutputs({ merged: "true", simulated: "true", url });
+}
+
 async function main() {
+  if (process.env.SIMULATE_DEPLOY_FAILURE === "true") return simulateDeployFailure();
   const dry = isDryRun();
   const auto = isAutoPublish();
+
+  // Always decide on the newest data: another publish run may have finished a moment ago.
+  if (!dry) {
+    git("fetch", "origin", "main");
+    git("checkout", "-f", "-B", "main", "origin/main");
+  }
+  if (slot && ((load("slots").slots || {})[slot] || {}).result === "published") {
+    console.log(`${slot} has already published an article. Nothing more for this slot.`);
+    setOutputs({ merged: "false" });
+    return;
+  }
+  const published = new Set((load("registry").posts || []).filter((post) => post.status === "published").map((post) => post.slug));
   const open = JSON.parse(gh("pr", "list", "--state", "open", "--limit", "50", "--json", "number,title,headRefName,isCrossRepository,author,labels,createdAt"));
-  const [pr] = selectForPublishing(open, auto);
+  const [pr] = selectForPublishing(open, auto).filter((candidate) => !published.has(candidate.headRefName.replace(/^post\//, "")));
 
   if (!pr) {
     console.log("No article is ready to publish.");
@@ -72,9 +95,9 @@ async function main() {
     fs.writeFileSync(fromRoot(file), dated);
     git("add", "--", file);
     git("commit", "-m", `Veröffentlichungsdatum: ${today}`);
-    git("push", "origin", `HEAD:refs/heads/${pr.headRefName}`);
+    await retryStep(() => git("push", "origin", `HEAD:refs/heads/${pr.headRefName}`), "Datum speichern");
   }
-  await retry(() => gh("pr", "merge", String(pr.number), "--squash", "--delete-branch"), { label: "Merge", delayMs: 5000 });
+  await retryStep(() => gh("pr", "merge", String(pr.number), "--squash", "--delete-branch"), "Zusammenführen");
 
   await changeDataOnMain(dataFiles, `Published: ${article.slug}`, () => {
     const registry = load("registry");
@@ -97,7 +120,9 @@ async function main() {
     }
   }
 
-  setOutputs({ merged: "true", url: `${config.site.url}/${article.slug}/` });
+  const retries = readJson(work("step-retries.json"), []);
+  if (retries.length) addSummary(`## Wiederholungen\n\n${retries.map((entry) => `- ${entry.step}, Versuch ${entry.try}: ${entry.message} (erneut nach ${entry.waitMinutes} Min.)`).join("\n")}`);
+  setOutputs({ merged: "true", url: `${config.site.url}/${article.slug}/`, step_retries: retries.length });
 }
 
 main().catch((error) => {

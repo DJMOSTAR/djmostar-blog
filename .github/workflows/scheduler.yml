@@ -33,5 +33,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           DRY_RUN: ${{ vars.DRY_RUN }}
           CLAUDE_TOKEN_CREATED: ${{ vars.CLAUDE_TOKEN_CREATED }}
-          HAS_GSC: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON != '' }}
         run: node scripts/scheduler-gate.js

@@ -1,4 +1,5 @@
-// First step of a generation run: checks the limits and prepares the working folder.
+// First step of a generation run: checks secrets and limits and prepares the working folder.
+// Problems a retry can't fix (missing secret, broken settings) stop the run here.
 const fs = require("node:fs");
 const { loadConfig, work, writeJson, setOutputs, isDryRun, isAutoPublish, fromRoot } = require("./lib/config");
 const { FILES, load, updateSlot, logEvent, publishedThisMonth } = require("./lib/data");
@@ -24,19 +25,47 @@ async function skip(slot, reason) {
   setOutputs({ run: "false", need_topics: "false" });
 }
 
+function loadSettings() {
+  try {
+    return loadConfig();
+  } catch (error) {
+    // A broken settings file fails every run the same way: no retries, the crash notice explains it.
+    fs.mkdirSync(work(), { recursive: true });
+    fs.writeFileSync(work("crash.txt"), `Eine Einstellungsdatei in config/ ist fehlerhaft: ${error.message.slice(0, 300)}`);
+    throw error;
+  }
+}
+
+function missingSecrets(env = process.env) {
+  const missing = [];
+  if (env.HAS_CLAUDE_CREDENTIAL !== "true") missing.push("CLAUDE_CODE_OAUTH_TOKEN");
+  if (!env.UNSPLASH_ACCESS_KEY) missing.push("UNSPLASH_ACCESS_KEY");
+  return missing;
+}
+
 async function main() {
-  const config = loadConfig();
+  const config = loadSettings();
   const { content, schedule, analytics } = config;
   const dry = isDryRun();
   const now = new Date();
-  const slot = process.env.SLOT || "";
-  const run = { slot, limitRetry: Number(process.env.LIMIT_RETRY || 0), dry, startedAt: now.toISOString() };
+  const simulate = ["quality", "503", "auth"].includes(process.env.SIMULATE) ? process.env.SIMULATE : "";
+  // Live runs started by hand get their own slot, so a pause can continue them later.
+  const slot = process.env.SLOT || (dry ? "" : `manual-${process.env.GITHUB_RUN_ID || now.getTime()}`);
+  const entry = (load("slots").slots || {})[slot] || {};
+  const run = { slot, dry, simulate, startedAt: now.toISOString(), progress: entry.progress || null, limitChecks: entry.limitChecks || 0 };
 
   fs.mkdirSync(work("images"), { recursive: true });
   writeJson(work("run.json"), run);
   for (const [name, schema] of Object.entries(schemas)) fs.writeFileSync(work(`schema-${name}.json`), JSON.stringify(schema));
 
-  setOutputs({ model: content.ai.model, turns_topics: content.ai.max_turns.topics, turns_writer: content.ai.max_turns.writer, turns_editor: content.ai.max_turns.editor });
+  setOutputs({ model: content.ai.model, turns_topics: content.ai.max_turns.topics, turns_writer: content.ai.max_turns.writer, turns_editor: content.ai.max_turns.editor, simulate });
+
+  const missing = missingSecrets();
+  if (missing.length) {
+    run.stop = { kind: "secret", message: `Fehlende oder leere Secrets: ${missing.join(", ")}`, missing };
+    writeJson(work("run.json"), run);
+    return setOutputs({ run: "true", need_topics: "false" });
+  }
 
   if (!dry) {
     const published = publishedThisMonth(now, schedule.time_zone);
@@ -82,7 +111,9 @@ async function main() {
   setOutputs({ run: "true", need_topics: String(needTopics) });
 }
 
-main().catch((error) => {
+module.exports = { missingSecrets };
+
+if (require.main === module) main().catch((error) => {
   console.error(error.message);
   process.exit(1);
 });

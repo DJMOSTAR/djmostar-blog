@@ -1,15 +1,16 @@
-# One pass: write (unless a correction is waiting), run the code checks, then editor review.
-name: Article pass
+# One attempt: write, run the code checks, then the editor review.
+name: Article attempt
 description: Writes and checks one version of the article.
 
 inputs:
-  pass: { description: Pass number, required: true }
+  pass: { description: Attempt step number (1-5), required: true }
   model: { description: Claude model, required: true }
   turns_writer: { description: Writer turn limit, required: true }
   turns_editor: { description: Editor turn limit, required: true }
   claude_code_oauth_token: { description: Claude token, required: false, default: "" }
   anthropic_api_key: { description: Optional API key, required: false, default: "" }
   github_token: { description: Workflow token, required: true }
+  simulate: { description: "Test runs only: 503 or auth", required: false, default: "" }
 
 runs:
   using: composite
@@ -30,6 +31,7 @@ runs:
         claude_code_oauth_token: ${{ inputs.claude_code_oauth_token }}
         anthropic_api_key: ${{ inputs.anthropic_api_key }}
         github_token: ${{ inputs.github_token }}
+        simulate: ${{ inputs.simulate }}
 
     - id: check
       if: steps.start.outputs.run == 'true'
@@ -48,6 +50,7 @@ runs:
         claude_code_oauth_token: ${{ inputs.claude_code_oauth_token }}
         anthropic_api_key: ${{ inputs.anthropic_api_key }}
         github_token: ${{ inputs.github_token }}
+        simulate: ${{ inputs.simulate }}
 
     - if: steps.start.outputs.run == 'true'
       shell: bash
