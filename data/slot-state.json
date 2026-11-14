@@ -36,6 +36,13 @@
       "status": "failed",
       "reason": "max",
       "progress": null
+    },
+    "manual-43618080487": {
+      "firstAt": "2026-11-14T17:00:58.445Z",
+      "retries": 0,
+      "status": "failed",
+      "reason": "max",
+      "progress": null
     }
   }
 }

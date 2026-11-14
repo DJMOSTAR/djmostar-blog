@@ -172,6 +172,191 @@
       ],
       "status": "failed",
       "angle": "Worauf ihr bei Feiern außerhalb der Stadt achten solltet, von der Anreise der Gäste bis zur Technik vor Ort, ohne konkrete Locations zu empfehlen."
+    },
+    {
+      "title": "Weihnachtsfeier in der kleinen Firma: Programmideen, bei denen keiner auf die Uhr schaut",
+      "angle": "Für kleine Teams ohne Eventbudget-Apparat: Welche Programmpunkte wirklich verbinden, was peinlich wird und wie Musik als roter Faden Spiele, Essen und Tanzen zusammenhält.",
+      "category": "firmenfeier",
+      "seeds": [
+        "weihnachtsfeier ideen kleine firma",
+        "weihnachtsfeier firma planen",
+        "weihnachtsfeier ideen programm"
+      ],
+      "imageQueries": [
+        "office Christmas party",
+        "Weihnachtsfeier Firma",
+        "corporate event DJ",
+        "team celebration lights"
+      ],
+      "tags": [
+        "Weihnachtsfeier",
+        "Planung",
+        "Musik"
+      ],
+      "status": "failed",
+      "addedAt": "2026-11-14"
+    },
+    {
+      "title": "Firmenjubiläum mit Kunden feiern: Wie die Musik Geschäftspartner und Team an einen Tisch bringt",
+      "angle": "Bei Jubiläum sind Kunden, Mitarbeitende und Geschäftsleitung gleichzeitig im Raum. Der Beitrag zeigt, wie sich Musikauswahl und Stimmung für beide Gruppen gestalten lassen und welche Fehler Gäste distanziert wirken lassen.",
+      "category": "firmenfeier",
+      "seeds": [
+        "firmenjubiläum feiern mit kunden",
+        "firmenjubiläum feiern ideen",
+        "DJ für Firmenfeier Hamburg"
+      ],
+      "imageQueries": [
+        "company anniversary celebration",
+        "Firmenjubiläum Feier",
+        "gala dinner event",
+        "DJ corporate party"
+      ],
+      "tags": [
+        "Jubiläum",
+        "Gala",
+        "Planung"
+      ],
+      "status": "planned",
+      "addedAt": "2026-11-14"
+    },
+    {
+      "title": "Discofox oder langsamer Walzer? Der ehrliche Vergleich für euren Eröffnungstanz",
+      "angle": "Ein direkter Vergleich beider Tanzstile aus Sicht des DJs: Wie anspruchsvoll sie wirklich sind, welche deutschen und modernen Lieder passen und was auf der Tanzfläche am besten wirkt.",
+      "category": "hochzeit",
+      "seeds": [
+        "eröffnungstanz hochzeit discofox",
+        "eröffnungstanz hochzeit langsamer walzer",
+        "eröffnungstanz hochzeit lieder modern"
+      ],
+      "imageQueries": [
+        "wedding first dance",
+        "Hochzeitstanz Brautpaar",
+        "wedding dance floor",
+        "bride groom dancing"
+      ],
+      "tags": [
+        "Eröffnungstanz",
+        "Musik",
+        "Planung"
+      ],
+      "status": "planned",
+      "addedAt": "2026-11-14"
+    },
+    {
+      "title": "Hochzeitstanz mit den Gästen: Ideen, die Tanzmuffel mitreißen",
+      "angle": "Von Wunderkerzen bis Gruppentanz: Welche Ideen für den Tanz mit allen Gästen funktionieren, wie man schüchterne Gäste einbindet und was ein DJ dafür vorbereiten sollte.",
+      "category": "hochzeit",
+      "seeds": [
+        "hochzeitstanz ideen gäste",
+        "hochzeitstanz ideen lustig",
+        "Hochzeits DJ Hamburg"
+      ],
+      "imageQueries": [
+        "wedding guests dancing",
+        "sparklers wedding",
+        "Hochzeit Tanzfläche",
+        "wedding party fun"
+      ],
+      "tags": [
+        "Eröffnungstanz",
+        "Gästewünsche",
+        "Musik"
+      ],
+      "status": "planned",
+      "addedAt": "2026-11-14"
+    },
+    {
+      "title": "Musik für die Hochzeit: Standesamt, Kirche, Feier – was passt wo?",
+      "angle": "Eine Entscheidungshilfe, die die Musik für jeden Abschnitt des Hochzeitstages getrennt betrachtet, inklusive Übergängen und typischer Stolperfallen, ohne feste Zeitpläne.",
+      "category": "musik",
+      "seeds": [
+        "musik für hochzeit standesamt",
+        "musik für hochzeit kirche",
+        "musik für hochzeit party"
+      ],
+      "imageQueries": [
+        "wedding ceremony music",
+        "Hochzeit Standesamt",
+        "wedding DJ setup",
+        "church wedding"
+      ],
+      "tags": [
+        "Musik",
+        "Planung"
+      ],
+      "status": "planned",
+      "addedAt": "2026-11-14"
+    },
+    {
+      "title": "Partymusik aktuell: Was auf der Weihnachtsfeier mit gemischten Altersgruppen funktioniert",
+      "angle": "Wie man aktuelle Hits mit Klassikern mischt, damit Azubis, Kollegen und Chefs tanzen. Mit Hinweisen, wann ein Song zu neu oder zu alt ist, ohne Behauptungen über Charts.",
+      "category": "musik",
+      "seeds": [
+        "partymusik aktuell",
+        "DJ Hamburg",
+        "DJ für Firmenfeier Hamburg"
+      ],
+      "imageQueries": [
+        "party DJ crowd",
+        "Partymusik Tanzfläche",
+        "DJ party lights",
+        "Christmas party dancing"
+      ],
+      "tags": [
+        "Musik",
+        "Weihnachtsfeier",
+        "Gästewünsche"
+      ],
+      "status": "failed",
+      "addedAt": "2026-11-14"
+    },
+    {
+      "title": "Mottoparty für Erwachsene im Winter: Welche Musik das Motto trägt",
+      "angle": "Motto-Ideen für Winterfeiern und Geburtstage, bei denen die Musik das Motto stützt statt dagegen zu arbeiten. Dazu Tipps, wie Gäste ohne Kostümzwang mitmachen.",
+      "category": "private-feiern",
+      "seeds": [
+        "mottoparty ideen für erwachsene winter",
+        "mottoparty ideen geburtstag",
+        "DJ für Geburtstag Hamburg"
+      ],
+      "imageQueries": [
+        "theme party adults",
+        "Mottoparty Erwachsene",
+        "winter party lights",
+        "birthday party DJ"
+      ],
+      "tags": [
+        "Geburtstag",
+        "Musik",
+        "Planung"
+      ],
+      "status": "planned",
+      "addedAt": "2026-11-14"
+    },
+    {
+      "title": "Weihnachtsfeier im Umland oder in Hamburg? Was für Ahrensburg, Norderstedt und Pinneberg spricht",
+      "angle": "Ein Vergleich von Stadt und Umland aus Sicht der Technik und Organisation: Raumgrößen, Anreise der Gäste, Lautstärke-Vorgaben und Aufbau. Damit können Firmen die passende Location finden.",
+      "category": "hamburg-umgebung",
+      "seeds": [
+        "DJ Norderstedt",
+        "DJ Pinneberg",
+        "DJ Ahrensburg",
+        "DJ in der Nähe"
+      ],
+      "imageQueries": [
+        "Hamburg skyline winter",
+        "Norderstedt",
+        "Weihnachtsfeier Location",
+        "event venue party"
+      ],
+      "tags": [
+        "Weihnachtsfeier",
+        "Location",
+        "Umgebung",
+        "Hamburg"
+      ],
+      "status": "failed",
+      "addedAt": "2026-11-14"
     }
   ]
 }

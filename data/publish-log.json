@@ -103,6 +103,41 @@
       "type": "stopped",
       "slot": "manual-43587783937",
       "kind": "max"
+    },
+    {
+      "at": "2026-11-14T17:00:58.445Z",
+      "type": "retries",
+      "slot": "manual-43618080487",
+      "outcome": "stopped",
+      "attempts": 5,
+      "failedAttempts": 5,
+      "stepRetries": 0,
+      "reasons": [
+        "Hochzeits- oder Privatartikel verwendet formelle Anrede: \"e Sie\"",
+        "Wiederholung: Kurzfristige Anfragen kommt 3x vor, höchstens 2x erlaubt (einmal im Text, einmal im FAQ)",
+        "Nicht erlaubt: Aufforderung, Song- oder Musiklisten anzulegen (1x gefunden)",
+        "Interner Link zur Anfrageseite fehlt: https://djmostar.de/hochzeit#kontakt",
+        "Redaktionsnote 66 liegt unter 70",
+        "Einleitung: \"mit denen ihr Partymusik aktuell und Klassiker so kombiniert\" ist grammatisch holprig und erkennbar auf das Keyword gebogen. Natürlicher formulieren, z. B. \"aktuelle Partymusik und Klassiker\".",
+        "Abschnitt \"Wann ein Song zu alt ist\": \"Ballade-Klassiker\" ist falsch, richtig wäre \"Balladen-Klassiker\".",
+        "Fazit: \"Ich bin Hochzeits DJ Hamburg und Firmenevents sind genauso mein Alltag\" ist grammatisch schief und gibt die Positionierung unsauber wieder. Sauber formulieren, z. B. \"Ich bin Hochzeits DJ in Hamburg und mache auch Firmenevents\".",
+        "Technik-Absatz: Die Kernaussage steht doppelt direkt hintereinander (\"Die Technik passt zu Raum und Gästezahl. Ich arbeite mit Licht- und Tontechnik passend zu Raum und Gästezahl…\"). Den ersten Satz streichen. \"Die Mikrofone sind praktisch, wenn die Geschäftsführung eine Rede halten möchte\" ist ein Füllsatz mit erfundenem Anwendungsfall und sollte raus.",
+        "Die Kernaussage \"Musik live nach Stimmung wählen / Richtung wechseln\" kommt mindestens viermal im Text vor: Hauptphase, \"Zu strenge Planung\", \"Live reagieren statt ablaufen lassen\" und im Fazit. Höchstens einmal im Text und einmal im FAQ nennen.",
+        "Der interne Link auf https://blog.djmostar.de/weihnachtsfeier-hamburg-fehler-stimmung-vermeiden/ ist in den freigegebenen Fakten nicht belegt. Es ist nicht gesichert, dass dieser Beitrag existiert, ein toter Link ist möglich. Nur verwenden, wenn die URL verifiziert ist. Die Anker \"#kontakt\" in den Anfrage-Links stehen ebenfalls nicht in den Fakten. Sicherer sind die Links ohne Anker (https://djmostar.de/firmenfeier und https://djmostar.de/hochzeit).",
+        "Unbelegte Verallgemeinerungen wie \"Gegen Ende gehen viele Gäste auf Abstand zu schnellen Beats\", \"Das sind selten die Vorgesetzten und selten die Neuen im Team\" und \"Ein Song, bei dem man sich fremdschämt, bleibt länger im Gedächtnis als der Abend selbst\" klingen wie Tatsachenbehauptungen ohne Beleg. Als Erfahrungswert abschwächen oder streichen. Ebenso \"Jüngere kennen September/Don't Stop Me Now aus Streaming oder Filmen\" (immerhin als Möglichkeit markiert).",
+        "Abschnitt \"Der Aufbau eines Abends\" mit Phasen und \"Reihenfolge als Orientierung\" widerspricht der Vorgabe \"keine festen Abläufe\" und dem späteren Absatz \"Zu strenge Planung\". Das ist inhaltlich unstimmig. Als lose Phasen ohne Reihenfolge-Anspruch formulieren.",
+        "Der Abschnitt \"Songs, die viele Generationen verbinden\" ist eine reine Songliste, die \"September\" und \"Uptown Funk\" wiederholt, die vorher schon als Beispiele standen. Das ist redundant und liest sich wie ein Füllabschnitt. Kürzen oder in den Brücken-Abschnitt integrieren.",
+        "Meta-Beschreibung: \"Tipps vom DJ Hamburg\" ist unnatürlich (besser \"von einem DJ aus Hamburg\"). Nebenkeywords wie \"dj hamburg buchen\" und \"DJ für Firmenfeier Hamburg\" kommen im Text kaum natürlich vor. Der einzige externe Link (GEMA) ist gut eingebunden, ein zweiter passender Link (z. B. IHK oder hamburg.de) wäre sinnvoll.",
+        "Bild-Alt-Texte: Der Alt-Text des ersten Inline-Bildes nennt \"Plattenspielern im blauen und roten Licht\", sichtbar sind überwiegend blaue und violette Töne mit etwas Orange. Das Bild zeigt Mischpult und Plattenspieler, \"rot\" ist übertrieben. Auf \"blauem und violettem Licht\" anpassen.",
+        "Wiederholung: Einsatzgebiet kommt 4x vor, höchstens 2x erlaubt (einmal im Text, einmal im FAQ)",
+        "Text zu ähnlich zu \"Weihnachtsfeier Hamburg: Welche Fehler die Stimmung kosten und wie Sie sie vermeiden\" (0.58)"
+      ]
+    },
+    {
+      "at": "2026-11-14T17:00:58.445Z",
+      "type": "stopped",
+      "slot": "manual-43618080487",
+      "kind": "max"
     }
   ]
 }
