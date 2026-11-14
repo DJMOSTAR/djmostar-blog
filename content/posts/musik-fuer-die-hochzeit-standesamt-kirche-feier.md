@@ -11,7 +11,7 @@ tags:
   - Musik
   - Eröffnungstanz
   - Hamburg
-date: '2026-11-14'
+date: 2026-11-14
 primaryKeyword: Musik für die Hochzeit
 secondaryKeywords:
   - musik für hochzeit standesamt
