@@ -60,7 +60,7 @@ function retrySection(state) {
 
 function qualityReport(run, state, images, article) {
   const lines = ["## Qualitätsbericht", ""];
-  lines.push(state.passed ? `**Ergebnis: bestanden, Note ${state.finalScore} von 100**` : "**Ergebnis: nicht bestanden, nicht veröffentlicht**", "");
+  lines.push(state.passed ? "**Ergebnis: alle Prüfungen bestanden**" : "**Ergebnis: nicht bestanden, nicht veröffentlicht**", "");
   for (const attempt of state.attempts || []) {
     lines.push(`### Versuch ${attempt.attempt}: ${MODE_LABELS[attempt.mode] || attempt.mode}`, `Thema: ${attempt.topic}`);
     lines.push(attempt.hardRuleFailures.length ? `Harte Regeln: ${attempt.hardRuleFailures.length} Problem(e)` : "Harte Regeln: alle bestanden");
@@ -294,7 +294,7 @@ function recordDraft(run, state, article) {
   const ids = [article.featured.id, ...(article.inlineImages || []).map((image) => image.id)];
   images.ids = [...new Set([...(images.ids || []), ...ids])];
   save("images", images);
-  logEvent({ type: "draft", slot: run.slot, title: article.title, slug: article.slug, category: article.category, score: state.finalScore, attempts: retryFacts(state).total, usage: usageTotals() });
+  logEvent({ type: "draft", slot: run.slot, title: article.title, slug: article.slug, category: article.category, attempts: retryFacts(state).total, usage: usageTotals() });
   logRetries(run, state, "passed");
   updateSlot(run.slot, { status: "done", result: "draft", progress: null });
 }

@@ -27,13 +27,11 @@ tags:
 # ---------------------------------------------------------------------------
 ai:
   model: claude-sonnet-5-5   # Change the model in this one place.
-  max_turns: { topics: 6, writer: 14, editor: 12 }
+  max_turns: { topics: 6, writer: 14 }
 
 limits:
   monthly_articles: 10
   max_waiting_drafts: 2      # Applies when AUTO_PUBLISH=false.
-  min_score: 70
-  max_passes: 3              # First draft plus 2 regenerations or corrections. A correction from pass 3 gets one more review.
 
 calendar:
   target_upcoming: 8

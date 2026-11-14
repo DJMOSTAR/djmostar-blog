@@ -178,3 +178,10 @@ test("stray image markers are removed before checking, and caught if left in", (
   assert.ok(fixed.body.includes("[[BILD:img2]]"));
   assert.deepStrictEqual(failuresFor({ body: fixed.body }), []);
 });
+
+test("photo HTML and link addresses don't count as similar text", () => {
+  const figure = (id) => `<figure><img src="https://images.unsplash.com/photo-${id}?w=1200&utm_source=djmostar_blog&utm_medium=referral" alt="Tanzfläche"><figcaption>Foto: <a href="https://unsplash.com/@x?utm_source=djmostar_blog&utm_medium=referral">Fotograf</a> auf <a href="https://unsplash.com/?utm_source=djmostar_blog&utm_medium=referral">Unsplash</a></figcaption></figure>`;
+  const old = { slug: "alt", title: "Alt", body: `${figure(1)}\n\nWir sprechen über Termine im Frühjahr und Herbst.\n\n${figure(2)}` };
+  const fresh = { slug: "neu", title: "Neu", primaryKeyword: "neu", body: `${figure(3)}\n\nDie Musik für Kirche und Standesamt braucht ruhige Stücke.\n\n${figure(4)}` };
+  assert.deepStrictEqual(checkOriginality(fresh, [old], { title_max: 0.7, body_max: 0.55 }).failures, []);
+});

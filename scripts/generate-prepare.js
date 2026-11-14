@@ -58,7 +58,7 @@ async function main() {
   writeJson(work("run.json"), run);
   for (const [name, schema] of Object.entries(schemas)) fs.writeFileSync(work(`schema-${name}.json`), JSON.stringify(schema));
 
-  setOutputs({ model: content.ai.model, turns_topics: content.ai.max_turns.topics, turns_writer: content.ai.max_turns.writer, turns_editor: content.ai.max_turns.editor, simulate });
+  setOutputs({ model: content.ai.model, turns_topics: content.ai.max_turns.topics, turns_writer: content.ai.max_turns.writer, simulate });
 
   const missing = missingSecrets();
   if (missing.length) {

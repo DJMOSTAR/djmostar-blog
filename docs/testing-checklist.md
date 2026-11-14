@@ -26,7 +26,7 @@ For each run:
 
 - [ ] The run finishes with a green tick, in about 3 to 6 minutes.
 - [ ] An email about the new Issue arrives.
-- [ ] The report shows the hard rules and the editor's scores.
+- [ ] The report shows the result of every hard rule. There is no separate grade: an article that passes every check is published.
 - [ ] Read the article yourself:
   - [ ] Only approved facts about DJ MOSTAR, nothing invented
   - [ ] No prices, "Paket", VAT, clock times or "Hochzeits-DJ" with a hyphen

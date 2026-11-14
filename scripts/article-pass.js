@@ -1,4 +1,5 @@
-// One article attempt: write, run the code checks, then the editor review.
+// One article attempt: write, then run the code checks. Passing every check means the article is done;
+// there is no separate grading step.
 // generate.yml has five attempt steps. A paused run continues with the next attempt number.
 //   Attempt 1: new article. Attempt 2: the same article, fixing only the failed checks.
 //   Attempt 3: a completely new article on the same topic. Attempts 4 and 5: the next unused topic.
@@ -98,20 +99,6 @@ function buildWriterPrompt(run, images, state) {
   });
 }
 
-function buildEditorPrompt(article, images) {
-  return fill(fs.readFileSync(fromRoot("prompts/editor.md"), "utf8"), {
-    articleFile: ".work/candidate.json",
-    imageList: imageList(images, [article.featured && article.featured.id, ...(article.inlineImages || []).map((image) => image.id)]),
-    facts,
-    forbidden: rules.forbidden_phrases.join(", "),
-    addressRule: addressText(audienceFor(article, content)),
-    priceSentence: audienceFor(article, content) === "sie" ? "Sie erhalten ein individuelles Angebot, abgestimmt auf Ihre Feier und den benötigten Leistungsumfang." : "Ihr erhaltet ein individuelles Angebot, abgestimmt auf eure Feier und den benötigten Leistungsumfang.",
-    minScore: content.limits.min_score,
-    minWords: content.article.min_words,
-    externalMax: 2,
-    externalSources: content.external_sources.map((source) => `- ${source.url} (${source.use})`).join("\n"),
-  });
-}
 
 // Keeps earlier problems, so a revision can't bring them back.
 function rememberFeedback(state, latest) {
@@ -182,7 +169,7 @@ async function start() {
   state.current = { attempt, mode, topic: run.topic.title };
   saveState(state);
   // Never read a result left over from an earlier attempt.
-  for (const name of [`out-writer-${position}.json`, `out-editor-${position}.json`]) fs.rmSync(work(name), { force: true });
+  fs.rmSync(work(`out-writer-${position}.json`), { force: true });
   console.log(`Attempt ${attempt} of ${limits.max_attempts}: ${MODE_LABELS[mode]}.`);
   if (mode === "revise") writeJson(work("previous-draft.json"), state.last);
   fs.writeFileSync(work("prompt-writer.md"), buildWriterPrompt(run, readJson(work("images.json")), state));
@@ -231,7 +218,7 @@ async function check() {
       failAttempt(state, record, [INVALID]);
     }
     saveState(state);
-    return setOutputs({ need_review: "false" });
+    return;
   }
   const article = fixImageMarkers(written);
   article.body = fixInquiryLinks(article.body, site);
@@ -250,14 +237,14 @@ async function check() {
   Object.assign(record, { hardRuleFailures: allFailures, warnings: live.warnings, similarity: originality.highest });
   state.attempts.push(record);
   state.last = article;
-  if (allFailures.length) {
-    failAttempt(state, record, allFailures);
-    saveState(state);
-    return setOutputs({ need_review: "false" });
+  if (allFailures.length) failAttempt(state, record, allFailures);
+  else {
+    // Every check passed: this exact version is the article.
+    state.passed = true;
+    record.result = "passed";
+    console.log(`Attempt ${attempt}: passed every check.`);
   }
-  fs.writeFileSync(work("prompt-editor.md"), buildEditorPrompt(article, images));
   saveState(state);
-  return setOutputs({ need_review: "true" });
 }
 
 // After a failed attempt: stop at the attempt limit, or early when the same check keeps failing.
@@ -279,36 +266,7 @@ function finish() {
   const state = readState();
   if (state.passed || state.stop || state.pause || state.ended) return;
   const record = state.attempts[state.attempts.length - 1];
-  if (!record || record.attempt !== state.current.attempt) return;
-
-  if (!record.result) {
-    const review = readJson(work(`out-editor-${position}.json`), null);
-    if (!review) {
-      const outcome = handleAiFailure(state, `editor-${position}`);
-      if (outcome !== "invalid") {
-        // Not counted as an attempt: after the pause this attempt runs again.
-        state.attempts.pop();
-        saveState(state);
-        return;
-      }
-      failAttempt(state, record, [INVALID]);
-    } else {
-      // The score can never be higher than factual safety.
-      const score = Math.min(review.overall, review.scores.factualSafety);
-      Object.assign(record, { score, scores: review.scores, issues: review.issues });
-      console.log(`Attempt ${record.attempt}: score ${score}.`);
-      if (score >= content.limits.min_score) {
-        // This exact version passed every check. Suggested edits are never used.
-        state.passed = true;
-        state.finalScore = score;
-        record.result = "passed";
-        saveState(state);
-        return;
-      }
-      const note = `Redaktionsnote ${score} liegt unter ${content.limits.min_score}`;
-      failAttempt(state, record, [note, ...review.issues], [`Redaktionsnote unter ${content.limits.min_score}`]);
-    }
-  }
+  if (!record || record.attempt !== state.current.attempt || record.result !== "failed") return;
   afterFailure(state, record);
   saveState(state);
 }

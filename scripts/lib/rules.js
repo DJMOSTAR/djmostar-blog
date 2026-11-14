@@ -205,6 +205,16 @@ function checkArticle(article, context) {
 }
 
 // Compares against everything already published on this blog.
+// Only the written text counts for similarity. Photo HTML, credits and link addresses are the
+// same in every post and made a new article look like a copy of an old one.
+function proseOnly(markdown) {
+  return String(markdown || "")
+    .replace(/<figure[\s\S]*?<\/figure>/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\[\[BILD:[^\]]*\]\]/g, " ")
+    .replace(/\]\([^)]*\)/g, "]");
+}
+
 function checkOriginality(article, publishedPosts, similarity) {
   let highest = { score: 0, slug: null };
   const failures = [];
@@ -214,7 +224,7 @@ function checkOriginality(article, publishedPosts, similarity) {
     if (title > similarity.title_max) failures.push(`Titel zu ähnlich zu "${post.title}" (${title.toFixed(2)})`);
     if (post.primaryKeyword && normalize(post.primaryKeyword) === normalize(article.primaryKeyword)) failures.push(`Hauptkeyword bereits verwendet: ${article.primaryKeyword}`);
     if (post.body) {
-      const body = cosine(article.body, post.body);
+      const body = cosine(proseOnly(article.body), proseOnly(post.body));
       if (body > highest.score) highest = { score: body, slug: post.slug };
       if (body > similarity.body_max) failures.push(`Text zu ähnlich zu "${post.title}" (${body.toFixed(2)})`);
     }
