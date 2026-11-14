@@ -162,6 +162,18 @@
       "slug": "musik-fuer-die-hochzeit-standesamt-kirche-feier",
       "category": "musik",
       "pr": 18
+    },
+    {
+      "at": "2026-11-14T21:40:37.384Z",
+      "type": "retries",
+      "slot": "publish-2026-11-13",
+      "outcome": "stopped",
+      "attempts": 0,
+      "failedAttempts": 0,
+      "stepRetries": 3,
+      "reasons": [
+        "Deploy fehlgeschlagen"
+      ]
     }
   ]
 }
