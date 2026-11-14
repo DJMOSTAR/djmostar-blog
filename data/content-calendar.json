@@ -284,8 +284,9 @@
         "Musik",
         "Planung"
       ],
-      "status": "planned",
-      "addedAt": "2026-11-14"
+      "status": "draft",
+      "addedAt": "2026-11-14",
+      "slug": "musik-fuer-die-hochzeit-standesamt-kirche-feier"
     },
     {
       "title": "Partymusik aktuell: Was auf der Weihnachtsfeier mit gemischten Altersgruppen funktioniert",

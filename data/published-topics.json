@@ -20,6 +20,13 @@
       "primaryKeyword": "DJ für die Weihnachtsfeier",
       "category": "firmenfeier",
       "status": "needs-review"
+    },
+    {
+      "title": "Musik für die Hochzeit: Was passt zu Standesamt, Kirche und Feier?",
+      "slug": "musik-fuer-die-hochzeit-standesamt-kirche-feier",
+      "primaryKeyword": "Musik für die Hochzeit",
+      "category": "musik",
+      "status": "draft"
     }
   ]
 }
