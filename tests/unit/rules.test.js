@@ -146,6 +146,9 @@ test("every inquiry link must go to the form with #kontakt", () => {
 
 test("readers are never asked to compile song lists or collect music wishes", () => {
   assert.ok(failuresFor(addToBody("Sammelt eure Lieblingssongs in Ruhe.")).some((f) => /Nicht erlaubt \(Aufforderung, Song- oder Musiklisten anzulegen\).*„Sammelt eure Lieblingssongs in Ruhe\.“/.test(f)));
+  // A link to a Sie article keeps its title (live run, 2026-11-14).
+  assert.ok(!failuresFor(addToBody("Mehr dazu im Beitrag [Welche Fehler die Stimmung kosten und wie Sie sie vermeiden](https://blog.djmostar.de/weihnachtsfeier-hamburg-fehler-stimmung-vermeiden/).")).some((f) => /formelle Anrede/.test(f)));
+  assert.ok(failuresFor(addToBody("Das zeigt, wie Sie planen.")).some((f) => /formelle Anrede.*„.*wie Sie planen/.test(f)));
   // A headline about the limits of a playlist is no request to make one (live run, 2026-11-14).
   assert.ok(!failuresFor(addToBody("## Wo eine Playlist an Grenzen stößt")).some((f) => /Musiklisten/.test(f)));
   assert.ok(failuresFor(addToBody("Legt am besten eine Playlist an, die ihr mögt.")).some((f) => /Musiklisten/.test(f)) || failuresFor(addToBody("Erstellt eine Liste mit euren Songs.")).some((f) => /Musiklisten/.test(f)));

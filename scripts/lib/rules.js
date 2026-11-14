@@ -20,15 +20,18 @@ function audienceFor(article, content) {
   return article.audience || (category && category.audience) || "ihr";
 }
 
+// The words around a match, so a revision can find the exact place.
+const around = (text, index) => text.slice(Math.max(0, index - 60), index + 40).replace(/\s+/g, " ").trim();
+
 function checkAddressForm(text, audience) {
   const failures = [];
   // The lowercase "ihr" can legitimately mean "her" or "their", so it is left to the AI editor.
   if (audience === "sie") {
     const informal = text.match(/\b(?:euch|euer|eure[mnrs]?|Ihr (?:habt|seid|könnt|solltet|wollt|müsst)|ihr (?:habt|seid|könnt|solltet|wollt|müsst)|du|dein\w*|dir)\b/);
-    if (informal) failures.push(`Firmenartikel verwendet informelle Anrede: "${informal[0]}"`);
+    if (informal) failures.push(`Firmenartikel verwendet informelle Anrede: "${informal[0]}" in „${around(text, informal.index)}“`);
   } else {
     const formal = text.match(/\bIhnen\b|\bIhre[mnrs]?\b|[\p{Ll},;] Sie\b(?! (?:ist|sind|war|waren|hat|haben|wird|werden|kann|können)\b)/u);
-    if (formal) failures.push(`Hochzeits- oder Privatartikel verwendet formelle Anrede: "${formal[0].trim()}"`);
+    if (formal) failures.push(`Hochzeits- oder Privatartikel verwendet formelle Anrede: "${formal[0].trim()}" in „${around(text, formal.index)}“`);
   }
   return failures;
 }
@@ -128,7 +131,9 @@ function checkArticle(article, context) {
   const firstSentence = (body.trim().match(/^[^.!?]*[.!?]/) || [""])[0];
   if (firstSentence.trim().endsWith("?")) failures.push("Der Einstieg darf keine rhetorische Frage sein");
 
-  failures.push(...checkAddressForm(text, audienceFor(article, content)));
+  // Titles of other blog posts in link texts keep their own address form, so they are not checked.
+  const ownBody = String(article.body || "").replace(/\[[^\]]*\]\(https?:\/\/blog\.djmostar\.de[^)]*\)/g, " ");
+  failures.push(...checkAddressForm(allArticleText({ ...article, body: ownBody }), audienceFor(article, content)));
 
   if (article.seoTitle.length > limits.seo_title_max) failures.push(`SEO-Titel zu lang: ${article.seoTitle.length} Zeichen`);
   if (article.description.length < limits.description_min || article.description.length > limits.description_max) failures.push(`Meta-Beschreibung muss ${limits.description_min} bis ${limits.description_max} Zeichen haben, hat ${article.description.length}`);
