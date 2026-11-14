@@ -62,7 +62,7 @@ key_facts:
   - { name: 'Einsatzgebiet', pattern: 'Norderstedt, Pinneberg' }
   - { name: 'Erfahrung', pattern: 'über 10 Jahre' }
   # Readers are never asked to compile song or music lists or to collect music wishes.
-  - { name: 'Aufforderung, Song- oder Musiklisten anzulegen', pattern: 'sammel|Liste an|Liste erstell|Liste schreib|Liste mach|Wunschliste|Musikliste|Songliste|Liederliste|Playlist (?:an|er|zusammen)|eintrag|zusammenstell|aufschreib', also: 'Song|Lied|Musik|Wünsch|Playlist', max: 0 }
+  - { name: 'Aufforderung, Song- oder Musiklisten anzulegen', pattern: 'sammel|Liste anleg|Liste erstell|Liste schreib|Liste mach|Wunschliste|Musikliste|Songliste|Liederliste|Playlist (?:anleg|erstell|zusammenstell|bau)|(?:Playlist|Liste) an[,.!;]|(?:erstellt|schreibt|macht|legt|baut|erstellen Sie|schreiben Sie|legen Sie)\b[^.!?]*\b(?:Liste|Playlist)|(?:schreibt|notiert|schreiben Sie|notieren Sie)\b[^.!?]*\b(?:Song|Lied|Wunsch|Wünsch|Titel)|eintrag|zusammenstell|aufschreib', also: 'Song|Lied|Musik|Wünsch|Playlist', max: 0 }
 
 # The list of international music styles: only in the "musik" category, and in one sentence at most.
 music_styles:

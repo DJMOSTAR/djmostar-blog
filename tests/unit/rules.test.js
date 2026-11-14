@@ -124,7 +124,7 @@ test("a key fact may appear twice at most", () => {
   assert.deepStrictEqual(failuresFor({}).filter((f) => /Wiederholung/.test(f)), []);
   const twice = addToBody("Ich bin an allen Wochentagen buchbar. Da ich an allen Wochentagen buchbar bin, geht viel.");
   const failures = failuresFor({ ...twice, faq: [...goodArticle().faq, { question: "Nur am Wochenende?", answer: "Nein, ich bin an allen Wochentagen buchbar." }] });
-  assert.ok(failures.some((f) => /Wiederholung: An allen Wochentagen buchbar kommt 3x/.test(f)), failures.join("; "));
+  assert.ok(failures.some((f) => /Wiederholung \(An allen Wochentagen buchbar\): kommt 3x/.test(f)), failures.join("; "));
   assert.ok(failuresFor(addToBody("Idealerweise 6 bis 12 Monate. Wirklich 6 bis 12 Monate.")).some((f) => /6 bis 12 Monate/.test(f)));
 });
 
@@ -145,7 +145,10 @@ test("every inquiry link must go to the form with #kontakt", () => {
 });
 
 test("readers are never asked to compile song lists or collect music wishes", () => {
-  assert.ok(failuresFor(addToBody("Sammelt eure Lieblingssongs in Ruhe.")).some((f) => /Nicht erlaubt: Aufforderung, Song- oder Musiklisten/.test(f)));
+  assert.ok(failuresFor(addToBody("Sammelt eure Lieblingssongs in Ruhe.")).some((f) => /Nicht erlaubt \(Aufforderung, Song- oder Musiklisten anzulegen\).*„Sammelt eure Lieblingssongs in Ruhe\.“/.test(f)));
+  // A headline about the limits of a playlist is no request to make one (live run, 2026-11-14).
+  assert.ok(!failuresFor(addToBody("## Wo eine Playlist an Grenzen stößt")).some((f) => /Musiklisten/.test(f)));
+  assert.ok(failuresFor(addToBody("Legt am besten eine Playlist an, die ihr mögt.")).some((f) => /Musiklisten/.test(f)) || failuresFor(addToBody("Erstellt eine Liste mit euren Songs.")).some((f) => /Musiklisten/.test(f)));
   assert.ok(failuresFor(addToBody("Legt eine gemeinsame Liste an, in die beide Songs eintragen.")).some((f) => /Musiklisten/.test(f)));
   assert.ok(failuresFor(addToBody("Erstellt eine Playlist mit euren Lieblingsliedern. Stellt eine Playlist zusammen.")).some((f) => /Musiklisten/.test(f)));
   assert.ok(!failuresFor(addToBody("Eine Playlist vom Handy reicht für den Empfang. Die Musik läuft dann nebenher.")).some((f) => /Musiklisten/.test(f)));

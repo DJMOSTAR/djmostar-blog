@@ -16,6 +16,7 @@ Schlage {{count}} neue Blogthemen vor. Heute ist {{today}}.
 - Keine Themen, die nur Preise behandeln: Kosten dürfen nur ohne Zahlen erklärt werden.
 - Keine Themen zu einer einzelnen Kultur oder Nationalität als Schwerpunkt.
 - Keine Themen, die feste Abläufe mit Uhrzeiten erfordern.
+- Keine Themen übers Sammeln, Einreichen oder Aufschreiben von Musikwünschen oder Songlisten. Mo wählt die Musik live; Wünsche bespricht er im persönlichen Vorgespräch.
 - Nichts, was bestehende Themen wiederholt.
 
 ## Felder

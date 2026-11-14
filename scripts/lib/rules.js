@@ -82,11 +82,14 @@ function checkKeyFacts(article, rules) {
     const regex = new RegExp(pattern, "i");
     const second = also ? new RegExp(also, "i") : null;
     const limit = own ?? max;
-    const count = all.filter((sentence) => regex.test(sentence) && (!second || second.test(sentence))).length;
+    const found = all.filter((sentence) => regex.test(sentence) && (!second || second.test(sentence)));
+    const count = found.length;
     if (count <= limit) return [];
-    if (limit === 0) return [`Nicht erlaubt: ${name} (${count}x gefunden)`];
+    // The sentences are named, so a revision knows exactly what to change.
+    const quoted = found.slice(0, 4).map((sentence) => `„${sentence.trim().slice(0, 160)}“`).join(" ");
+    if (limit === 0) return [`Nicht erlaubt (${name}), ${count}x gefunden. Diese Sätze umformulieren: ${quoted}`];
     const where = limit === 1 ? "einmal im ganzen Artikel" : "einmal im Text, einmal im FAQ";
-    return [`Wiederholung: ${name} kommt ${count}x vor, höchstens ${limit}x erlaubt (${where})`];
+    return [`Wiederholung (${name}): kommt ${count}x vor, höchstens ${limit}x erlaubt (${where}). Sätze: ${quoted}`];
   });
 }
 
