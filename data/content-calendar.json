@@ -128,7 +128,7 @@
         "Hamburg",
         "Planung"
       ],
-      "status": "planned",
+      "status": "failed",
       "angle": "Ehrlicher Vergleich mit klaren Kriterien, wann eine Playlist reicht und wann ein DJ den Unterschied macht."
     },
     {
@@ -149,7 +149,7 @@
         "Gästewünsche",
         "Musik"
       ],
-      "status": "planned",
+      "status": "failed",
       "angle": "Wie sich Gästewünsche sinnvoll einbauen lassen, ohne dass die Tanzfläche leer wird."
     },
     {
@@ -170,7 +170,7 @@
         "Umgebung",
         "Planung"
       ],
-      "status": "planned",
+      "status": "failed",
       "angle": "Worauf ihr bei Feiern außerhalb der Stadt achten solltet, von der Anreise der Gäste bis zur Technik vor Ort, ohne konkrete Locations zu empfehlen."
     }
   ]

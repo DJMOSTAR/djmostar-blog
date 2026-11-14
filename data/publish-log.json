@@ -71,6 +71,38 @@
       "type": "failed",
       "slot": "",
       "kind": "render"
+    },
+    {
+      "at": "2026-11-14T11:04:32.370Z",
+      "type": "retries",
+      "slot": "manual-43587783937",
+      "outcome": "stopped",
+      "attempts": 5,
+      "failedAttempts": 5,
+      "stepRetries": 0,
+      "reasons": [
+        "Nicht erlaubt: Aufforderung, Song- oder Musiklisten anzulegen (1x gefunden)",
+        "Link zu mindestens einem früheren Blogbeitrag fehlt",
+        "Redaktionsnote 62 liegt unter 70",
+        "Kernaussage wiederholt: \"Wunsch ist nur ein Hinweis/Orientierung, kein Befehl\" steht im Abschnitt \"Warum ein einzelner Wunsch...\" (\"Ein Wunsch ist also ein Hinweis...\"), im Abschnitt \"So kommen Wünsche ohne Druck zum Zug\" (\"Ob und wann ein Titel passt, entscheidet der DJ im Moment\"), im Fazit-Titel und -Text sowie im FAQ. Die Aussage \"Mo wählt live nach Stimmung\" steht zudem in \"Der Moment entscheidet\", im Fazit und im FAQ-Antwort 1. Jede Kernaussage höchstens einmal im Text und einmal im FAQ.",
+        "Abschnitt \"So kommen Wünsche ohne Druck zum Zug\", Absatz \"Wer als Gast einen Wunsch äußert, kann ihn so formulieren...\": Das ist eine Anleitung zum Wünsche-Einbringen und läuft auf das Sammeln/Einreichen von Musikwünschen hinaus. Dazu passt die Meta-Beschreibung \"So baut ihr Gästewünsche sinnvoll ein\". Beides streichen oder umformulieren: Wünsche werden nur im persönlichen Vorgespräch besprochen.",
+        "Perspektivwechsel: Mal \"ich\"/\"Mo\", mal unpersönlich \"der DJ\" (\"entscheidet der DJ im Moment, weil nur er die Tanzfläche sieht\", \"dem DJ die Entscheidung überlassen\", FAQ \"Ein DJ kann...\"). Wirkt wie ein allgemeiner Ratgeber, nicht wie Mo. Durchgehend \"ich\" verwenden.",
+        "Abschnitt \"Gut zu wissen: Musiknutzung\": \"Das betrifft vor allem die Veranstalter und die Location, nicht den einzelnen Musikwunsch\" ist eine nicht abgesicherte rechtliche Aussage. Entweder neutral formulieren (Infos zur Musiknutzung bei Veranstaltungen gibt es bei der GEMA) oder streichen. Der Link ist außerdem thematisch lose eingebunden und steht isoliert in einem eigenen Abschnitt; besser in den Fließtext einbinden oder um einen zweiten passenden Link (z. B. hamburg.de) ergänzen.",
+        "Unbelegte Allgemeinaussagen ohne Absicherung: \"Ein einziger Song kann die Tanzfläche in Sekunden leeren\" (Einleitung), \"Wenn zwei Minuten lang nichts passiert, ist die Tanzfläche weg\", \"Wer ... eine Ballade hört, setzt sich hin\". Als Tendenz formulieren (\"kann\", \"oft\") statt als Gesetz.",
+        "Interesse: Der Text bleibt generisch und könnte bei jedem DJ stehen (Tempo, Bekanntheit, Stilbruch sind Standardtipps). Es fehlt ein eigener Blickwinkel und konkreter Nutzen, z. B. wie ein Übergang praktisch aussehen kann oder wie man Gästen einen abgelehnten Wunsch erklärt, ohne erfundene Anekdoten. Der Abschnitt \"Phasen der Feier\" (Empfang, Essen, Eröffnungstanz) ist allgemein und nahe an einem festen Ablauf; vorsichtiger als Beispiel kennzeichnen, da jede Hochzeit individuell ist.",
+        "Brand Voice: Wendungen wie \"Wunsch rettet/ruiniert die Party\", \"Das Lied ist dasselbe, nur die Wirkung ist eine andere\", \"Wünsche sind Orientierung, kein Befehl\" klingen nach Ratgeber-Floskel statt nach einem Hamburger DJ im Kundengespräch; Füllsätze wie \"Das heißt nicht, dass solche Titel nie laufen dürfen\" kürzen.",
+        "Interne Links: Der Link https://blog.djmostar.de/hochzeits-dj-hamburg-buchen-wann/ und die Anker #kontakt (/firmenfeier#kontakt, /hochzeit#kontakt) sind nicht überprüfbar. Freigegeben sind die Seiten https://djmostar.de/hochzeit und https://djmostar.de/firmenfeier; Anker weglassen und die Blog-URL verifizieren.",
+        "Bilder: Beide Alt-Texte passen zum Bildinhalt (Luftaufnahme tanzender Gruppe mit langen Schatten; unscharfe Bewegungsaufnahme mit violetten/weißen Kleidern und erhobenen Armen). Kein Problem. Hinweis: \"auf einem Platz\" und \"abends\" sind aus dem Bild nur vermutet, \"Von oben fotografierte Gruppe von Menschen, die tanzen und lange Schatten werfen\" wäre sicherer.",
+        "SEO: Titel und Meta-Beschreibung enthalten das Hauptkeyword, die Beschreibung ist aber über der üblichen Länge von ca. 155 Zeichen und bewirbt das Einbauen von Gästewünschen (siehe oben). Kürzen und neu formulieren.",
+        "Hochzeits- oder Privatartikel verwendet formelle Anrede: \"e Sie\"",
+        "1 bis 2 externe Links nötig, gefunden: 3"
+      ]
+    },
+    {
+      "at": "2026-11-14T11:04:32.370Z",
+      "type": "stopped",
+      "slot": "manual-43587783937",
+      "kind": "max"
     }
   ]
 }

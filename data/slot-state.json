@@ -29,6 +29,13 @@
       "retries": 0,
       "status": "done",
       "result": "nothing-to-publish"
+    },
+    "manual-43587783937": {
+      "firstAt": "2026-11-14T11:04:32.370Z",
+      "retries": 0,
+      "status": "failed",
+      "reason": "max",
+      "progress": null
     }
   }
 }
