@@ -50,6 +50,11 @@
       "status": "done",
       "result": "draft",
       "progress": null
+    },
+    "generate-2026-11-16": {
+      "status": "dispatched",
+      "firstAt": "2026-11-16T09:45:28.456Z",
+      "retries": 0
     }
   }
 }
