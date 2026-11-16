@@ -63,8 +63,9 @@
       "tags": [
         "Planung"
       ],
-      "status": "planned",
-      "angle": "Konkrete Fragen fürs erste Gespräch, was gute und was ausweichende Antworten verraten."
+      "status": "draft",
+      "angle": "Konkrete Fragen fürs erste Gespräch, was gute und was ausweichende Antworten verraten.",
+      "slug": "hochzeits-dj-finden-fragen-erstes-gespraech"
     },
     {
       "title": "DJ für die Weihnachtsfeier: Wie Azubis und Geschäftsführung auf derselben Tanzfläche landen",

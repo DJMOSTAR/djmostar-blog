@@ -27,6 +27,13 @@
       "primaryKeyword": "Musik für die Hochzeit",
       "category": "musik",
       "status": "published"
+    },
+    {
+      "title": "Hochzeits DJ finden: Diese Fragen zeigen euch schnell, ob er zu eurer Feier passt",
+      "slug": "hochzeits-dj-finden-fragen-erstes-gespraech",
+      "primaryKeyword": "Hochzeits DJ finden",
+      "category": "hochzeit",
+      "status": "draft"
     }
   ]
 }
