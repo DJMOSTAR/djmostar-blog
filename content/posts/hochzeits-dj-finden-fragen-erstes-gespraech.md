@@ -11,7 +11,7 @@ tags:
   - Musik
   - Hamburg
   - Gästewünsche
-date: '2026-11-16'
+date: 2026-11-17
 primaryKeyword: Hochzeits DJ finden
 secondaryKeywords:
   - Fragen an Hochzeits DJ
