@@ -201,6 +201,15 @@
         "Wiederholung (Kein Fragebogen für Kunden): kommt 3x vor, höchstens 2x erlaubt (einmal im Text, einmal im FAQ). Sätze: „Mo, also ich, nutze dafür einen Fragebogen, aber nur für meine eigenen Notizen.“ „Ihr müsst nichts ausfüllen.“ „Ihr müsst dafür nichts ausfüllen.“",
         "Link nicht erreichbar (fetch failed): https://www.hamburg.de/"
       ]
+    },
+    {
+      "at": "2026-11-17T09:09:05.368Z",
+      "type": "published",
+      "slot": "publish-2026-11-17",
+      "title": "Hochzeits DJ finden: Diese Fragen zeigen euch schnell, ob er zu eurer Feier passt",
+      "slug": "hochzeits-dj-finden-fragen-erstes-gespraech",
+      "category": "hochzeit",
+      "pr": 20
     }
   ]
 }

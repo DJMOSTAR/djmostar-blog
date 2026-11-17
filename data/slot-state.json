@@ -59,9 +59,10 @@
       "progress": null
     },
     "publish-2026-11-17": {
-      "status": "dispatched",
       "firstAt": "2026-11-17T09:08:30.009Z",
-      "retries": 0
+      "retries": 0,
+      "status": "done",
+      "result": "published"
     }
   }
 }
