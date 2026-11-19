@@ -217,8 +217,9 @@
         "Gala",
         "Planung"
       ],
-      "status": "planned",
-      "addedAt": "2026-11-14"
+      "status": "draft",
+      "addedAt": "2026-11-14",
+      "slug": "firmenjubilaeum-feiern-mit-kunden-musik-stimmung"
     },
     {
       "title": "Discofox oder langsamer Walzer? Der ehrliche Vergleich für euren Eröffnungstanz",

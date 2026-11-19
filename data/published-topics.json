@@ -34,6 +34,13 @@
       "primaryKeyword": "Hochzeits DJ finden",
       "category": "hochzeit",
       "status": "published"
+    },
+    {
+      "title": "Firmenjubiläum feiern mit Kunden: Wie die Musik Geschäftspartner und Team an einen Tisch bringt",
+      "slug": "firmenjubilaeum-feiern-mit-kunden-musik-stimmung",
+      "primaryKeyword": "Firmenjubiläum feiern mit Kunden",
+      "category": "firmenfeier",
+      "status": "draft"
     }
   ]
 }
