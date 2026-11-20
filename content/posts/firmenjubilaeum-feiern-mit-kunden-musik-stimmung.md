@@ -12,7 +12,7 @@ tags:
   - Jubiläum
   - Hamburg
   - Gala
-date: '2026-11-19'
+date: 2026-11-20
 primaryKeyword: Firmenjubiläum feiern mit Kunden
 secondaryKeywords:
   - firmenjubiläum feiern ideen
