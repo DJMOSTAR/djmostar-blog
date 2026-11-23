@@ -233,6 +233,34 @@
       "slug": "firmenjubilaeum-feiern-mit-kunden-musik-stimmung",
       "category": "firmenfeier",
       "pr": 22
+    },
+    {
+      "at": "2026-11-23T09:34:23.020Z",
+      "type": "draft",
+      "slot": "generate-2026-11-23",
+      "title": "Mottoparty Ideen für Erwachsene Winter: Welche Musik das Motto trägt",
+      "slug": "mottoparty-ideen-erwachsene-winter-musik",
+      "category": "private-feiern",
+      "attempts": 3,
+      "usage": {
+        "steps": 3,
+        "inputTokens": 20,
+        "outputTokens": 24105
+      }
+    },
+    {
+      "at": "2026-11-23T09:34:23.021Z",
+      "type": "retries",
+      "slot": "generate-2026-11-23",
+      "outcome": "passed",
+      "attempts": 3,
+      "failedAttempts": 2,
+      "stepRetries": 0,
+      "reasons": [
+        "Verbotene Formulierung: \"ein Muss\"",
+        "\"nicht nur ... sondern auch\" zu oft verwendet (2x)",
+        "1 bis 2 externe Links nötig, gefunden: 3"
+      ]
     }
   ]
 }

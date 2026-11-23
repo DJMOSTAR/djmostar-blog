@@ -41,6 +41,13 @@
       "primaryKeyword": "Firmenjubiläum feiern mit Kunden",
       "category": "firmenfeier",
       "status": "published"
+    },
+    {
+      "title": "Mottoparty Ideen für Erwachsene Winter: Welche Musik das Motto trägt",
+      "slug": "mottoparty-ideen-erwachsene-winter-musik",
+      "primaryKeyword": "Mottoparty Ideen für Erwachsene Winter",
+      "category": "private-feiern",
+      "status": "draft"
     }
   ]
 }

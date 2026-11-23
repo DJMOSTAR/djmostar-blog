@@ -333,8 +333,9 @@
         "Musik",
         "Planung"
       ],
-      "status": "planned",
-      "addedAt": "2026-11-14"
+      "status": "draft",
+      "addedAt": "2026-11-14",
+      "slug": "mottoparty-ideen-erwachsene-winter-musik"
     },
     {
       "title": "Weihnachtsfeier im Umland oder in Hamburg? Was für Ahrensburg, Norderstedt und Pinneberg spricht",
