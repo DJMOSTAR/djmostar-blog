@@ -11,7 +11,7 @@ tags:
   - Musik
   - Geburtstag
   - Hamburg
-date: '2026-11-23'
+date: 2026-11-24
 primaryKeyword: Mottoparty Ideen für Erwachsene Winter
 secondaryKeywords:
   - mottoparty ideen geburtstag erwachsene
