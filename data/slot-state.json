@@ -91,9 +91,11 @@
       "result": "published"
     },
     "generate-2026-11-26": {
-      "status": "dispatched",
       "firstAt": "2026-11-26T09:16:06.221Z",
-      "retries": 0
+      "retries": 0,
+      "status": "done",
+      "result": "draft",
+      "progress": null
     }
   }
 }
