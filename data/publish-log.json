@@ -296,6 +296,15 @@
       "reasons": [
         "Nicht erlaubt (Aufforderung, Song- oder Musiklisten anzulegen), 1x gefunden. Diese Sätze umformulieren: „Muss ich vorab eine Musikliste für die Firmenfeier erstellen?“"
       ]
+    },
+    {
+      "at": "2026-11-27T09:17:56.592Z",
+      "type": "published",
+      "slot": "publish-2026-11-27",
+      "title": "Weihnachtsfeier indoor: Was ein DJ aus einem Saal ohne Tanzfläche macht",
+      "slug": "weihnachtsfeier-indoor-saal-ohne-tanzflaeche-dj",
+      "category": "firmenfeier",
+      "pr": 26
     }
   ]
 }
