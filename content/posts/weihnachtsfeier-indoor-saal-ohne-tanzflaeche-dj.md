@@ -12,7 +12,7 @@ tags:
   - Musik
   - Location
   - Hamburg
-date: '2026-11-26'
+date: 2026-11-27
 primaryKeyword: Weihnachtsfeier indoor
 secondaryKeywords:
   - firmenfeier ideen indoor
