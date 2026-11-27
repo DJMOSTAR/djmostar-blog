@@ -96,6 +96,11 @@
       "status": "done",
       "result": "draft",
       "progress": null
+    },
+    "publish-2026-11-27": {
+      "status": "dispatched",
+      "firstAt": "2026-11-27T09:15:35.830Z",
+      "retries": 0
     }
   }
 }
